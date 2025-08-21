@@ -6,63 +6,76 @@ from config.thresholds import VACCINE_THRESHOLDS
 from io import BytesIO
 
 # --- Custom CSS for improved styling ---
-# --- Custom CSS for Header Layout ---
-st.markdown(
-    """
-    <style>
-    .header-container {
-        display: flex;
-        align-items: center;      /* Vertically align all items */
-        justify-content: space-between;
-        background-color: #ffffff;
-        height: 120px;            /* Fixed height for the entire row */
-        padding: 0 20px;
-        border-radius: 12px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-    .header-logo, .header-flag {
-        flex: 1;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 120px;            /* Equal height */
-    }
-    .header-title {
-        flex: 4;
-        text-align: center;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 120px;            /* Equal height */
-    }
-    .header-title h1 {
-        font-size: 32px;
-        margin: 0;
-        padding: 0;
-        line-height: 1.2;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
+st.markdown("""
+<style>
+/* Overall page layout and styling */
+.stApp {
+    padding-top: 1rem;
+    background-color: #05667F; /* Dark blue background */
+    color: white; /* All text is white */
+}
 
-# --- Header with Logos and Title ---
-st.markdown(
-    """
-    <div class="header-container">
-        <div class="header-logo">
-            <img src="assets/moh_logo.png" height="120">
-        </div>
-        <div class="header-title">
-            <h1>📊 Vaccine Utilization Dashboard</h1>
-        </div>
-        <div class="header-flag">
-            <img src="assets/eth_flag.png" height="120">
-        </div>
-    </div>
-    """,
-    unsafe_allow_html=True
-)
+/* Header styling - now with reduced font size */
+.main-header-container {
+    background-color: #044b5e;
+    padding: 1rem;
+    border-radius: 10px;
+    margin-bottom: 0.25rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.main-header-container h1 {
+    color: white;
+    margin: 0;
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+/* Custom metric styling */
+.custom-metric-box {
+    background-color: #044b5e;
+    padding: 0.5rem;
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.custom-metric-label {
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 0.25rem;
+}
+
+.custom-metric-value {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+}
+
+/* Spacing for Streamlit native components */
+.st-emotion-cache-1kyx5v0 {
+    gap: 0.5rem;
+}
+
+.st-emotion-cache-1f19s7 {
+    padding-top: 0;
+}
+
+/* Custom styling for text content */
+.stMarkdown p {
+    font-size: 1.1rem;
+    color: white;
+}
+
+/* Reduce space between sections */
+.stMarkdown hr {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+</style>
+""", unsafe_allow_html=True)
 
 st.set_page_config(
     page_title="Utilization Dashboard",
@@ -93,23 +106,14 @@ def categorize_utilization(row, vaccine_name):
     else:
         return "Low Utilization"
 
-# --- Header with Logos and Title (Improved Layout) ---
-st.markdown(
-    """
-    <div class="header-container">
-        <div class="header-logo">
-            <img src="assets/moh_logo.png" width="120">
-        </div>
-        <div class="header-title">
-            <h1>📊 Vaccine Utilization Dashboard</h1>
-        </div>
-        <div class="header-flag">
-            <img src="assets/eth_flag.png" width="120">
-        </div>
-    </div>
-    """,
-    unsafe_allow_html=True
-)
+# --- Header with Logos and Title ---
+col1, col2, col3 = st.columns([1, 4, 1])
+with col1:
+    st.image("assets/moh_logo.png", width=120)
+with col2:
+    st.markdown('<div class="main-header-container"><h1>📊 Vaccine Utilization Dashboard</h1></div>', unsafe_allow_html=True)
+with col3:
+    st.image("assets/eth_flag.png", width=120)
 
 if not st.session_state.get("authenticated", False):
     st.warning("Please log in on the main page to view this dashboard.")

@@ -15,20 +15,32 @@ st.markdown("""
     color: white; /* All text is white */
 }
 
-/* Header styling - now with reduced font size */
-.main-header-container {
+/* Header styling */
+.header-container {
+    display: flex;
+    align-items: center;  /* Vertically align all items */
+    justify-content: space-between;
     background-color: #044b5e;
-    padding: 1rem;
-    border-radius: 10px;
-    margin-bottom: 0.25rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    margin-bottom: 0.5rem;
 }
-
-.main-header-container h1 {
-    color: white;
-    margin: 0;
+.header-logo, .header-flag {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.header-title {
+    flex: 4;
     text-align: center;
-    font-size: 1.5rem;
+}
+.header-title h1 {
+    font-size: 1.8rem;
+    margin: 0;
+    padding: 0;
+    color: white;
 }
 
 /* Custom metric styling */
@@ -106,14 +118,23 @@ def categorize_utilization(row, vaccine_name):
     else:
         return "Low Utilization"
 
-# --- Header with Logos and Title ---
-col1, col2, col3 = st.columns([1, 4, 1])
-with col1:
-    st.image("assets/moh_logo.png", width=120)
-with col2:
-    st.markdown('<div class="main-header-container"><h1>📊 Vaccine Utilization Dashboard</h1></div>', unsafe_allow_html=True)
-with col3:
-    st.image("assets/eth_flag.png", width=120)
+# --- Header with Logos and Title (Improved Layout) ---
+st.markdown(
+    """
+    <div class="header-container">
+        <div class="header-logo">
+            <img src="assets/moh_logo.png" width="120">
+        </div>
+        <div class="header-title">
+            <h1>📊 Vaccine Utilization Dashboard</h1>
+        </div>
+        <div class="header-flag">
+            <img src="assets/eth_flag.png" width="120">
+        </div>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 
 if not st.session_state.get("authenticated", False):
     st.warning("Please log in on the main page to view this dashboard.")

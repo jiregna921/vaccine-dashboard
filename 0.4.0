@@ -1,0 +1,332 @@
+Collecting streamlit-authenticator
+  Using cached streamlit_authenticator-0.4.2-py3-none-any.whl.metadata (30 kB)
+Collecting bcrypt>=3.1.7 (from streamlit-authenticator)
+  Using cached bcrypt-4.3.0-cp39-abi3-win_amd64.whl.metadata (10 kB)
+Collecting captcha>=0.5.0 (from streamlit-authenticator)
+  Using cached captcha-0.7.1-py3-none-any.whl.metadata (2.2 kB)
+Collecting cryptography>=42.0.5 (from streamlit-authenticator)
+  Using cached cryptography-45.0.6-cp311-abi3-win_amd64.whl.metadata (5.7 kB)
+Collecting extra-streamlit-components>=0.1.70 (from streamlit-authenticator)
+  Using cached extra_streamlit_components-0.1.81-py3-none-any.whl.metadata (5.4 kB)
+Collecting PyJWT>=2.3.0 (from streamlit-authenticator)
+  Using cached PyJWT-2.10.1-py3-none-any.whl.metadata (4.0 kB)
+Collecting PyYAML>=5.3.1 (from streamlit-authenticator)
+  Using cached PyYAML-6.0.2-cp313-cp313-win_amd64.whl.metadata (2.1 kB)
+Collecting streamlit>=1.37.0 (from streamlit-authenticator)
+  Using cached streamlit-1.48.1-py3-none-any.whl.metadata (9.5 kB)
+Collecting Pillow (from captcha>=0.5.0->streamlit-authenticator)
+  Using cached pillow-11.3.0-cp313-cp313-win_amd64.whl.metadata (9.2 kB)
+Collecting cffi>=1.14 (from cryptography>=42.0.5->streamlit-authenticator)
+  Using cached cffi-1.17.1-cp313-cp313-win_amd64.whl.metadata (1.6 kB)
+Collecting pycparser (from cffi>=1.14->cryptography>=42.0.5->streamlit-authenticator)
+  Using cached pycparser-2.22-py3-none-any.whl.metadata (943 bytes)
+Collecting altair!=5.4.0,!=5.4.1,<6,>=4.0 (from streamlit>=1.37.0->streamlit-authenticator)
+  Using cached altair-5.5.0-py3-none-any.whl.metadata (11 kB)
+Collecting blinker<2,>=1.5.0 (from streamlit>=1.37.0->streamlit-authenticator)
+  Using cached blinker-1.9.0-py3-none-any.whl.metadata (1.6 kB)
+Collecting cachetools<7,>=4.0 (from streamlit>=1.37.0->streamlit-authenticator)
+  Using cached cachetools-6.1.0-py3-none-any.whl.metadata (5.4 kB)
+Collecting click<9,>=7.0 (from streamlit>=1.37.0->streamlit-authenticator)
+  Using cached click-8.2.1-py3-none-any.whl.metadata (2.5 kB)
+Collecting numpy<3,>=1.23 (from streamlit>=1.37.0->streamlit-authenticator)
+  Using cached numpy-2.3.2-cp313-cp313-win_amd64.whl.metadata (60 kB)
+Collecting packaging<26,>=20 (from streamlit>=1.37.0->streamlit-authenticator)
+  Using cached packaging-25.0-py3-none-any.whl.metadata (3.3 kB)
+Collecting pandas<3,>=1.4.0 (from streamlit>=1.37.0->streamlit-authenticator)
+  Using cached pandas-2.3.1-cp313-cp313-win_amd64.whl.metadata (19 kB)
+Collecting protobuf<7,>=3.20 (from streamlit>=1.37.0->streamlit-authenticator)
+  Using cached protobuf-6.32.0-cp310-abi3-win_amd64.whl.metadata (593 bytes)
+Collecting pyarrow>=7.0 (from streamlit>=1.37.0->streamlit-authenticator)
+  Using cached pyarrow-21.0.0-cp313-cp313-win_amd64.whl.metadata (3.4 kB)
+Collecting requests<3,>=2.27 (from streamlit>=1.37.0->streamlit-authenticator)
+  Using cached requests-2.32.5-py3-none-any.whl.metadata (4.9 kB)
+Collecting tenacity<10,>=8.1.0 (from streamlit>=1.37.0->streamlit-authenticator)
+  Using cached tenacity-9.1.2-py3-none-any.whl.metadata (1.2 kB)
+Collecting toml<2,>=0.10.1 (from streamlit>=1.37.0->streamlit-authenticator)
+  Using cached toml-0.10.2-py2.py3-none-any.whl.metadata (7.1 kB)
+Collecting typing-extensions<5,>=4.4.0 (from streamlit>=1.37.0->streamlit-authenticator)
+  Using cached typing_extensions-4.14.1-py3-none-any.whl.metadata (3.0 kB)
+Collecting watchdog<7,>=2.1.5 (from streamlit>=1.37.0->streamlit-authenticator)
+  Using cached watchdog-6.0.0-py3-none-win_amd64.whl.metadata (44 kB)
+Collecting gitpython!=3.1.19,<4,>=3.0.7 (from streamlit>=1.37.0->streamlit-authenticator)
+  Using cached gitpython-3.1.45-py3-none-any.whl.metadata (13 kB)
+Collecting pydeck<1,>=0.8.0b4 (from streamlit>=1.37.0->streamlit-authenticator)
+  Using cached pydeck-0.9.1-py2.py3-none-any.whl.metadata (4.1 kB)
+Collecting tornado!=6.5.0,<7,>=6.0.3 (from streamlit>=1.37.0->streamlit-authenticator)
+  Using cached tornado-6.5.2-cp39-abi3-win_amd64.whl.metadata (2.9 kB)
+Collecting jinja2 (from altair!=5.4.0,!=5.4.1,<6,>=4.0->streamlit>=1.37.0->streamlit-authenticator)
+  Using cached jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)
+Collecting jsonschema>=3.0 (from altair!=5.4.0,!=5.4.1,<6,>=4.0->streamlit>=1.37.0->streamlit-authenticator)
+  Using cached jsonschema-4.25.1-py3-none-any.whl.metadata (7.6 kB)
+Collecting narwhals>=1.14.2 (from altair!=5.4.0,!=5.4.1,<6,>=4.0->streamlit>=1.37.0->streamlit-authenticator)
+  Using cached narwhals-2.1.2-py3-none-any.whl.metadata (11 kB)
+Collecting colorama (from click<9,>=7.0->streamlit>=1.37.0->streamlit-authenticator)
+  Using cached colorama-0.4.6-py2.py3-none-any.whl.metadata (17 kB)
+Collecting gitdb<5,>=4.0.1 (from gitpython!=3.1.19,<4,>=3.0.7->streamlit>=1.37.0->streamlit-authenticator)
+  Using cached gitdb-4.0.12-py3-none-any.whl.metadata (1.2 kB)
+Collecting smmap<6,>=3.0.1 (from gitdb<5,>=4.0.1->gitpython!=3.1.19,<4,>=3.0.7->streamlit>=1.37.0->streamlit-authenticator)
+  Using cached smmap-5.0.2-py3-none-any.whl.metadata (4.3 kB)
+Collecting python-dateutil>=2.8.2 (from pandas<3,>=1.4.0->streamlit>=1.37.0->streamlit-authenticator)
+  Using cached python_dateutil-2.9.0.post0-py2.py3-none-any.whl.metadata (8.4 kB)
+Collecting pytz>=2020.1 (from pandas<3,>=1.4.0->streamlit>=1.37.0->streamlit-authenticator)
+  Using cached pytz-2025.2-py2.py3-none-any.whl.metadata (22 kB)
+Collecting tzdata>=2022.7 (from pandas<3,>=1.4.0->streamlit>=1.37.0->streamlit-authenticator)
+  Using cached tzdata-2025.2-py2.py3-none-any.whl.metadata (1.4 kB)
+Collecting charset_normalizer<4,>=2 (from requests<3,>=2.27->streamlit>=1.37.0->streamlit-authenticator)
+  Using cached charset_normalizer-3.4.3-cp313-cp313-win_amd64.whl.metadata (37 kB)
+Collecting idna<4,>=2.5 (from requests<3,>=2.27->streamlit>=1.37.0->streamlit-authenticator)
+  Using cached idna-3.10-py3-none-any.whl.metadata (10 kB)
+Collecting urllib3<3,>=1.21.1 (from requests<3,>=2.27->streamlit>=1.37.0->streamlit-authenticator)
+  Using cached urllib3-2.5.0-py3-none-any.whl.metadata (6.5 kB)
+Collecting certifi>=2017.4.17 (from requests<3,>=2.27->streamlit>=1.37.0->streamlit-authenticator)
+  Using cached certifi-2025.8.3-py3-none-any.whl.metadata (2.4 kB)
+Collecting MarkupSafe>=2.0 (from jinja2->altair!=5.4.0,!=5.4.1,<6,>=4.0->streamlit>=1.37.0->streamlit-authenticator)
+  Using cached MarkupSafe-3.0.2-cp313-cp313-win_amd64.whl.metadata (4.1 kB)
+Collecting attrs>=22.2.0 (from jsonschema>=3.0->altair!=5.4.0,!=5.4.1,<6,>=4.0->streamlit>=1.37.0->streamlit-authenticator)
+  Using cached attrs-25.3.0-py3-none-any.whl.metadata (10 kB)
+Collecting jsonschema-specifications>=2023.03.6 (from jsonschema>=3.0->altair!=5.4.0,!=5.4.1,<6,>=4.0->streamlit>=1.37.0->streamlit-authenticator)
+  Using cached jsonschema_specifications-2025.4.1-py3-none-any.whl.metadata (2.9 kB)
+Collecting referencing>=0.28.4 (from jsonschema>=3.0->altair!=5.4.0,!=5.4.1,<6,>=4.0->streamlit>=1.37.0->streamlit-authenticator)
+  Using cached referencing-0.36.2-py3-none-any.whl.metadata (2.8 kB)
+Collecting rpds-py>=0.7.1 (from jsonschema>=3.0->altair!=5.4.0,!=5.4.1,<6,>=4.0->streamlit>=1.37.0->streamlit-authenticator)
+  Using cached rpds_py-0.27.0-cp313-cp313-win_amd64.whl.metadata (4.3 kB)
+Collecting six>=1.5 (from python-dateutil>=2.8.2->pandas<3,>=1.4.0->streamlit>=1.37.0->streamlit-authenticator)
+  Using cached six-1.17.0-py2.py3-none-any.whl.metadata (1.7 kB)
+Using cached streamlit_authenticator-0.4.2-py3-none-any.whl (43 kB)
+Using cached bcrypt-4.3.0-cp39-abi3-win_amd64.whl (152 kB)
+Using cached captcha-0.7.1-py3-none-any.whl (147 kB)
+Using cached cryptography-45.0.6-cp311-abi3-win_amd64.whl (3.4 MB)
+Using cached cffi-1.17.1-cp313-cp313-win_amd64.whl (182 kB)
+Using cached extra_streamlit_components-0.1.81-py3-none-any.whl (2.3 MB)
+Using cached PyJWT-2.10.1-py3-none-any.whl (22 kB)
+Using cached PyYAML-6.0.2-cp313-cp313-win_amd64.whl (156 kB)
+Using cached streamlit-1.48.1-py3-none-any.whl (9.9 MB)
+Using cached altair-5.5.0-py3-none-any.whl (731 kB)
+Using cached blinker-1.9.0-py3-none-any.whl (8.5 kB)
+Using cached cachetools-6.1.0-py3-none-any.whl (11 kB)
+Using cached click-8.2.1-py3-none-any.whl (102 kB)
+Using cached gitpython-3.1.45-py3-none-any.whl (208 kB)
+Using cached gitdb-4.0.12-py3-none-any.whl (62 kB)
+Using cached numpy-2.3.2-cp313-cp313-win_amd64.whl (12.8 MB)
+Using cached packaging-25.0-py3-none-any.whl (66 kB)
+Using cached pandas-2.3.1-cp313-cp313-win_amd64.whl (11.0 MB)
+Using cached pillow-11.3.0-cp313-cp313-win_amd64.whl (7.0 MB)
+Using cached protobuf-6.32.0-cp310-abi3-win_amd64.whl (435 kB)
+Using cached pydeck-0.9.1-py2.py3-none-any.whl (6.9 MB)
+Using cached requests-2.32.5-py3-none-any.whl (64 kB)
+Using cached charset_normalizer-3.4.3-cp313-cp313-win_amd64.whl (107 kB)
+Using cached idna-3.10-py3-none-any.whl (70 kB)
+Using cached smmap-5.0.2-py3-none-any.whl (24 kB)
+Using cached tenacity-9.1.2-py3-none-any.whl (28 kB)
+Using cached toml-0.10.2-py2.py3-none-any.whl (16 kB)
+Using cached tornado-6.5.2-cp39-abi3-win_amd64.whl (445 kB)
+Using cached typing_extensions-4.14.1-py3-none-any.whl (43 kB)
+Using cached urllib3-2.5.0-py3-none-any.whl (129 kB)
+Using cached watchdog-6.0.0-py3-none-win_amd64.whl (79 kB)
+Using cached certifi-2025.8.3-py3-none-any.whl (161 kB)
+Using cached jinja2-3.1.6-py3-none-any.whl (134 kB)
+Using cached jsonschema-4.25.1-py3-none-any.whl (90 kB)
+Using cached attrs-25.3.0-py3-none-any.whl (63 kB)
+Using cached jsonschema_specifications-2025.4.1-py3-none-any.whl (18 kB)
+Using cached MarkupSafe-3.0.2-cp313-cp313-win_amd64.whl (15 kB)
+Using cached narwhals-2.1.2-py3-none-any.whl (392 kB)
+Using cached pyarrow-21.0.0-cp313-cp313-win_amd64.whl (26.1 MB)
+Using cached python_dateutil-2.9.0.post0-py2.py3-none-any.whl (229 kB)
+Using cached pytz-2025.2-py2.py3-none-any.whl (509 kB)
+Using cached referencing-0.36.2-py3-none-any.whl (26 kB)
+Using cached rpds_py-0.27.0-cp313-cp313-win_amd64.whl (232 kB)
+Using cached six-1.17.0-py2.py3-none-any.whl (11 kB)
+Using cached tzdata-2025.2-py2.py3-none-any.whl (347 kB)
+Using cached colorama-0.4.6-py2.py3-none-any.whl (25 kB)
+Using cached pycparser-2.22-py3-none-any.whl (117 kB)
+Installing collected packages: pytz, watchdog, urllib3, tzdata, typing-extensions, tornado, toml, tenacity, smmap, six, rpds-py, PyYAML, PyJWT, pycparser, pyarrow, protobuf, Pillow, packaging, numpy, narwhals, MarkupSafe, idna, colorama, charset_normalizer, certifi, cachetools, blinker, bcrypt, attrs, requests, referencing, python-dateutil, jinja2, gitdb, click, cffi, captcha, pydeck, pandas, jsonschema-specifications, gitpython, cryptography, jsonschema, altair, streamlit, extra-streamlit-components, streamlit-authenticator
+  Attempting uninstall: pytz
+    Found existing installation: pytz 2025.2
+    Uninstalling pytz-2025.2:
+      Successfully uninstalled pytz-2025.2
+  Attempting uninstall: watchdog
+    Found existing installation: watchdog 6.0.0
+    Uninstalling watchdog-6.0.0:
+      Successfully uninstalled watchdog-6.0.0
+  Attempting uninstall: urllib3
+    Found existing installation: urllib3 2.5.0
+    Uninstalling urllib3-2.5.0:
+      Successfully uninstalled urllib3-2.5.0
+  Attempting uninstall: tzdata
+    Found existing installation: tzdata 2025.2
+    Uninstalling tzdata-2025.2:
+      Successfully uninstalled tzdata-2025.2
+  Attempting uninstall: typing-extensions
+    Found existing installation: typing_extensions 4.14.1
+    Uninstalling typing_extensions-4.14.1:
+      Successfully uninstalled typing_extensions-4.14.1
+  Attempting uninstall: tornado
+    Found existing installation: tornado 6.5.2
+    Uninstalling tornado-6.5.2:
+      Successfully uninstalled tornado-6.5.2
+  Attempting uninstall: toml
+    Found existing installation: toml 0.10.2
+    Uninstalling toml-0.10.2:
+      Successfully uninstalled toml-0.10.2
+  Attempting uninstall: tenacity
+    Found existing installation: tenacity 9.1.2
+    Uninstalling tenacity-9.1.2:
+      Successfully uninstalled tenacity-9.1.2
+  Attempting uninstall: smmap
+    Found existing installation: smmap 5.0.2
+    Uninstalling smmap-5.0.2:
+      Successfully uninstalled smmap-5.0.2
+  Attempting uninstall: six
+    Found existing installation: six 1.17.0
+    Uninstalling six-1.17.0:
+      Successfully uninstalled six-1.17.0
+  Attempting uninstall: rpds-py
+    Found existing installation: rpds-py 0.27.0
+    Uninstalling rpds-py-0.27.0:
+      Successfully uninstalled rpds-py-0.27.0
+  Attempting uninstall: PyYAML
+    Found existing installation: PyYAML 6.0.2
+    Uninstalling PyYAML-6.0.2:
+      Successfully uninstalled PyYAML-6.0.2
+  Attempting uninstall: PyJWT
+    Found existing installation: PyJWT 2.10.1
+    Uninstalling PyJWT-2.10.1:
+      Successfully uninstalled PyJWT-2.10.1
+  Attempting uninstall: pycparser
+    Found existing installation: pycparser 2.22
+    Uninstalling pycparser-2.22:
+      Successfully uninstalled pycparser-2.22
+  Attempting uninstall: pyarrow
+    Found existing installation: pyarrow 21.0.0
+    Uninstalling pyarrow-21.0.0:
+      Successfully uninstalled pyarrow-21.0.0
+  Attempting uninstall: protobuf
+    Found existing installation: protobuf 6.32.0
+    Uninstalling protobuf-6.32.0:
+      Successfully uninstalled protobuf-6.32.0
+  Attempting uninstall: Pillow
+    Found existing installation: pillow 11.3.0
+    Uninstalling pillow-11.3.0:
+      Successfully uninstalled pillow-11.3.0
+  Attempting uninstall: packaging
+    Found existing installation: packaging 25.0
+    Uninstalling packaging-25.0:
+      Successfully uninstalled packaging-25.0
+  Attempting uninstall: numpy
+    Found existing installation: numpy 2.3.2
+    Uninstalling numpy-2.3.2:
+      Successfully uninstalled numpy-2.3.2
+  Attempting uninstall: narwhals
+    Found existing installation: narwhals 2.1.2
+    Uninstalling narwhals-2.1.2:
+      Successfully uninstalled narwhals-2.1.2
+  Attempting uninstall: MarkupSafe
+    Found existing installation: MarkupSafe 3.0.2
+    Uninstalling MarkupSafe-3.0.2:
+      Successfully uninstalled MarkupSafe-3.0.2
+  Attempting uninstall: idna
+    Found existing installation: idna 3.10
+    Uninstalling idna-3.10:
+      Successfully uninstalled idna-3.10
+  Attempting uninstall: colorama
+    Found existing installation: colorama 0.4.6
+    Uninstalling colorama-0.4.6:
+      Successfully uninstalled colorama-0.4.6
+  Attempting uninstall: charset_normalizer
+    Found existing installation: charset-normalizer 3.4.3
+    Uninstalling charset-normalizer-3.4.3:
+      Successfully uninstalled charset-normalizer-3.4.3
+  Attempting uninstall: certifi
+    Found existing installation: certifi 2025.8.3
+    Uninstalling certifi-2025.8.3:
+      Successfully uninstalled certifi-2025.8.3
+  Attempting uninstall: cachetools
+    Found existing installation: cachetools 6.1.0
+    Uninstalling cachetools-6.1.0:
+      Successfully uninstalled cachetools-6.1.0
+  Attempting uninstall: blinker
+    Found existing installation: blinker 1.9.0
+    Uninstalling blinker-1.9.0:
+      Successfully uninstalled blinker-1.9.0
+  Attempting uninstall: bcrypt
+    Found existing installation: bcrypt 4.3.0
+    Uninstalling bcrypt-4.3.0:
+      Successfully uninstalled bcrypt-4.3.0
+  Attempting uninstall: attrs
+    Found existing installation: attrs 25.3.0
+    Uninstalling attrs-25.3.0:
+      Successfully uninstalled attrs-25.3.0
+  Attempting uninstall: requests
+    Found existing installation: requests 2.32.5
+    Uninstalling requests-2.32.5:
+      Successfully uninstalled requests-2.32.5
+  Attempting uninstall: referencing
+    Found existing installation: referencing 0.36.2
+    Uninstalling referencing-0.36.2:
+      Successfully uninstalled referencing-0.36.2
+  Attempting uninstall: python-dateutil
+    Found existing installation: python-dateutil 2.9.0.post0
+    Uninstalling python-dateutil-2.9.0.post0:
+      Successfully uninstalled python-dateutil-2.9.0.post0
+  Attempting uninstall: jinja2
+    Found existing installation: Jinja2 3.1.6
+    Uninstalling Jinja2-3.1.6:
+      Successfully uninstalled Jinja2-3.1.6
+  Attempting uninstall: gitdb
+    Found existing installation: gitdb 4.0.12
+    Uninstalling gitdb-4.0.12:
+      Successfully uninstalled gitdb-4.0.12
+  Attempting uninstall: click
+    Found existing installation: click 8.2.1
+    Uninstalling click-8.2.1:
+      Successfully uninstalled click-8.2.1
+  Attempting uninstall: cffi
+    Found existing installation: cffi 1.17.1
+    Uninstalling cffi-1.17.1:
+      Successfully uninstalled cffi-1.17.1
+  Attempting uninstall: captcha
+    Found existing installation: captcha 0.7.1
+    Uninstalling captcha-0.7.1:
+      Successfully uninstalled captcha-0.7.1
+  Attempting uninstall: pydeck
+    Found existing installation: pydeck 0.9.1
+    Uninstalling pydeck-0.9.1:
+      Successfully uninstalled pydeck-0.9.1
+  Attempting uninstall: pandas
+    Found existing installation: pandas 2.3.1
+    Uninstalling pandas-2.3.1:
+      Successfully uninstalled pandas-2.3.1
+  Attempting uninstall: jsonschema-specifications
+    Found existing installation: jsonschema-specifications 2025.4.1
+    Uninstalling jsonschema-specifications-2025.4.1:
+      Successfully uninstalled jsonschema-specifications-2025.4.1
+  Attempting uninstall: gitpython
+    Found existing installation: GitPython 3.1.45
+    Uninstalling GitPython-3.1.45:
+      Successfully uninstalled GitPython-3.1.45
+  Attempting uninstall: cryptography
+    Found existing installation: cryptography 45.0.6
+    Uninstalling cryptography-45.0.6:
+      Successfully uninstalled cryptography-45.0.6
+  Attempting uninstall: jsonschema
+    Found existing installation: jsonschema 4.25.1
+    Uninstalling jsonschema-4.25.1:
+      Successfully uninstalled jsonschema-4.25.1
+  Attempting uninstall: altair
+    Found existing installation: altair 5.5.0
+    Uninstalling altair-5.5.0:
+      Successfully uninstalled altair-5.5.0
+  Attempting uninstall: streamlit
+    Found existing installation: streamlit 1.48.1
+    Uninstalling streamlit-1.48.1:
+      Successfully uninstalled streamlit-1.48.1
+  Attempting uninstall: extra-streamlit-components
+    Found existing installation: extra-streamlit-components 0.1.81
+    Uninstalling extra-streamlit-components-0.1.81:
+      Successfully uninstalled extra-streamlit-components-0.1.81
+  Attempting uninstall: streamlit-authenticator
+    Found existing installation: streamlit-authenticator 0.4.2
+    Uninstalling streamlit-authenticator-0.4.2:
+      Successfully uninstalled streamlit-authenticator-0.4.2
+
+Successfully installed MarkupSafe-3.0.2 Pillow-11.3.0 PyJWT-2.10.1 PyYAML-6.0.2 altair-5.5.0 attrs-25.3.0 bcrypt-4.3.0 blinker-1.9.0 cachetools-6.1.0 captcha-0.7.1 certifi-2025.8.3 cffi-1.17.1 charset_normalizer-3.4.3 click-8.2.1 colorama-0.4.6 cryptography-45.0.6 extra-streamlit-components-0.1.81 gitdb-4.0.12 gitpython-3.1.45 idna-3.10 jinja2-3.1.6 jsonschema-4.25.1 jsonschema-specifications-2025.4.1 narwhals-2.1.2 numpy-2.3.2 packaging-25.0 pandas-2.3.1 protobuf-6.32.0 pyarrow-21.0.0 pycparser-2.22 pydeck-0.9.1 python-dateutil-2.9.0.post0 pytz-2025.2 referencing-0.36.2 requests-2.32.5 rpds-py-0.27.0 six-1.17.0 smmap-5.0.2 streamlit-1.48.1 streamlit-authenticator-0.4.2 tenacity-9.1.2 toml-0.10.2 tornado-6.5.2 typing-extensions-4.14.1 tzdata-2025.2 urllib3-2.5.0 watchdog-6.0.0

@@ -4,3 +4,4 @@ plotly>=5.15.0
 fuzzywuzzy>=0.18.0
 python-Levenshtein>=0.25.0
 python-pptx>=0.6.21
+openpyxl

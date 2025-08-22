@@ -92,8 +92,9 @@ st.markdown("---")
 st.markdown("<h3>Upload and Match Data</h3>", unsafe_allow_html=True)
 
 # --- File Uploaders ---
-admin_file = st.file_uploader("Upload Administered Doses File (Excel or CSV)", type=["xlsx", "csv"])
-dist_file = st.file_uploader("Upload Distributed Doses File (Excel or CSV)", type=["xlsx", "csv"])
+# Added 'key' to force Streamlit to re-render and check for new files
+admin_file = st.file_uploader("Upload Administered Doses File (Excel or CSV)", type=["xlsx", "csv"], key="admin_uploader")
+dist_file = st.file_uploader("Upload Distributed Doses File (Excel or CSV)", type=["xlsx", "csv"], key="dist_uploader")
 
 # --- Main action button row ---
 action_col1, action_col2 = st.columns(2)
@@ -236,10 +237,9 @@ with action_col1:
 with action_col2:
     if st.button("Reset Data"):
         # Explicitly clear all data from session state
-        for key in ["matched_df", "admin_df", "dist_df", "unmatched_admin_df", "unmatched_dist_df"]:
-            if key in st.session_state:
-                del st.session_state[key]
+        st.session_state.clear()
         st.success("Data reset complete. Please upload new files.")
+        st.experimental_rerun()
 
 # --- Display Status ---
 st.markdown("---")
@@ -257,14 +257,14 @@ if "unmatched_admin_df" in st.session_state and "unmatched_dist_df" in st.sessio
     
     col1, col2 = st.columns(2)
     with col1:
-        if not st.session_state["unmatched_admin_df"].empty:
+        if "unmatched_admin_df" in st.session_state and not st.session_state["unmatched_admin_df"].empty:
             st.write("**Administered Unmatched**")
             st.dataframe(st.session_state["unmatched_admin_df"][["Woreda_Admin", "Period_Admin"]].head())
         else:
             st.info("No unmatched administered records found.")
     
     with col2:
-        if not st.session_state["unmatched_dist_df"].empty:
+        if "unmatched_dist_df" in st.session_state and not st.session_state["unmatched_dist_df"].empty:
             st.write("**Distributed Unmatched**")
             st.dataframe(st.session_state["unmatched_dist_df"][["Woreda_Dist", "Period_Dist"]].head())
         else:

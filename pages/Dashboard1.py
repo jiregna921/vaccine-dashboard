@@ -278,7 +278,14 @@ if st.session_state.get("matched_df") is not None:
     st.markdown("---")
     
     # --- Bar chart (100% Stacked) ---
-    groupby_col = "Region_Admin" if len(filtered_df["Region_Admin"].unique()) > 1 else "Woreda_Admin"
+    st.subheader(f"Utilization by Geographic Area - {selected_vaccine} ({selected_period})")
+
+    # Dynamic grouping logic
+    groupby_col = "Region_Admin"
+    if selected_zone != "All":
+        groupby_col = "Woreda_Admin"
+    elif selected_region != "All":
+        groupby_col = "Zone_Admin"
     
     stacked_bar_data = filtered_df.groupby([groupby_col, f"{selected_vaccine}_Utilization_Category"]).size().reset_index(name='Count')
     total_by_group = stacked_bar_data.groupby(groupby_col)["Count"].sum().reset_index(name='Total')
@@ -295,8 +302,7 @@ if st.session_state.get("matched_df") is not None:
                                  customdata=f_data['Count']))
     
     bar_fig.update_layout(barmode="stack", yaxis=dict(title="Percentage (%)", range=[0, 100], tickformat=".0f"),
-                         xaxis=dict(title=groupby_col, tickangle=-45),
-                         title=f"100% Stacked Utilization by {groupby_col.split('_')[0]} - {selected_vaccine} ({selected_period})",
+                         xaxis=dict(title=groupby_col.split('_')[0], tickangle=-45),
                          legend_title_text="Utilization Category", bargap=0.2,
                          legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
                          height=600)

@@ -130,17 +130,23 @@ st.markdown("""
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Input field styling */
+/* Input field styling - FIXED TEXT COLOR */
 .stTextInput > div > div > input {
     border: 2px solid #e9ecef;
     border-radius: 8px;
     padding: 0.75rem;
     transition: all 0.3s ease;
+    color: #000000 !important; /* Force black text */
 }
 
 .stTextInput > div > div > input:focus {
     border-color: #0077b6;
     box-shadow: 0 0 0 2px rgba(0, 119, 182, 0.2);
+}
+
+/* Input placeholder styling */
+.stTextInput > div > div > input::placeholder {
+    color: #6c757d !important;
 }
 
 /* Success and info messages - FIXED VISIBILITY */

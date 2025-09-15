@@ -16,7 +16,7 @@ st.markdown("""
 
 /* Sidebar styling - Professional blue gradient */
 section[data-testid="stSidebar"] {
-    background: linear-gradient(180deg, #05667F 0%, #034758 100%);
+   background: linear-gradient(90deg, #d90429 0%, #9d0208 100%);
 }
 
 section[data-testid="stSidebar"] > div {

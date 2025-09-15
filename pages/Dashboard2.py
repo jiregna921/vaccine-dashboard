@@ -533,7 +533,7 @@ if st.session_state.get("matched_df") is not None:
             y=rate_col,
             title=f"{selected_vaccine} Utilization Rate by Woreda",
             labels={"Woreda_Admin": "Woreda", rate_col: "Utilization Rate (%)"},
-            color_discrete_sequence=["#1a73e8"]
+            color_discrete_sequence=["#101111"]
         )
         
         # Add threshold lines

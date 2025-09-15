@@ -73,6 +73,28 @@ st.markdown("""
     padding-bottom: 0.5rem;
     margin-top: 2rem !important;
 }
+/* Warning and info message styling - FIXED */
+.stWarning, .stInfo {
+    background-color: #fff3cd !important;
+    border: 1px solid #ffeaa7 !important;
+    border-radius: 8px !important;
+    color: #856404 !important;
+    padding: 1rem !important;
+}
+
+.stWarning p, .stInfo p {
+    color: #856404 !important;
+    font-weight: 500;
+}
+
+.stWarning code, .stInfo code {
+    color: #856404 !important;
+    background-color: rgba(255, 255, 255, 0.5) !important;
+}
+
+
+
+
 
 /* Sidebar styling - FIXED */
 .css-1d391kg, .css-1v3fvcr, .stSidebar {

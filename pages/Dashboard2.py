@@ -98,10 +98,10 @@ h1, h2, h3, h4, h5, h6 {
     background: linear-gradient(90deg, #218838 0%, #1aa179 100%) !important;
 }
 
-/* Sidebar styling */
-.sidebar .sidebar-content {
-    background: linear-gradient(180deg, #0077b6 0%, #03045e 100%);
-    color: white;
+/* Sidebar styling - FIXED */
+.css-1d391kg, .css-1v3fvcr, .stSidebar {
+    background-color: white !important;
+    border-right: 1px solid #dee2e6;
 }
 
 /* Selectbox styling */

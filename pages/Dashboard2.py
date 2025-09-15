@@ -527,7 +527,7 @@ if st.session_state.get("matched_df") is not None:
             xaxis_tickangle=45,
             plot_bgcolor='#ffffff',
             paper_bgcolor='#ffffff',
-            font=dict(color='#333333', size=14),
+            font=dict(color='#101111', size=14),
             legend=dict(
                 orientation="h",
                 yanchor="bottom",

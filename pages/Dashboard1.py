@@ -1,396 +1,409 @@
 import streamlit as st
 import pandas as pd
-import re
-import io
+import plotly.express as px
+import plotly.graph_objects as go
 from config.thresholds import VACCINE_THRESHOLDS
+from io import BytesIO
 
-# --- Enhanced Custom CSS for professional styling with white background ---
+# --- Custom CSS for improved styling ---
 st.markdown("""
 <style>
-/* Overall page styling */
+/* Overall page layout and styling */
 .stApp {
-    background: white;
-    color: #333333;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding-top: 1rem;
+    background-color: #FFFFFF; /* White background */
+    color: #333333; /* Dark text for better readability */
 }
 
 /* Header styling */
 .main-header-container {
-    background: linear-gradient(90deg, #044b5e 0%, #033446 100%);
+    background: linear-gradient(135deg, #1a73e8 0%, #4285f4 100%);
     padding: 1.5rem;
     border-radius: 12px;
-    margin-bottom: 1.5rem;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-    border-left: 5px solid #00b4d8;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    text-align: center;
 }
 
 .main-header-container h1 {
     color: white;
     margin: 0;
-    text-align: center;
     font-size: 2rem;
     font-weight: 700;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
 }
 
-/* Section headers */
-h3 {
-    color: #044b5e;
-    border-bottom: 2px solid #00b4d8;
-    padding-bottom: 0.5rem;
-    margin-top: 1.5rem;
-}
-
-/* Card styling for metrics */
+/* Custom metric styling */
 .custom-metric-box {
-    background: rgba(4, 75, 94, 0.1);
-    padding: 1.2rem;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 1rem;
     border-radius: 12px;
     text-align: center;
-    margin-bottom: 1.5rem;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-    border: 1px solid rgba(4, 75, 94, 0.2);
-    transition: transform 0.3s ease;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-left: 4px solid #1a73e8;
+    transition: transform 0.2s ease;
 }
 
 .custom-metric-box:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .custom-metric-label {
-    font-size: 1rem;
+    font-size: 0.9rem;
     font-weight: 600;
-    color: #044b5e;
+    color: #6c757d;
     margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .custom-metric-value {
     font-size: 1.8rem;
     font-weight: 700;
-    color: #033446;
+    color: #1a73e8;
 }
 
-/* Button styling - enhanced for better visibility */
-.stButton > button {
-    background: linear-gradient(90deg, #00b4d8 0%, #0077b6 100%);
-    color: white;
-    border: none;
-    padding: 0.75rem 1.5rem;
+/* Section headers */
+.stSubheader {
+    color: #1a73e8 !important;
+    font-weight: 600 !important;
+    border-bottom: 2px solid #e9ecef;
+    padding-bottom: 0.5rem;
+    margin-top: 2rem !important;
+}
+
+/* Sidebar styling */
+.css-1d391kg, .css-1v3fvcr {
+    background-color: #f8f9fa;
+    border-right: 1px solid #dee2e6;
+}
+
+.stSidebar .stSelectbox, .stSidebar .stSlider {
+    background-color: white;
     border-radius: 8px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    width: 100%;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    padding: 0.5rem;
 }
 
-.stButton > button:hover {
-    background: linear-gradient(90deg, #0077b6 0%, #005b8a 100%);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    color: white;
+/* Button styling */
+.stDownloadButton button {
+    background: linear-gradient(135deg, #1a73e8 0%, #4285f4 100%) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 8px !important;
+    padding: 0.5rem 1rem !important;
+    font-weight: 600 !important;
 }
 
-/* File uploader styling */
-.stFileUploader > div > div {
-    background-color: rgba(4, 75, 94, 0.05);
-    border: 2px dashed rgba(4, 75, 94, 0.3);
-    border-radius: 8px;
-    color: #333333;
+.stDownloadButton button:hover {
+    background: linear-gradient(135deg, #1565c0 0%, #3b78e7 100%) !important;
+    transform: translateY(-1px);
 }
 
 /* Dataframe styling */
 .dataframe {
-    background-color: white;
     border-radius: 8px;
-    border: 1px solid #e0e0e0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Chart container styling */
+.js-plotly-plot {
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    padding: 1rem;
+}
+
+/* Expander styling */
+.streamlit-expanderHeader {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 0.75rem;
+    font-weight: 600;
+    color: #1a73e8;
+}
+
+.streamlit-expanderContent {
+    background-color: white;
+    border-radius: 0 0 8px 8px;
+    padding: 1rem;
 }
 
 /* Divider styling */
-hr {
-    height: 2px;
-    background: linear-gradient(90deg, transparent 0%, #00b4d8 50%, transparent 100%);
-    border: none;
+.stMarkdown hr {
     margin: 2rem 0;
+    border: none;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #1a73e8, transparent);
 }
 
-/* Success and info messages */
-.stSuccess {
-    background: linear-gradient(90deg, rgba(0, 180, 216, 0.1) 0%, rgba(0, 180, 216, 0.05) 100%);
-    border-left: 4px solid #00b4d8;
-    border-radius: 4px;
-    color: #044b5e;
-}
-
-.stInfo {
-    background: linear-gradient(90deg, rgba(77, 171, 247, 0.1) 0%, rgba(77, 171, 247, 0.05) 100%);
-    border-left: 4px solid #4dabf7;
-    border-radius: 4px;
-    color: #044b5e;
-}
-
-.stError {
-    background: linear-gradient(90deg, rgba(235, 87, 87, 0.1) 0%, rgba(235, 87, 87, 0.05) 100%);
-    border-left: 4px solid #eb5757;
-    border-radius: 4px;
-    color: #8b0000;
-}
-
-/* Logo container */
-.logo-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0.5rem;
-    background: rgba(4, 75, 94, 0.1);
-    border-radius: 12px;
-}
-
-/* Column spacing */
-.stColumn {
-    padding: 0 1rem;
-}
-
-/* Text color adjustments for white background */
-p, div, span {
-    color: #333333;
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .main-header-container h1 {
+        font-size: 1.5rem;
+    }
+    
+    .custom-metric-value {
+        font-size: 1.4rem;
+    }
 }
 </style>
 """, unsafe_allow_html=True)
 
 st.set_page_config(
-    page_title="Vaccine Data Processing",
+    page_title="Utilization Dashboard",
     layout="wide",
-    page_icon="⚕️"
+    page_icon="💉"
 )
 
-# --- Check Authentication ---
-if not st.session_state.get("authenticated", False):
-    st.warning("Please log in on the main page to view this dashboard.")
-    st.stop()
+# --- Helper Function for Downloads ---
+def to_excel(df):
+    output = BytesIO()
+    with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
+        df.to_excel(writer, index=False, sheet_name='Sheet1')
+    processed_data = output.getvalue()
+    return processed_data
+
+# --- Helper Function to Categorize Utilization ---
+def categorize_utilization(row, vaccine_name):
+    rate = row[f"{vaccine_name}_Utilization_Rate"] / 100
+    thresholds = VACCINE_THRESHOLDS.get(vaccine_name)
+    
+    if not thresholds:
+        return "Not Applicable"
+
+    if rate > thresholds["unacceptable"]:
+        return "Unacceptable"
+    elif thresholds["acceptable"] <= rate <= thresholds["unacceptable"]:
+        return "Acceptable"
+    else:
+        return "Low Utilization"
 
 # --- Header with Logos and Title ---
 col1, col2, col3 = st.columns([1, 4, 1])
 with col1:
-    st.markdown('<div class="logo-container">', unsafe_allow_html=True)
-    st.image("assets/moh_logo.png", width=100)
-    st.markdown('</div>', unsafe_allow_html=True)
-    
+    st.image("assets/moh_logo.png", width=120)
 with col2:
-    st.markdown('<div class="main-header-container"><h1>Vaccine Data Upload & Triangulation</h1></div>', unsafe_allow_html=True)
-    
+    st.markdown('<div class="main-header-container"><h1>📊 Vaccine Utilization Dashboard</h1></div>', unsafe_allow_html=True)
 with col3:
-    st.markdown('<div class="logo-container">', unsafe_allow_html=True)
-    st.image("assets/eth_flag.png", width=100)
-    st.markdown('</div>', unsafe_allow_html=True)
+    st.image("assets/eth_flag.png", width=120)
 
-st.markdown("---")
-st.markdown("<h3>Upload and Match Vaccine Data</h3>", unsafe_allow_html=True)
+if not st.session_state.get("authenticated", False):
+    st.warning("Please log in on the main page to view this dashboard.")
+    st.stop()
 
-# --- File Uploaders with improved layout ---
-upload_col1, upload_col2 = st.columns(2)
+# --- Main Dashboard Logic ---
+if st.session_state.get("matched_df") is not None:
+    df_all = st.session_state["matched_df"]
+    
+    # --- Prepare data for calculation ---
+    vaccines = ["BCG", "IPV", "Measles", "Penta", "Rota"]
+    for vaccine in vaccines:
+        admin_col = f"{vaccine}_Administered"
+        dist_col = f"{vaccine}_Distributed"
+        rate_col = f"{vaccine}_Utilization_Rate"
+        if admin_col in df_all.columns and dist_col in df_all.columns:
+            df_all[rate_col] = df_all[admin_col] / df_all[dist_col].replace(0, 1) * 100
+            df_all[rate_col] = df_all[rate_col].clip(0, 1000) # Clip high values for visualization
 
-with upload_col1:
-    st.markdown('<div class="custom-metric-box">', unsafe_allow_html=True)
-    st.markdown('<div class="custom-metric-label">Administered Doses</div>', unsafe_allow_html=True)
-    admin_file = st.file_uploader("Upload Excel or CSV file", type=["xlsx", "csv"], key="admin_uploader", label_visibility="collapsed")
-    st.markdown('</div>', unsafe_allow_html=True)
+    # --- Sidebar filters ---
+    st.sidebar.header("🧪 Filter Data")
+    
+    # Check for required columns
+    required_cols = ["Region_Admin", "Zone_Admin", "Woreda_Admin", "Period"]
+    if not all(col in df_all.columns for col in required_cols):
+        st.error("Essential columns (Region, Zone, Woreda, Period) are missing from the processed data.")
+        st.stop()
 
-with upload_col2:
-    st.markdown('<div class="custom-metric-box">', unsafe_allow_html=True)
-    st.markdown('<div class="custom-metric-label">Distributed Doses</div>', unsafe_allow_html=True)
-    dist_file = st.file_uploader("Upload Excel or CSV file", type=["xlsx", "csv"], key="dist_uploader", label_visibility="collapsed")
-    st.markdown('</div>', unsafe_allow_html=True)
+    # Region filter
+    regions = sorted(df_all["Region_Admin"].unique())
+    selected_region = st.sidebar.selectbox("Select Region", ["All"] + regions)
+    
+    # Zone filter (chained to Region)
+    filtered_zones = df_all[df_all["Region_Admin"] == selected_region]["Zone_Admin"].unique() if selected_region != "All" else df_all["Zone_Admin"].unique()
+    zones = sorted(filtered_zones)
+    selected_zone = st.sidebar.selectbox("Select Zone", ["All"] + zones)
+    
+    # Woreda filter (chained to Zone)
+    if selected_zone != "All":
+        filtered_woredas = df_all[(df_all["Region_Admin"] == selected_region) & (df_all["Zone_Admin"] == selected_zone)]["Woreda_Admin"].unique()
+    elif selected_region != "All":
+        filtered_woredas = df_all[df_all["Region_Admin"] == selected_region]["Woreda_Admin"].unique()
+    else:
+        filtered_woredas = df_all["Woreda_Admin"].unique()
+    woredas = sorted(filtered_woredas)
+    selected_woreda = st.sidebar.selectbox("Select Woreda", ["All"] + woredas)
 
-# --- Main action button row ---
-action_col1, action_col2, action_col3 = st.columns([2, 2, 1])
+    # Period filter
+    periods = sorted(df_all["Period"].unique())
+    selected_period = st.sidebar.selectbox("Select Period", ["All"] + periods)
+    
+    # Vaccine filter
+    selected_vaccine = st.sidebar.selectbox("Select Vaccine", ["All"] + vaccines)
+    
+    # --- Filtering Logic ---
+    filtered_df = df_all
+    if selected_region != "All":
+        filtered_df = filtered_df[filtered_df["Region_Admin"] == selected_region]
+    if selected_zone != "All":
+        filtered_df = filtered_df[filtered_df["Zone_Admin"] == selected_zone]
+    if selected_woreda != "All":
+        filtered_df = filtered_df[filtered_df["Woreda_Admin"] == selected_woreda]
+    if selected_period != "All":
+        filtered_df = filtered_df[filtered_df["Period"] == selected_period]
 
-with action_col1:
-    if st.button("📊 Process and Match Data", use_container_width=True):
-        if admin_file is None or dist_file is None:
-            st.error("Please upload both Administered and Distributed files.")
+    if filtered_df.empty:
+        st.warning("⚠️ No data found for the selected filters.")
+        st.stop()
+
+    # --- Summary metrics (Robust against missing vaccine columns) ---
+    dist_cols = [f"{v}_Distributed" for v in vaccines]
+    admin_cols = [f"{v}_Administered" for v in vaccines]
+
+    if selected_vaccine != "All":
+        dist_col = f"{selected_vaccine}_Distributed"
+        admin_col = f"{selected_vaccine}_Administered"
+        
+        if dist_col in filtered_df.columns and admin_col in filtered_df.columns:
+            total_distributed = filtered_df[dist_col].sum()
+            total_administered = filtered_df[admin_col].sum()
         else:
-            try:
-                # Function to read file based on extension
-                def read_file(uploaded_file):
-                    if uploaded_file.name.endswith('.csv'):
-                        return pd.read_csv(uploaded_file)
-                    else:
-                        return pd.read_excel(uploaded_file)
+            st.warning(f"Data for '{selected_vaccine}' is not available in the processed files.")
+            st.stop()
+    else:
+        existing_dist_cols = [col for col in dist_cols if col in filtered_df.columns]
+        existing_admin_cols = [col for col in admin_cols if col in filtered_df.columns]
+        
+        total_distributed = filtered_df[existing_dist_cols].sum().sum()
+        total_administered = filtered_df[existing_admin_cols].sum().sum()
 
-                # Read and process files
-                admin_df = read_file(admin_file)
-                dist_df = read_file(dist_file)
+    overall_utilization_rate = (total_administered / total_distributed * 100) if total_distributed > 0 else 0
+    total_woredas = filtered_df["Woreda_Admin"].nunique()
 
-                # Data Cleaning and Key Column Identification
-                def clean_column_names(df):
-                    df.columns = df.columns.str.strip().str.replace(' ', '_').str.replace('.', '').str.replace('-', '_').str.lower()
-                    return df
-
-                admin_df = clean_column_names(admin_df)
-                dist_df = clean_column_names(dist_df)
-                
-                # --- Robust Key Column Identification ---
-                def find_and_rename_cols(df, col_type):
-                    """
-                    Finds and renames columns based on a dictionary of patterns.
-                    Returns a rename map and checks for essential columns.
-                    """
-                    patterns = {
-                        'Woreda_Admin': ['woreda', 'woreda_administered', 'woreda_name', 'facility'],
-                        'Region_Admin': ['region', 'region_administered', 'region_name'],
-                        'Zone_Admin': ['zone', 'zone_administered', 'zone_name'],
-                        'Period_Admin': ['period', 'month', 'date'],
-                        'BCG_Administered': ['bcg', 'bcg_administered'],
-                        'IPV_Administered': ['ipv', 'ipv_administered'],
-                        'Measles_Administered': ['measles', 'measles_administered'],
-                        'Penta_Administered': ['penta', 'penta_administered'],
-                        'Rota_Administered': ['rota', 'rota_administered'],
-                        'Woreda_Dist': ['woreda', 'woreda_distributed', 'woreda_name', 'facility'],
-                        'Period_Dist': ['period', 'month', 'date'],
-                        'BCG_Distributed': ['bcg', 'bcg_distributed', 'bcg_doses', 'bcg_dist'],
-                        'IPV_Distributed': ['ipv', 'ipv_distributed', 'ipv_doses', 'ipv_dist'],
-                        'Measles_Distributed': ['measles', 'measles_distributed', 'measles_doses', 'measles_dist'],
-                        'Penta_Distributed': ['penta', 'penta_distributed', 'penta_doses', 'penta_dist'],
-                        'Rota_Distributed': ['rota', 'rota_distributed', 'rota_doses', 'rota_dist']
-                    }
-
-                    rename_map = {}
-                    found_cols = {}
-
-                    if col_type == 'admin':
-                        relevant_patterns = {k: v for k, v in patterns.items() if '_Admin' in k}
-                    elif col_type == 'dist':
-                        relevant_patterns = {k: v for k, v in patterns.items() if '_Dist' in k}
-                    
-                    for final_name, prefixes in relevant_patterns.items():
-                        for raw_col in df.columns:
-                            for prefix in prefixes:
-                                if raw_col.startswith(prefix):
-                                    if final_name not in found_cols:
-                                        rename_map[raw_col] = final_name
-                                        found_cols[final_name] = raw_col
-                                        break
-                        if final_name in found_cols:
-                            continue
-
-                    return rename_map, found_cols
-                    
-                # Find and rename Administered file columns
-                admin_rename_map, admin_found_cols = find_and_rename_cols(admin_df, "admin")
-
-                # Check for essential location columns
-                essential_admin_cols = ['Woreda_Admin', 'Region_Admin', 'Zone_Admin', 'Period_Admin']
-                if not all(col in admin_rename_map.values() for col in essential_admin_cols):
-                    missing_cols = [col for col in essential_admin_cols if col not in admin_rename_map.values()]
-                    st.error(f"Could not find essential columns in the Administered file: {missing_cols}. Please check your data.")
-                    st.stop()
-                
-                # Find and rename Distributed file columns
-                dist_rename_map, dist_found_cols = find_and_rename_cols(dist_df, "dist")
-                
-                # Check for essential distributed columns
-                essential_dist_cols = ['Woreda_Dist', 'Period_Dist']
-                if not all(col in dist_rename_map.values() for col in essential_dist_cols):
-                    missing_cols = [col for col in essential_dist_cols if col not in dist_rename_map.values()]
-                    st.error(f"Could not find essential columns in the Distributed file: {missing_cols}. Please check your data.")
-                    st.stop()
-
-                # Apply renaming
-                admin_df = admin_df.rename(columns=admin_rename_map)
-                dist_df = dist_df.rename(columns=dist_rename_map)
-
-                # Normalize Woreda names for matching
-                def normalize_woreda_name(name):
-                    return re.sub(r'[^a-zA-Z0-9]', '', str(name)).lower()
-
-                admin_df["woreda_normalized"] = admin_df["Woreda_Admin"].apply(normalize_woreda_name)
-                dist_df["woreda_normalized"] = dist_df["Woreda_Dist"].apply(normalize_woreda_name)
-
-                # Match based on normalized Woreda name and period
-                matched_df = pd.merge(
-                    admin_df,
-                    dist_df,
-                    left_on=["woreda_normalized", "Period_Admin"],
-                    right_on=["woreda_normalized", "Period_Dist"],
-                    how="inner",
-                )
-                
-                # Remove duplicate period column
-                matched_df = matched_df.drop(columns="Period_Dist")
-                matched_df.rename(columns={"Period_Admin": "Period"}, inplace=True)
-                
-                # Store the final DataFrames and key names in session state
-                st.session_state["matched_df"] = matched_df
-                st.session_state["admin_df"] = admin_df
-                st.session_state["dist_df"] = dist_df
-
-                # Identify unmatched records
-                unmatched_admin_df = admin_df[~admin_df["woreda_normalized"].isin(matched_df["woreda_normalized"])]
-                unmatched_dist_df = dist_df[~dist_df["woreda_normalized"].isin(matched_df["woreda_normalized"])]
-
-                st.session_state["unmatched_admin_df"] = unmatched_admin_df
-                st.session_state["unmatched_dist_df"] = unmatched_dist_df
-
-                st.success("Data processing and matching complete!")
-                
-                # Display metrics in a nice layout
-                metric_col1, metric_col2, metric_col3 = st.columns(3)
-                with metric_col1:
-                    st.markdown('<div class="custom-metric-box">', unsafe_allow_html=True)
-                    st.markdown('<div class="custom-metric-label">Matched Records</div>', unsafe_allow_html=True)
-                    st.markdown(f'<div class="custom-metric-value">{len(matched_df)}</div>', unsafe_allow_html=True)
-                    st.markdown('</div>', unsafe_allow_html=True)
-                
-                with metric_col2:
-                    st.markdown('<div class="custom-metric-box">', unsafe_allow_html=True)
-                    st.markdown('<div class="custom-metric-label">Unmatched Administered</div>', unsafe_allow_html=True)
-                    st.markdown(f'<div class="custom-metric-value">{len(unmatched_admin_df)}</div>', unsafe_allow_html=True)
-                    st.markdown('</div>', unsafe_allow_html=True)
-                
-                with metric_col3:
-                    st.markdown('<div class="custom-metric-box">', unsafe_allow_html=True)
-                    st.markdown('<div class="custom-metric-label">Unmatched Distributed</div>', unsafe_allow_html=True)
-                    st.markdown(f'<div class="custom-metric-value">{len(unmatched_dist_df)}</div>', unsafe_allow_html=True)
-                    st.markdown('</div>', unsafe_allow_html=True)
-
-            except Exception as e:
-                st.error(f"An error occurred during file processing: {e}")
-
-with action_col2:
-    if st.button("🔄 Reset Data", use_container_width=True):
-        # Explicitly clear all data from session state
-        st.session_state.clear()
-        st.success("Data reset complete. Please upload new files.")
-        st.experimental_rerun()
-
-# --- Display Status ---
-st.markdown("---")
-
-if "matched_df" in st.session_state:
-    st.success("Files are ready for analysis on the dashboard pages.")
-else:
-    st.info("Please upload and process datasets to enable dashboards.")
-    
-st.markdown("---")
-st.markdown("<h3>Summary of Unmatched Data</h3>", unsafe_allow_html=True)
-
-if "unmatched_admin_df" in st.session_state and "unmatched_dist_df" in st.session_state:
-    st.write("Below are records from the administered and distributed files that could not be matched based on Woreda and Period.")
-    
-    col1, col2 = st.columns(2)
+    st.markdown("---")
+    col1, col2, col3, col4 = st.columns(4)
     with col1:
-        if "unmatched_admin_df" in st.session_state and not st.session_state["unmatched_admin_df"].empty:
-            st.write("**Administered Unmatched**")
-            st.dataframe(st.session_state["unmatched_admin_df"][["Woreda_Admin", "Period_Admin"]].head(), use_container_width=True)
-        else:
-            st.info("No unmatched administered records found.")
-    
+        st.markdown(f'<div class="custom-metric-box"><div class="custom-metric-label">Total Woredas</div><div class="custom-metric-value">{total_woredas}</div></div>', unsafe_allow_html=True)
     with col2:
-        if "unmatched_dist_df" in st.session_state and not st.session_state["unmatched_dist_df"].empty:
-            st.write("**Distributed Unmatched**")
-            st.dataframe(st.session_state["unmatched_dist_df"][["Woreda_Dist", "Period_Dist"]].head(), use_container_width=True)
-        else:
-            st.info("No unmatched distributed records found.")
+        st.markdown(f'<div class="custom-metric-box"><div class="custom-metric-label">Total Doses Distributed</div><div class="custom-metric-value">{total_distributed:,.0f}</div></div>', unsafe_allow_html=True)
+    with col3:
+        st.markdown(f'<div class="custom-metric-box"><div class="custom-metric-label">Total Doses Administered</div><div class="custom-metric-value">{total_administered:,.0f}</div></div>', unsafe_allow_html=True)
+    with col4:
+        st.markdown(f'<div class="custom-metric-box"><div class="custom-metric-label">Overall Utilization Rate</div><div class="custom-metric-value">{overall_utilization_rate:.2f}%</div></div>', unsafe_allow_html=True)
+    st.markdown("---")
+
+    # --- Woreda Counts by Category (Based on selected vaccine) ---
+    st.subheader("Woreda Counts by Utilization Category")
+    
+    if selected_vaccine == "All":
+        st.info("Select a specific vaccine to view Woreda-level categories.")
+        st.stop()
+
+    if f"{selected_vaccine}_Utilization_Rate" not in filtered_df.columns:
+        st.warning(f"Utilization data for {selected_vaccine} is not available in the processed files.")
+        st.stop()
+        
+    filtered_df[f"{selected_vaccine}_Utilization_Category"] = filtered_df.apply(lambda row: categorize_utilization(row, selected_vaccine), axis=1)
+    category_counts = filtered_df[f"{selected_vaccine}_Utilization_Category"].value_counts()
+    
+    col_w1, col_w2, col_w3, col_w4 = st.columns(4)
+    with col_w1:
+        st.markdown(f'<div class="custom-metric-box"><div class="custom-metric-label">Total Woredas</div><div class="custom-metric-value">{total_woredas}</div></div>', unsafe_allow_html=True)
+    with col_w2:
+        st.markdown(f'<div class="custom-metric-box"><div class="custom-metric-label">Acceptable</div><div class="custom-metric-value">{category_counts.get("Acceptable", 0)}</div></div>', unsafe_allow_html=True)
+    with col_w3:
+        st.markdown(f'<div class="custom-metric-box"><div class="custom-metric-label">Unacceptable</div><div class="custom-metric-value">{category_counts.get("Unacceptable", 0)}</div></div>', unsafe_allow_html=True)
+    with col_w4:
+        st.markdown(f'<div class="custom-metric-box"><div class="custom-metric-label">Low Utilization</div><div class="custom-metric-value">{category_counts.get("Low Utilization", 0)}</div></div>', unsafe_allow_html=True)
+    st.markdown("---")
+
+    # --- Pie chart + Woreda category table ---
+    st.subheader(f"Overall Utilization Breakdown ({selected_vaccine})")
+    
+    # Pie chart data preparation
+    category_counts_pie = category_counts.reset_index()
+    category_counts_pie.columns = ["Category", "Count"]
+    category_counts_pie["Percentage"] = (category_counts_pie["Count"] / category_counts_pie["Count"].sum() * 100).round(2)
+    
+    color_map = {"Acceptable": "#28a745", "Unacceptable": "#007bff", "Low Utilization": "#dc3545"}
+    pie_fig = px.pie(category_counts_pie, values="Percentage", names="Category", hole=0.0, color="Category", color_discrete_map=color_map,
+                     title=f"Utilization Category Distribution for {selected_vaccine}")
+    
+    pie_fig.update_traces(
+        textinfo='percent',
+        textfont=dict(color="white", size=12),
+        textposition='inside'
+    )
+    pie_fig.update_layout(
+        plot_bgcolor='white',
+        paper_bgcolor='white',
+        font=dict(color='#333333'),
+        height=350,
+        showlegend=True,
+        legend=dict(
+            bgcolor='rgba(255,255,255,0.9)',
+            font=dict(color='#333333')
+        )
+    )
+    
+    st.plotly_chart(pie_fig, use_container_width=True)
+
+    st.markdown("---")
+    
+    # --- Bar chart (100% Stacked) ---
+    st.subheader(f"Utilization by Geographic Area - {selected_vaccine} ({selected_period})")
+
+    # Dynamic grouping logic
+    groupby_col = "Region_Admin"
+    if selected_zone != "All":
+        groupby_col = "Woreda_Admin"
+    elif selected_region != "All":
+        groupby_col = "Zone_Admin"
+    
+    stacked_bar_data = filtered_df.groupby([groupby_col, f"{selected_vaccine}_Utilization_Category"]).size().reset_index(name='Count')
+    total_by_group = stacked_bar_data.groupby(groupby_col)["Count"].sum().reset_index(name='Total')
+    stacked_bar_data = stacked_bar_data.merge(total_by_group, on=groupby_col)
+    stacked_bar_data["Percentage"] = (stacked_bar_data["Count"] / stacked_bar_data["Total"] * 100).round(2)
+    
+    bar_fig = go.Figure()
+    for category in ["Acceptable", "Low Utilization", "Unacceptable"]:
+        f_data = stacked_bar_data[stacked_bar_data[f"{selected_vaccine}_Utilization_Category"] == category]
+        bar_fig.add_trace(go.Bar(x=f_data[groupby_col], y=f_data["Percentage"], name=category, marker_color=color_map.get(category),
+                                 text=f_data["Percentage"].apply(lambda x: f"{x:.0f}%"),
+                                 textposition='inside',
+                                 hovertemplate=f"<b>%{{x}}</b><br>{category}: %{{y:.2f}}%<br>Woreda Count: %{{customdata}}<extra></extra>",
+                                 customdata=f_data['Count']))
+    
+    bar_fig.update_layout(barmode="stack", yaxis=dict(title="Percentage (%)", range=[0, 100], tickformat=".0f"),
+                         xaxis=dict(title=groupby_col.split('_')[0], tickangle=-45),
+                         legend_title_text="Utilization Category", bargap=0.2,
+                         legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
+                         height=600,
+                         plot_bgcolor='white',
+                         paper_bgcolor='white',
+                         font=dict(color='#333333'))
+    st.plotly_chart(bar_fig, use_container_width=True)
+
+    st.markdown("---")
+    
+    with st.expander("📋 Show Woreda-Level Data"):
+        display_df = filtered_df[["Region_Admin", "Zone_Admin", "Woreda_Admin", "Period", f"{selected_vaccine}_Administered", f"{selected_vaccine}_Distributed", f"{selected_vaccine}_Utilization_Rate"]].copy()
+        display_df.rename(columns={
+            "Region_Admin": "Region",
+            "Zone_Admin": "Zone",
+            "Woreda_Admin": "Woreda",
+            f"{selected_vaccine}_Administered": "Administered",
+            f"{selected_vaccine}_Distributed": "Distributed",
+            f"{selected_vaccine}_Utilization_Rate": "Utilization Rate"
+        }, inplace=True)
+        st.dataframe(display_df.sort_values(by="Utilization Rate", ascending=False).reset_index(drop=True))
+        
+        st.download_button(
+            label="Download Woreda Data as Excel",
+            data=to_excel(display_df),
+            file_name=f"Woreda_Utilization_Data_{selected_vaccine}_{selected_period}.xlsx",
+            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        )
 else:
-    st.info("Please upload and process files to see a summary.")
+    st.info("Please upload and process datasets in the main app to view this dashboard.")

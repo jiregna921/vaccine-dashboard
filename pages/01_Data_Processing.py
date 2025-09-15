@@ -4,74 +4,154 @@ import re
 import io
 from config.thresholds import VACCINE_THRESHOLDS
 
-# --- Custom CSS for improved styling ---
+# --- Enhanced Custom CSS for professional styling ---
 st.markdown("""
 <style>
-/* Overall page layout and styling */
+/* Overall page styling */
 .stApp {
-    padding-top: 1rem;
-    background-color: #05667F;
-    color: white;
+    background: linear-gradient(135deg, #05667F 0%, #034758 100%);
+    color: #ffffff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Header styling with background color and padding */
+/* Header styling */
 .main-header-container {
-    background-color: #044b5e;
-    padding: 1rem;
-    border-radius: 10px;
-    margin-bottom: 0.25rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(90deg, #044b5e 0%, #033446 100%);
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    border-left: 5px solid #00b4d8;
 }
 
 .main-header-container h1 {
     color: white;
     margin: 0;
     text-align: center;
-    font-size: 1.5rem;
+    font-size: 2rem;
+    font-weight: 700;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
 }
 
-/* Sidebar styling */
-.sidebar .sidebar-content {
-    background-color: #044b5e;
+/* Section headers */
+h3 {
     color: white;
+    border-bottom: 2px solid #00b4d8;
+    padding-bottom: 0.5rem;
+    margin-top: 1.5rem;
 }
 
-/* Custom metric boxes */
+/* Card styling for metrics */
 .custom-metric-box {
-    background-color: #044b5e;
-    padding: 0.5rem;
-    border-radius: 10px;
+    background: rgba(4, 75, 94, 0.8);
+    backdrop-filter: blur(10px);
+    padding: 1.2rem;
+    border-radius: 12px;
     text-align: center;
-    margin-bottom: 1rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.custom-metric-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 .custom-metric-label {
     font-size: 1rem;
-    font-weight: bold;
-    color: white;
-    margin-bottom: 0.25rem;
+    font-weight: 600;
+    color: #a0e7ff;
+    margin-bottom: 0.5rem;
 }
 
 .custom-metric-value {
-    font-size: 1.5rem;
-    font-weight: bold;
+    font-size: 1.8rem;
+    font-weight: 700;
     color: white;
 }
 
-/* Adjustments for logo */
+/* Button styling */
+.stButton > button {
+    background: linear-gradient(90deg, #00b4d8 0%, #0077b6 100%);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.stButton > button:hover {
+    background: linear-gradient(90deg, #0077b6 0%, #005b8a 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* File uploader styling */
+.stFileUploader > div > div {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 2px dashed rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    color: white;
+}
+
+/* Dataframe styling */
+.dataframe {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+}
+
+/* Divider styling */
+hr {
+    height: 2px;
+    background: linear-gradient(90deg, transparent 0%, #00b4d8 50%, transparent 100%);
+    border: none;
+    margin: 2rem 0;
+}
+
+/* Success and info messages */
+.stSuccess {
+    background: linear-gradient(90deg, rgba(0, 180, 216, 0.2) 0%, rgba(0, 180, 216, 0.1) 100%);
+    border-left: 4px solid #00b4d8;
+    border-radius: 4px;
+}
+
+.stInfo {
+    background: linear-gradient(90deg, rgba(77, 171, 247, 0.2) 0%, rgba(77, 171, 247, 0.1) 100%);
+    border-left: 4px solid #4dabf7;
+    border-radius: 4px;
+}
+
+.stError {
+    background: linear-gradient(90deg, rgba(235, 87, 87, 0.2) 0%, rgba(235, 87, 87, 0.1) 100%);
+    border-left: 4px solid #eb5757;
+    border-radius: 4px;
+}
+
+/* Logo container */
 .logo-container {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 0.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+}
+
+/* Column spacing */
+.stColumn {
+    padding: 0 1rem;
 }
 </style>
 """, unsafe_allow_html=True)
 
 st.set_page_config(
-    page_title="Data Processing",
+    page_title="Vaccine Data Processing",
     layout="wide",
-    page_icon="⚙️"
+    page_icon="⚕️"
 )
 
 # --- Check Authentication ---
@@ -82,25 +162,41 @@ if not st.session_state.get("authenticated", False):
 # --- Header with Logos and Title ---
 col1, col2, col3 = st.columns([1, 4, 1])
 with col1:
+    st.markdown('<div class="logo-container">', unsafe_allow_html=True)
     st.image("assets/moh_logo.png", width=100)
+    st.markdown('</div>', unsafe_allow_html=True)
+    
 with col2:
-    st.markdown('<div class="main-header-container"><h1>Data Upload & Triangulation</h1></div>', unsafe_allow_html=True)
+    st.markdown('<div class="main-header-container"><h1>Vaccine Data Upload & Triangulation</h1></div>', unsafe_allow_html=True)
+    
 with col3:
+    st.markdown('<div class="logo-container">', unsafe_allow_html=True)
     st.image("assets/eth_flag.png", width=100)
+    st.markdown('</div>', unsafe_allow_html=True)
 
 st.markdown("---")
-st.markdown("<h3>Upload and Match Data</h3>", unsafe_allow_html=True)
+st.markdown("<h3>Upload and Match Vaccine Data</h3>", unsafe_allow_html=True)
 
-# --- File Uploaders ---
-# Added 'key' to force Streamlit to re-render and check for new files
-admin_file = st.file_uploader("Upload Administered Doses File (Excel or CSV)", type=["xlsx", "csv"], key="admin_uploader")
-dist_file = st.file_uploader("Upload Distributed Doses File (Excel or CSV)", type=["xlsx", "csv"], key="dist_uploader")
+# --- File Uploaders with improved layout ---
+upload_col1, upload_col2 = st.columns(2)
+
+with upload_col1:
+    st.markdown('<div class="custom-metric-box">', unsafe_allow_html=True)
+    st.markdown('<div class="custom-metric-label">Administered Doses</div>', unsafe_allow_html=True)
+    admin_file = st.file_uploader("Upload Excel or CSV file", type=["xlsx", "csv"], key="admin_uploader", label_visibility="collapsed")
+    st.markdown('</div>', unsafe_allow_html=True)
+
+with upload_col2:
+    st.markdown('<div class="custom-metric-box">', unsafe_allow_html=True)
+    st.markdown('<div class="custom-metric-label">Distributed Doses</div>', unsafe_allow_html=True)
+    dist_file = st.file_uploader("Upload Excel or CSV file", type=["xlsx", "csv"], key="dist_uploader", label_visibility="collapsed")
+    st.markdown('</div>', unsafe_allow_html=True)
 
 # --- Main action button row ---
-action_col1, action_col2 = st.columns(2)
+action_col1, action_col2, action_col3 = st.columns([2, 2, 1])
 
 with action_col1:
-    if st.button("Process and Match Data"):
+    if st.button("📊 Process and Match Data", use_container_width=True):
         if admin_file is None or dist_file is None:
             st.error("Please upload both Administered and Distributed files.")
         else:
@@ -227,15 +323,32 @@ with action_col1:
                 st.session_state["unmatched_dist_df"] = unmatched_dist_df
 
                 st.success("Data processing and matching complete!")
-                st.write(f"**Total Matched Records:** {len(matched_df)}")
-                st.write(f"**Total Unmatched Administered Records:** {len(unmatched_admin_df)}")
-                st.write(f"**Total Unmatched Distributed Records:** {len(unmatched_dist_df)}")
+                
+                # Display metrics in a nice layout
+                metric_col1, metric_col2, metric_col3 = st.columns(3)
+                with metric_col1:
+                    st.markdown('<div class="custom-metric-box">', unsafe_allow_html=True)
+                    st.markdown('<div class="custom-metric-label">Matched Records</div>', unsafe_allow_html=True)
+                    st.markdown(f'<div class="custom-metric-value">{len(matched_df)}</div>', unsafe_allow_html=True)
+                    st.markdown('</div>', unsafe_allow_html=True)
+                
+                with metric_col2:
+                    st.markdown('<div class="custom-metric-box">', unsafe_allow_html=True)
+                    st.markdown('<div class="custom-metric-label">Unmatched Administered</div>', unsafe_allow_html=True)
+                    st.markdown(f'<div class="custom-metric-value">{len(unmatched_admin_df)}</div>', unsafe_allow_html=True)
+                    st.markdown('</div>', unsafe_allow_html=True)
+                
+                with metric_col3:
+                    st.markdown('<div class="custom-metric-box">', unsafe_allow_html=True)
+                    st.markdown('<div class="custom-metric-label">Unmatched Distributed</div>', unsafe_allow_html=True)
+                    st.markdown(f'<div class="custom-metric-value">{len(unmatched_dist_df)}</div>', unsafe_allow_html=True)
+                    st.markdown('</div>', unsafe_allow_html=True)
 
             except Exception as e:
                 st.error(f"An error occurred during file processing: {e}")
 
 with action_col2:
-    if st.button("Reset Data"):
+    if st.button("🔄 Reset Data", use_container_width=True):
         # Explicitly clear all data from session state
         st.session_state.clear()
         st.success("Data reset complete. Please upload new files.")
@@ -259,14 +372,14 @@ if "unmatched_admin_df" in st.session_state and "unmatched_dist_df" in st.sessio
     with col1:
         if "unmatched_admin_df" in st.session_state and not st.session_state["unmatched_admin_df"].empty:
             st.write("**Administered Unmatched**")
-            st.dataframe(st.session_state["unmatched_admin_df"][["Woreda_Admin", "Period_Admin"]].head())
+            st.dataframe(st.session_state["unmatched_admin_df"][["Woreda_Admin", "Period_Admin"]].head(), use_container_width=True)
         else:
             st.info("No unmatched administered records found.")
     
     with col2:
         if "unmatched_dist_df" in st.session_state and not st.session_state["unmatched_dist_df"].empty:
             st.write("**Distributed Unmatched**")
-            st.dataframe(st.session_state["unmatched_dist_df"][["Woreda_Dist", "Period_Dist"]].head())
+            st.dataframe(st.session_state["unmatched_dist_df"][["Woreda_Dist", "Period_Dist"]].head(), use_container_width=True)
         else:
             st.info("No unmatched distributed records found.")
 else:

@@ -106,7 +106,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Selectbox styling */
 .stSelectbox > div > div {
-    background-color: #ffffff;
+    background-color: #202121;
     border: 2px solid #e9ecef;
     border-radius: 8px;
     color: #333333;

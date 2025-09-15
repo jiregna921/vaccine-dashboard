@@ -103,6 +103,13 @@ st.markdown("""
     font-size: 1.1rem;
     font-weight: 600;
     margin-bottom: 0.5rem;
+    margin-top: 1rem;
+}
+
+.feature-description {
+    color: #5a6169;
+    margin-bottom: 0.5rem;
+    line-height: 1.5;
 }
 
 /* Button styling */
@@ -227,6 +234,17 @@ hr {
     border-left: 4px solid #0077b6;
     margin: 1rem 0;
 }
+
+/* Feature list styling */
+.feature-list {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.feature-list li {
+    margin-bottom: 1.5rem;
+    padding-left: 0;
+}
 </style>
 """, unsafe_allow_html=True)
 
@@ -294,22 +312,27 @@ if not st.session_state["authenticated"]:
         </div>
         """, unsafe_allow_html=True)
         
-        # Features list
+        # Features list - FIXED HTML STRUCTURE
         st.markdown("""
         <div class="feature-card">
             <h3 style='color: #0077b6; text-align: center;'>📊 Application Features</h3>
-            <ul style='color: #333; text-align: left;'>
-                <li class="feature-subtitle">Data Management</li>
-                <p>Upload and process immunization data from multiple sources</p>
-                
-                <li class="feature-subtitle">Analysis Tools</li>
-                <p>Analyze vaccine utilization rates and identify discrepancies</p>
-                
-                <li class="feature-subtitle">Reporting</li>
-                <p>Generate comprehensive reports with visualization</p>
-                
-                <li class="feature-subtitle">Export Capabilities</li>
-                <p>Export data for further analysis in multiple formats</p>
+            <ul class="feature-list">
+                <li>
+                    <p class="feature-subtitle">Data Management</p>
+                    <p class="feature-description">Upload and process immunization data from multiple sources</p>
+                </li>
+                <li>
+                    <p class="feature-subtitle">Analysis Tools</p>
+                    <p class="feature-description">Analyze vaccine utilization rates and identify discrepancies</p>
+                </li>
+                <li>
+                    <p class="feature-subtitle">Reporting</p>
+                    <p class="feature-description">Generate comprehensive reports with visualization</p>
+                </li>
+                <li>
+                    <p class="feature-subtitle">Export Capabilities</p>
+                    <p class="feature-description">Export data for further analysis in multiple formats</p>
+                </li>
             </ul>
         </div>
         """, unsafe_allow_html=True)
@@ -330,7 +353,7 @@ else:
         <div class="feature-card">
             <div class="feature-icon">📥</div>
             <h3 style='color: #0077b6;'>Data Upload</h3>
-            <p>Upload administered and distributed vaccine data for analysis with support for multiple file formats</p>
+            <p class="feature-description">Upload administered and distributed vaccine data for analysis with support for multiple file formats</p>
         </div>
         """, unsafe_allow_html=True)
     
@@ -339,7 +362,7 @@ else:
         <div class="feature-card">
             <div class="feature-icon">📊</div>
             <h3 style='color: #0077b6;'>Analysis Dashboard</h3>
-            <p>Analyze vaccine utilization rates, identify discrepancies, and track performance metrics</p>
+            <p class="feature-description">Analyze vaccine utilization rates, identify discrepancies, and track performance metrics</p>
         </div>
         """, unsafe_allow_html=True)
     
@@ -348,6 +371,6 @@ else:
         <div class="feature-card">
             <div class="feature-icon">📋</div>
             <h3 style='color: #0077b6;'>Reporting</h3>
-            <p>Generate comprehensive reports and export data in Excel, PDF, and PowerPoint formats</p>
+            <p class="feature-description">Generate comprehensive reports and export data in Excel, PDF, and PowerPoint formats</p>
         </div>
         """, unsafe_allow_html=True)

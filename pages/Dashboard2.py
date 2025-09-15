@@ -250,6 +250,16 @@ hr {
     margin-bottom: 1rem;
     color: #0077b6;
 }
+
+/* Fix for text color in sidebar */
+.sidebar .stSelectbox label, .sidebar .stSlider label {
+    color: white !important;
+}
+
+/* Fix for text in select boxes */
+.stSelectbox div[data-baseweb="select"] div {
+    color: #333333 !important;
+}
 </style>
 """, unsafe_allow_html=True)
 
@@ -487,39 +497,52 @@ if st.session_state.get("matched_df") is not None:
 
     st.markdown("---")
     
-    # --- Discrepancy Plots ---
-    st.markdown('<div class="section-header"><h3>📈 Discrepancies by Vaccine</h3></div>', unsafe_allow_html=True)
+    # --- Discrepancy Plots - UPDATED TO SHOW UTILIZATION RATES ---
+    st.markdown('<div class="section-header"><h3>📈 Utilization Rates by Facility</h3></div>', unsafe_allow_html=True)
     
     if selected_vaccine == "All":
-        st.info("Please select a specific vaccine to view discrepancy plots.")
+        st.info("Please select a specific vaccine to view utilization rate plots.")
     else:
-        # Calculate discrepancy if columns exist
-        admin_col = f"{selected_vaccine}_Administered"
-        dist_col = f"{selected_vaccine}_Distributed"
-        if admin_col in filtered_df.columns and dist_col in filtered_df.columns:
-            filtered_df["Discrepancy"] = filtered_df[admin_col] - filtered_df[dist_col]
-            filtered_df["Discrepancy_Flag"] = filtered_df["Discrepancy"] != 0
-
-            fig = px.scatter(
-                filtered_df,
-                x="Woreda_Admin",
-                y="Discrepancy",
-                color="Discrepancy_Flag",
-                title=f"{selected_vaccine} Discrepancy (Administered - Distributed)",
-                labels={"Woreda_Admin": "Facility", "Discrepancy": "Discrepancy (Doses)"},
-                color_discrete_map={True: "#ff6b6b", False: "#4ecdc4"}
-            )
-            fig.update_layout(
-                xaxis_title="Facility", 
-                yaxis_title="Discrepancy (Doses)", 
-                xaxis_tickangle=45,
-                plot_bgcolor='#ffffff',
-                paper_bgcolor='#ffffff',
-                font=dict(color='#333333')
-            )
-            st.plotly_chart(fig, use_container_width=True)
-        else:
-            st.warning(f"Required columns for {selected_vaccine} discrepancy plot are not available.")
+        # Check if the required column exists
+        rate_col = f"{selected_vaccine}_Utilization_Rate"
+        if rate_col not in filtered_df.columns:
+            st.warning(f"Utilization data for {selected_vaccine} is not available in the processed files.")
+            st.stop()
+        
+        # Create a scatter plot of utilization rates
+        fig = px.scatter(
+            filtered_df,
+            x="Woreda_Admin",
+            y=rate_col,
+            title=f"{selected_vaccine} Utilization Rate by Facility",
+            labels={"Woreda_Admin": "Facility", rate_col: "Utilization Rate (%)"},
+            color_discrete_sequence=["#0077b6"]
+        )
+        
+        # Add threshold lines
+        thresholds = {
+            "BCG": {"high": 120, "low": 30},
+            "IPV": {"high": 130, "low": 75},
+            "Measles": {"high": 125, "low": 50},
+            "Penta": {"high": 130, "low": 80},
+            "Rota": {"high": 130, "low": 75},
+        }
+        
+        if selected_vaccine in thresholds:
+            fig.add_hline(y=thresholds[selected_vaccine]["high"], line_dash="dash", line_color="red", 
+                         annotation_text="High Threshold", annotation_position="bottom right")
+            fig.add_hline(y=thresholds[selected_vaccine]["low"], line_dash="dash", line_color="orange", 
+                         annotation_text="Low Threshold", annotation_position="top right")
+        
+        fig.update_layout(
+            xaxis_title="Facility", 
+            yaxis_title="Utilization Rate (%)", 
+            xaxis_tickangle=45,
+            plot_bgcolor='#ffffff',
+            paper_bgcolor='#ffffff',
+            font=dict(color='#333333')
+        )
+        st.plotly_chart(fig, use_container_width=True)
 
     # --- Unmatched Records ---
     st.markdown('<div class="section-header"><h3>🔍 Unmatched Records</h3></div>', unsafe_allow_html=True)

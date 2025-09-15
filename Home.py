@@ -80,7 +80,7 @@ st.markdown("""
 
 .login-header {
     text-align: center;
-    color: #070606;
+    color: #0077b6;
     margin-bottom: 1.5rem;
     font-weight: 600;
     background: linear-gradient(90deg, #0077b6 0%, #00b4d8 100%);
@@ -91,7 +91,7 @@ st.markdown("""
 
 /* Subtitle styling */
 .subtitle {
-    color:#070606;
+    color: #5a6169;
     font-size: 1.1rem;
     text-align: center;
     margin-top: 0.5rem;
@@ -99,7 +99,7 @@ st.markdown("""
 }
 
 .feature-subtitle {
-    color: #070606;
+    color: #0077b6;
     font-size: 1.1rem;
     font-weight: 600;
     margin-bottom: 0.5rem;
@@ -107,7 +107,7 @@ st.markdown("""
 }
 
 .feature-description {
-    color: #070606;
+    color: #5a6169;
     margin-bottom: 0.5rem;
     line-height: 1.5;
 }
@@ -115,7 +115,7 @@ st.markdown("""
 /* Button styling */
 .stButton > button {
     background: linear-gradient(90deg, #0077b6 0%, #00b4d8 100%);
-    color: #070606;
+    color: white;
     border: none;
     padding: 0.75rem 1.5rem;
     border-radius: 8px;
@@ -147,6 +147,12 @@ st.markdown("""
 /* Input placeholder styling */
 .stTextInput > div > div > input::placeholder {
     color: #6c757d !important;
+}
+
+/* Label styling for inputs */
+.stTextInput label {
+    color: #000000 !important;
+    font-weight: 600;
 }
 
 /* Success and info messages - FIXED VISIBILITY */
@@ -298,6 +304,16 @@ if not st.session_state["authenticated"]:
     
     col1, col2, col3 = st.columns([1, 3, 1])
     with col2:
+        # Apply custom styling to ensure text is visible
+        st.markdown("""
+        <style>
+        div[data-testid="stTextInput"] label {
+            color: #000000 !important;
+            font-weight: 600;
+        }
+        </style>
+        """, unsafe_allow_html=True)
+        
         username = st.text_input("👤 Username", placeholder="Enter your username")
         password = st.text_input("🔒 Password", type="password", placeholder="Enter your password")
         

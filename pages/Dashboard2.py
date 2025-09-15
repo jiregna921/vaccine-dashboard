@@ -6,24 +6,24 @@ from config.thresholds import VACCINE_THRESHOLDS
 from pptx import Presentation
 from io import BytesIO
 
-# --- Enhanced Custom CSS for professional styling ---
+# --- Enhanced Custom CSS for white background professional styling ---
 st.markdown("""
 <style>
-/* Overall page styling */
+/* Overall page styling - WHITE BACKGROUND */
 .stApp {
-    background: linear-gradient(135deg, #05667F 0%, #034758 100%);
-    color: #ffffff;
+    background: #ffffff;
+    color: #333333;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* Header styling */
 .main-header-container {
-    background: linear-gradient(90deg, #044b5e 0%, #033446 100%);
+    background: linear-gradient(90deg, #0077b6 0%, #00b4d8 100%);
     padding: 1.5rem;
     border-radius: 12px;
     margin-bottom: 1.5rem;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-    border-left: 5px solid #00b4d8;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    border-left: 5px solid #03045e;
 }
 
 .main-header-container h1 {
@@ -35,24 +35,20 @@ st.markdown("""
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
 }
 
-/* Section headers */
-h3 {
-    color: white;
-    border-bottom: 2px solid #00b4d8;
-    padding-bottom: 0.5rem;
-    margin-top: 1.5rem;
+/* Section headers - BLACK TEXT */
+h1, h2, h3, h4, h5, h6 {
+    color: #333333 !important;
 }
 
 /* Card styling for metrics */
 .custom-metric-box {
-    background: rgba(4, 75, 94, 0.8);
-    backdrop-filter: blur(10px);
+    background: linear-gradient(135deg, #e6f7ff 0%, #f0f8ff 100%);
     padding: 1.2rem;
     border-radius: 12px;
     text-align: center;
     margin-bottom: 1.5rem;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid #cce7ff;
     transition: transform 0.3s ease;
 }
 
@@ -64,19 +60,19 @@ h3 {
 .custom-metric-label {
     font-size: 1rem;
     font-weight: 600;
-    color: #a0e7ff;
+    color: #0077b6;
     margin-bottom: 0.5rem;
 }
 
 .custom-metric-value {
     font-size: 1.8rem;
     font-weight: 700;
-    color: white;
+    color: #005b8a;
 }
 
-/* Button styling */
+/* Button styling - IMPROVED */
 .stButton > button {
-    background: linear-gradient(90deg, #00b4d8 0%, #0077b6 100%);
+    background: linear-gradient(90deg, #0077b6 0%, #00b4d8 100%);
     color: white;
     border: none;
     padding: 0.75rem 1.5rem;
@@ -84,100 +80,65 @@ h3 {
     font-weight: 600;
     transition: all 0.3s ease;
     width: 100%;
+    box-shadow: 0 2px 4px rgba(0, 119, 182, 0.3);
 }
 
 .stButton > button:hover {
-    background: linear-gradient(90deg, #0077b6 0%, #005b8a 100%);
+    background: linear-gradient(90deg, #005b8a 0%, #0077b6 100%);
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+/* Download button styling */
+.download-button {
+    background: linear-gradient(90deg, #28a745 0%, #20c997 100%) !important;
+}
+
+.download-button:hover {
+    background: linear-gradient(90deg, #218838 0%, #1aa179 100%) !important;
+}
+
 /* Sidebar styling */
 .sidebar .sidebar-content {
-    background: linear-gradient(180deg, #044b5e 0%, #033446 100%);
+    background: linear-gradient(180deg, #0077b6 0%, #03045e 100%);
     color: white;
 }
 
 /* Selectbox styling */
 .stSelectbox > div > div {
-    background-color: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background-color: #ffffff;
+    border: 2px solid #e9ecef;
     border-radius: 8px;
-    color: white;
+    color: #333333;
+}
+
+.stSelectbox > div > div:hover {
+    border-color: #0077b6;
 }
 
 /* File uploader styling */
 .stFileUploader > div > div {
-    background-color: rgba(255, 255, 255, 0.1);
-    border: 2px dashed rgba(255, 255, 255, 0.3);
+    background-color: #f8f9fa;
+    border: 2px dashed #dee2e6;
     border-radius: 8px;
-    color: white;
+    color: #495057;
+}
+
+.stFileUploader > div > div:hover {
+    border-color: #0077b6;
+    background-color: #e6f7ff;
 }
 
 /* Dataframe styling */
 .dataframe {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: #ffffff;
     border-radius: 8px;
-}
-
-/* Divider styling */
-hr {
-    height: 2px;
-    background: linear-gradient(90deg, transparent 0%, #00b4d8 50%, transparent 100%);
-    border: none;
-    margin: 2rem 0;
-}
-
-/* Success and info messages */
-.stSuccess {
-    background: linear-gradient(90deg, rgba(0, 180, 216, 0.2) 0%, rgba(0, 180, 216, 0.1) 100%);
-    border-left: 4px solid #00b4d8;
-    border-radius: 4px;
-}
-
-.stInfo {
-    background: linear-gradient(90deg, rgba(77, 171, 247, 0.2) 0%, rgba(77, 171, 247, 0.1) 100%);
-    border-left: 4px solid #4dabf7;
-    border-radius: 4px;
-}
-
-.stError {
-    background: linear-gradient(90deg, rgba(235, 87, 87, 0.2) 0%, rgba(235, 87, 87, 0.1) 100%);
-    border-left: 4px solid #eb5757;
-    border-radius: 4px;
-}
-
-.stWarning {
-    background: linear-gradient(90deg, rgba(245, 176, 65, 0.2) 0%, rgba(245, 176, 65, 0.1) 100%);
-    border-left: 4px solid #f5b041;
-    border-radius: 4px;
-}
-
-/* Logo container */
-.logo-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0.5rem;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
-}
-
-/* Column spacing */
-.stColumn {
-    padding: 0 1rem;
-}
-
-/* Table styling enhancements */
-.stDataFrame {
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #dee2e6;
 }
 
 /* Table header styling */
 .stDataFrame table thead th {
-    background: linear-gradient(180deg, #044b5e 0%, #033446 100%) !important;
+    background: linear-gradient(180deg, #0077b6 0%, #005b8a 100%) !important;
     color: white !important;
     font-weight: bold;
     font-size: 1.1rem;
@@ -187,32 +148,107 @@ hr {
 
 /* Table body cell styling */
 .stDataFrame table tbody td {
-    background-color: rgba(6, 131, 164, 0.7);
-    color: white;
+    background-color: #ffffff;
+    color: #333333;
     font-size: 1rem;
     padding: 10px 8px;
-    border-bottom: 1px solid rgba(201, 213, 213, 0.3);
+    border-bottom: 1px solid #dee2e6;
 }
 
 /* Hover effect for rows */
 .stDataFrame table tbody tr:hover {
-    background-color: rgba(7, 161, 199, 0.8) !important;
+    background-color: #e6f7ff !important;
     cursor: pointer;
+}
+
+/* Divider styling */
+hr {
+    height: 2px;
+    background: linear-gradient(90deg, transparent 0%, #0077b6 50%, transparent 100%);
+    border: none;
+    margin: 2rem 0;
+}
+
+/* Success and info messages - IMPROVED VISIBILITY */
+.stSuccess {
+    background: linear-gradient(90deg, rgba(0, 180, 216, 0.1) 0%, rgba(0, 180, 216, 0.05) 100%) !important;
+    border-left: 4px solid #00b4d8 !important;
+    border-radius: 4px !important;
+    color: #005b8a !important;
+    padding: 1rem !important;
+}
+
+.stInfo {
+    background: linear-gradient(90deg, rgba(77, 171, 247, 0.1) 0%, rgba(77, 171, 247, 0.05) 100%) !important;
+    border-left: 4px solid #4dabf7 !important;
+    border-radius: 4px !important;
+    color: #005b8a !important;
+    padding: 1rem !important;
+}
+
+.stError {
+    background: linear-gradient(90deg, rgba(235, 87, 87, 0.1) 0%, rgba(235, 87, 87, 0.05) 100%) !important;
+    border-left: 4px solid #eb5757 !important;
+    border-radius: 4px !important;
+    color: #8b0000 !important;
+    padding: 1rem !important;
+}
+
+.stWarning {
+    background: linear-gradient(90deg, rgba(245, 176, 65, 0.1) 0%, rgba(245, 176, 65, 0.05) 100%) !important;
+    border-left: 4px solid #f5b041 !important;
+    border-radius: 4px !important;
+    color: #8b5a00 !important;
+    padding: 1rem !important;
+}
+
+/* Logo container */
+.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+}
+
+/* Column spacing */
+.stColumn {
+    padding: 0 1rem;
 }
 
 /* Chart container styling */
 .js-plotly-plot .plotly {
     border-radius: 12px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #dee2e6;
 }
 
 /* Custom tabs for better organization */
 .custom-tab {
-    background: rgba(4, 75, 94, 0.5);
+    background: #f8f9fa;
     padding: 1rem;
     border-radius: 12px;
     margin-bottom: 1.5rem;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid #dee2e6;
+}
+
+/* Filter section styling */
+.filter-section {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+    border: 1px solid #dee2e6;
+}
+
+/* Section header with icon */
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    color: #0077b6;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -295,6 +331,7 @@ if st.session_state.get("matched_df") is not None:
             df_all[rate_col] = df_all[rate_col].clip(0, 1000)
 
     # --- Sidebar filters ---
+    st.sidebar.markdown('<div class="filter-section">', unsafe_allow_html=True)
     st.sidebar.header("🧪 Filter Data")
     
     # Region filter
@@ -322,6 +359,7 @@ if st.session_state.get("matched_df") is not None:
     
     # Vaccine filter
     selected_vaccine = st.sidebar.selectbox("Select Vaccine", ["All"] + vaccines)
+    st.sidebar.markdown('</div>', unsafe_allow_html=True)
     
     # --- Filtering Logic ---
     filtered_df = df_all
@@ -363,6 +401,8 @@ if st.session_state.get("matched_df") is not None:
     utilization_rate = (total_admin / total_dist) * 100 if total_dist > 0 else 0
     
     st.markdown("---")
+    st.markdown('<div class="section-header"><h3>📊 Performance Overview</h3></div>', unsafe_allow_html=True)
+    
     col1, col2, col3, col4 = st.columns(4)
     with col1:
         st.markdown(f'<div class="custom-metric-box"><div class="custom-metric-label">Total Woredas</div><div class="custom-metric-value">{total_woredas}</div></div>', unsafe_allow_html=True)
@@ -375,7 +415,7 @@ if st.session_state.get("matched_df") is not None:
     st.markdown("---")
 
     # --- Extremities Count ---
-    st.subheader("🚨 Woredas with Extreme Utilization Rates")
+    st.markdown('<div class="section-header"><h3>🚨 Extreme Utilization Rates</h3></div>', unsafe_allow_html=True)
     
     counts_col1, counts_col2, counts_col3, counts_col4, counts_col5 = st.columns(5)
     
@@ -383,11 +423,11 @@ if st.session_state.get("matched_df") is not None:
         counts = count_extremity(filtered_df, vaccine)
         if counts:
             with [counts_col1, counts_col2, counts_col3, counts_col4, counts_col5][i]:
-                st.markdown(f'<div class="custom-metric-box"><div class="custom-metric-label">{vaccine} Extremes</div><div class="custom-metric-value">{counts[0]}↑ | {counts[1]}↓</div></div>', unsafe_allow_html=True)
+                st.markdown(f'<div class="custom-metric-box"><div class="custom-metric-label">{vaccine}</div><div class="custom-metric-value">{counts[0]}↑ | {counts[1]}↓</div></div>', unsafe_allow_html=True)
     st.markdown("---")
     
     # --- New Table for Extreme Utilization ---
-    st.subheader(f"📋 Woredas with Extreme Utilization by Region and Zone ({selected_vaccine})")
+    st.markdown('<div class="section-header"><h3>📋 Extreme Utilization by Region and Zone</h3></div>', unsafe_allow_html=True)
     
     if selected_vaccine == "All":
         st.info("Please select a specific vaccine to view this table.")
@@ -441,13 +481,14 @@ if st.session_state.get("matched_df") is not None:
             label="📥 Download Data as Excel",
             data=to_excel(extreme_summary),
             file_name=f"Extreme_Utilization_Data_{selected_vaccine}.xlsx",
-            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            use_container_width=True
         )
 
     st.markdown("---")
     
     # --- Discrepancy Plots ---
-    st.header("📈 Discrepancies by Vaccine")
+    st.markdown('<div class="section-header"><h3>📈 Discrepancies by Vaccine</h3></div>', unsafe_allow_html=True)
     
     if selected_vaccine == "All":
         st.info("Please select a specific vaccine to view discrepancy plots.")
@@ -472,16 +513,17 @@ if st.session_state.get("matched_df") is not None:
                 xaxis_title="Facility", 
                 yaxis_title="Discrepancy (Doses)", 
                 xaxis_tickangle=45,
-                plot_bgcolor='rgba(0,0,0,0)',
-                paper_bgcolor='rgba(0,0,0,0)',
-                font=dict(color='white')
+                plot_bgcolor='#ffffff',
+                paper_bgcolor='#ffffff',
+                font=dict(color='#333333')
             )
             st.plotly_chart(fig, use_container_width=True)
         else:
             st.warning(f"Required columns for {selected_vaccine} discrepancy plot are not available.")
 
     # --- Unmatched Records ---
-    st.header("🔍 Unmatched Records")
+    st.markdown('<div class="section-header"><h3>🔍 Unmatched Records</h3></div>', unsafe_allow_html=True)
+    
     unmatched_col1, unmatched_col2 = st.columns(2)
     
     with unmatched_col1:
@@ -580,7 +622,8 @@ if st.session_state.get("matched_df") is not None:
         label="📊 Download Report as PPT",
         data=ppt_buffer,
         file_name="immunization_report.pptx",
-        mime="application/vnd.openxmlformats-officedocument.presentationml.presentation"
+        mime="application/vnd.openxmlformats-officedocument.presentationml.presentation",
+        use_container_width=True
     )
 else:
     st.info("Please upload and process data on the Data Upload page to view this dashboard.")

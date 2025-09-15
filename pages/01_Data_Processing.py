@@ -14,6 +14,33 @@ st.markdown("""
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Sidebar styling */
+.css-1d391kg, .css-1oe5cao {
+    background: linear-gradient(180deg, #05667F 0%, #034758 100%) !important;
+}
+
+section[data-testid="stSidebar"] > div {
+    background: linear-gradient(180deg, #05667F 0%, #034758 100%) !important;
+    color: white;
+}
+
+section[data-testid="stSidebar"] .stButton > button {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+section[data-testid="stSidebar"] .stButton > button:hover {
+    background: rgba(255, 255, 255, 0.3);
+    color: white;
+}
+
+section[data-testid="stSidebar"] .stMarkdown, 
+section[data-testid="stSidebar"] .stText,
+section[data-testid="stSidebar"] p {
+    color: white !important;
+}
+
 /* Header styling */
 .main-header-container {
     background: linear-gradient(90deg, #05667F 0%, #034758 100%);
@@ -185,6 +212,17 @@ p, div, span {
     color: #05667F;
     margin-bottom: 0.5rem;
 }
+
+/* Improved layout spacing */
+.block-container {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+/* Better section spacing */
+.section-spacing {
+    margin: 2rem 0;
+}
 </style>
 """, unsafe_allow_html=True)
 
@@ -198,6 +236,29 @@ st.set_page_config(
 if not st.session_state.get("authenticated", False):
     st.warning("Please log in on the main page to view this dashboard.")
     st.stop()
+
+# --- Sidebar with navigation ---
+with st.sidebar:
+    st.markdown("## Navigation")
+    st.markdown("---")
+    
+    # Navigation options
+    nav_options = {
+        "🏠 Home": "home",
+        "📊 Dashboard": "dashboard",
+        "📈 Analytics": "analytics",
+        "⚙️ Settings": "settings"
+    }
+    
+    selected_nav = st.radio("Go to", list(nav_options.keys()))
+    
+    st.markdown("---")
+    st.markdown("### User Info")
+    st.markdown(f"Logged in as: **{st.session_state.get('username', 'User')}**")
+    
+    if st.button("🚪 Logout"):
+        st.session_state.authenticated = False
+        st.experimental_rerun()
 
 # --- Header with Logos and Title ---
 col1, col2, col3 = st.columns([1, 4, 1])

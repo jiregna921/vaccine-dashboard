@@ -72,7 +72,26 @@ st.markdown("""
     border-bottom: 2px solid #e9ecef;
     padding-bottom: 0.5rem;
     margin-top: 2rem !important;
+    font-size: 1.5rem !important;
 }
+
+/* Chart titles and labels */
+.js-plotly-plot .plotly .gtitle {
+    color: #1a73e8 !important;
+    font-weight: 700 !important;
+    font-size: 1.2rem !important;
+}
+
+.js-plotly-plot .plotly .xtitle, .js-plotly-plot .plotly .ytitle {
+    color: #333333 !important;
+    font-weight: 600 !important;
+}
+
+.js-plotly-plot .plotly .legend text {
+    color: #333333 !important;
+    font-weight: 500 !important;
+}
+
 /* Warning and info message styling - FIXED */
 .stWarning, .stInfo {
     background-color: #fff3cd !important;
@@ -220,6 +239,10 @@ st.markdown("""
     
     .custom-metric-value {
         font-size: 1.4rem;
+    }
+    
+    .stSubheader {
+        font-size: 1.3rem !important;
     }
 }
 
@@ -418,19 +441,30 @@ if st.session_state.get("matched_df") is not None:
                      title=f"Utilization Category Distribution for {selected_vaccine}")
     
     pie_fig.update_traces(
-        textinfo='percent',
-        textfont=dict(color="white", size=12),
-        textposition='inside'
+        textinfo='percent+label',
+        textfont=dict(color="white", size=12, weight='bold'),
+        textposition='inside',
+        insidetextorientation='horizontal'
     )
     pie_fig.update_layout(
         plot_bgcolor='white',
         paper_bgcolor='white',
-        font=dict(color='#333333'),
-        height=350,
+        font=dict(color='#333333', size=12),
+        height=400,
         showlegend=True,
         legend=dict(
             bgcolor='rgba(255,255,255,0.9)',
-            font=dict(color='#333333')
+            font=dict(color='#333333', size=11),
+            orientation="h",
+            yanchor="bottom",
+            y=-0.2,
+            xanchor="center",
+            x=0.5
+        ),
+        title=dict(
+            font=dict(size=16, color='#1a73e8', weight='bold'),
+            x=0.5,
+            xanchor='center'
         )
     )
     
@@ -459,17 +493,47 @@ if st.session_state.get("matched_df") is not None:
         bar_fig.add_trace(go.Bar(x=f_data[groupby_col], y=f_data["Percentage"], name=category, marker_color=color_map.get(category),
                                  text=f_data["Percentage"].apply(lambda x: f"{x:.0f}%"),
                                  textposition='inside',
+                                 textfont=dict(color='white', size=10, weight='bold'),
                                  hovertemplate=f"<b>%{{x}}</b><br>{category}: %{{y:.2f}}%<br>Woreda Count: %{{customdata}}<extra></extra>",
                                  customdata=f_data['Count']))
     
-    bar_fig.update_layout(barmode="stack", yaxis=dict(title="Percentage (%)", range=[0, 100], tickformat=".0f"),
-                         xaxis=dict(title=groupby_col.split('_')[0], tickangle=-45),
-                         legend_title_text="Utilization Category", bargap=0.2,
-                         legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
-                         height=600,
-                         plot_bgcolor='white',
-                         paper_bgcolor='white',
-                         font=dict(color='#333333'))
+    bar_fig.update_layout(
+        barmode="stack", 
+        yaxis=dict(
+            title="Percentage (%)", 
+            range=[0, 100], 
+            tickformat=".0f",
+            title_font=dict(size=14, color='#333333', weight='bold'),
+            tickfont=dict(size=12, color='#333333')
+        ),
+        xaxis=dict(
+            title=groupby_col.split('_')[0], 
+            tickangle=-45,
+            title_font=dict(size=14, color='#333333', weight='bold'),
+            tickfont=dict(size=11, color='#333333')
+        ),
+        legend_title_text="Utilization Category", 
+        bargap=0.2,
+        legend=dict(
+            orientation="h", 
+            yanchor="bottom", 
+            y=1.02, 
+            xanchor="right", 
+            x=1,
+            font=dict(size=12, color='#333333'),
+            title_font=dict(size=12, color='#333333', weight='bold')
+        ),
+        height=600,
+        plot_bgcolor='white',
+        paper_bgcolor='white',
+        font=dict(color='#333333', size=12),
+        title=dict(
+            text=f"Utilization by {groupby_col.split('_')[0]} - {selected_vaccine}",
+            font=dict(size=16, color='#1a73e8', weight='bold'),
+            x=0.5,
+            xanchor='center'
+        )
+    )
     st.plotly_chart(bar_fig, use_container_width=True)
 
     st.markdown("---")

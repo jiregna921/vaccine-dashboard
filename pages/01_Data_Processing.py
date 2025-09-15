@@ -14,9 +14,10 @@ st.markdown("""
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Sidebar styling - Professional blue gradient */
-section[data-testid="stSidebar"] {
-   background: linear-gradient(90deg, #d90429 0%, #9d0208 100%);
+/* Sidebar styling - FIXED */
+.css-1d391kg, .css-1v3fvcr, .stSidebar {
+    background-color: white !important;
+    border-right: 1px solid #dee2e6;
 }
 
 section[data-testid="stSidebar"] > div {

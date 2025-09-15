@@ -80,7 +80,7 @@ st.markdown("""
 
 .login-header {
     text-align: center;
-    color: #0077b6;
+    color: #070606;
     margin-bottom: 1.5rem;
     font-weight: 600;
     background: linear-gradient(90deg, #0077b6 0%, #00b4d8 100%);
@@ -91,7 +91,7 @@ st.markdown("""
 
 /* Subtitle styling */
 .subtitle {
-    color: #5a6169;
+    color:#070606;
     font-size: 1.1rem;
     text-align: center;
     margin-top: 0.5rem;
@@ -99,7 +99,7 @@ st.markdown("""
 }
 
 .feature-subtitle {
-    color: #0077b6;
+    color: #070606;
     font-size: 1.1rem;
     font-weight: 600;
     margin-bottom: 0.5rem;
@@ -107,7 +107,7 @@ st.markdown("""
 }
 
 .feature-description {
-    color: #5a6169;
+    color: #070606;
     margin-bottom: 0.5rem;
     line-height: 1.5;
 }

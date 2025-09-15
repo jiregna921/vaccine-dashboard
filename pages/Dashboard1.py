@@ -92,10 +92,6 @@ st.markdown("""
     background-color: rgba(255, 255, 255, 0.5) !important;
 }
 
-
-
-
-
 /* Sidebar styling - FIXED */
 .css-1d391kg, .css-1v3fvcr, .stSidebar {
     background-color: white !important;

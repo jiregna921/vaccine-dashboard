@@ -41,6 +41,33 @@ st.markdown("""
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
 }
 
+/* Logo alignment adjustments */
+.logo-left {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0.5rem;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    height: 100%;
+}
+
+.logo-right {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0.5rem;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    height: 100%;
+}
+
+.logo-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 /* Login container styling */
 .login-container {
     background: white;
@@ -56,6 +83,26 @@ st.markdown("""
     color: #0077b6;
     margin-bottom: 1.5rem;
     font-weight: 600;
+    background: linear-gradient(90deg, #0077b6 0%, #00b4d8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Subtitle styling */
+.subtitle {
+    color: #5a6169;
+    font-size: 1.1rem;
+    text-align: center;
+    margin-top: 0.5rem;
+    font-weight: 400;
+}
+
+.feature-subtitle {
+    color: #0077b6;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
 }
 
 /* Button styling */
@@ -87,16 +134,6 @@ st.markdown("""
 .stTextInput > div > div > input:focus {
     border-color: #0077b6;
     box-shadow: 0 0 0 2px rgba(0, 119, 182, 0.2);
-}
-
-/* Logo container */
-.logo-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0.5rem;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 12px;
 }
 
 /* Success and info messages */
@@ -152,12 +189,43 @@ st.markdown("""
     color: #0077b6;
 }
 
+/* Feature cards */
+.feature-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    height: 100%;
+    transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.feature-icon {
+    font-size: 2rem;
+    color: #0077b6;
+    margin-bottom: 1rem;
+}
+
 /* Divider styling */
 hr {
     height: 2px;
     background: linear-gradient(90deg, transparent 0%, #00b4d8 50%, transparent 100%);
     border: none;
     margin: 2rem 0;
+}
+
+/* Credentials info box */
+.credentials-box {
+    background: linear-gradient(135deg, #e6f7ff 0%, #f0f8ff 100%);
+    padding: 1rem;
+    border-radius: 8px;
+    border-left: 4px solid #0077b6;
+    margin: 1rem 0;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -177,15 +245,16 @@ if "authenticated" not in st.session_state:
 # --- Header with Logos and Title ---
 col1, col2, col3 = st.columns([1, 4, 1])
 with col1:
-    st.markdown('<div class="logo-container">', unsafe_allow_html=True)
+    st.markdown('<div class="logo-left">', unsafe_allow_html=True)
     st.image("assets/moh_logo.png", width=100)
     st.markdown('</div>', unsafe_allow_html=True)
     
 with col2:
     st.markdown('<div class="main-header-container"><h1>Immunization Data Triangulation Application</h1></div>', unsafe_allow_html=True)
+    st.markdown('<p class="subtitle">Comprehensive analysis of vaccine administration and distribution data</p>', unsafe_allow_html=True)
     
 with col3:
-    st.markdown('<div class="logo-container">', unsafe_allow_html=True)
+    st.markdown('<div class="logo-right">', unsafe_allow_html=True)
     st.image("assets/eth_flag.png", width=100)
     st.markdown('</div>', unsafe_allow_html=True)
 
@@ -197,7 +266,7 @@ if not st.session_state["authenticated"]:
     
     # Login form in a centered container
     st.markdown('<div class="login-container">', unsafe_allow_html=True)
-    st.markdown('<h2 class="login-header">🔐 Login to Access Dashboard</h2>', unsafe_allow_html=True)
+    st.markdown('<h2 class="login-header">🔐 System Access</h2>', unsafe_allow_html=True)
     
     col1, col2, col3 = st.columns([1, 3, 1])
     with col2:
@@ -218,18 +287,29 @@ if not st.session_state["authenticated"]:
     st.markdown("---")
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
-        st.info("💡 **Demo Credentials:** Use username 'user' and password 'password'")
+        st.markdown("""
+        <div class="credentials-box">
+            <p class="feature-subtitle">💡 Demo Credentials</p>
+            <p>Use username <strong>user</strong> and password <strong>password</strong></p>
+        </div>
+        """, unsafe_allow_html=True)
         
         # Features list
         st.markdown("""
-        <div style='background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); margin-top: 1.5rem;'>
+        <div class="feature-card">
             <h3 style='color: #0077b6; text-align: center;'>📊 Application Features</h3>
-            <ul style='color: #333;'>
-                <li>Upload and process immunization data</li>
-                <li>Analyze vaccine utilization rates</li>
-                <li>Identify discrepancies between administered and distributed doses</li>
-                <li>Generate comprehensive reports</li>
-                <li>Export data for further analysis</li>
+            <ul style='color: #333; text-align: left;'>
+                <li class="feature-subtitle">Data Management</li>
+                <p>Upload and process immunization data from multiple sources</p>
+                
+                <li class="feature-subtitle">Analysis Tools</li>
+                <p>Analyze vaccine utilization rates and identify discrepancies</p>
+                
+                <li class="feature-subtitle">Reporting</li>
+                <p>Generate comprehensive reports with visualization</p>
+                
+                <li class="feature-subtitle">Export Capabilities</li>
+                <p>Export data for further analysis in multiple formats</p>
             </ul>
         </div>
         """, unsafe_allow_html=True)
@@ -240,34 +320,34 @@ else:
     st.markdown('<div class="welcome-message">', unsafe_allow_html=True)
     st.markdown('<div class="welcome-icon">📈</div>', unsafe_allow_html=True)
     st.markdown('<h2 style="color: #0077b6; text-align: center;">Welcome to the Immunization Data Portal</h2>', unsafe_allow_html=True)
-    st.markdown('<p style="text-align: center; color: #555;">You are successfully logged in! Use the navigation menu on the left to select a page and begin analyzing immunization data.</p>', unsafe_allow_html=True)
+    st.markdown('<p class="subtitle">You are successfully logged in! Use the navigation menu to begin analyzing immunization data.</p>', unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
     
     # Quick stats or features overview
     col1, col2, col3 = st.columns(3)
     with col1:
         st.markdown("""
-        <div style='background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); text-align: center;'>
-            <div style='font-size: 2rem; color: #0077b6;'>📥</div>
+        <div class="feature-card">
+            <div class="feature-icon">📥</div>
             <h3 style='color: #0077b6;'>Data Upload</h3>
-            <p>Upload administered and distributed vaccine data for analysis</p>
+            <p>Upload administered and distributed vaccine data for analysis with support for multiple file formats</p>
         </div>
         """, unsafe_allow_html=True)
     
     with col2:
         st.markdown("""
-        <div style='background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); text-align: center;'>
-            <div style='font-size: 2rem; color: #0077b6;'>📊</div>
-            <h3 style='color: #0077b6;'>Analysis</h3>
-            <p>Analyze vaccine utilization rates and identify discrepancies</p>
+        <div class="feature-card">
+            <div class="feature-icon">📊</div>
+            <h3 style='color: #0077b6;'>Analysis Dashboard</h3>
+            <p>Analyze vaccine utilization rates, identify discrepancies, and track performance metrics</p>
         </div>
         """, unsafe_allow_html=True)
     
     with col3:
         st.markdown("""
-        <div style='background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); text-align: center;'>
-            <div style='font-size: 2rem; color: #0077b6;'>📋</div>
-            <h3 style='color: #0077b6;'>Reports</h3>
-            <p>Generate comprehensive reports and export data</p>
+        <div class="feature-card">
+            <div class="feature-icon">📋</div>
+            <h3 style='color: #0077b6;'>Reporting</h3>
+            <p>Generate comprehensive reports and export data in Excel, PDF, and PowerPoint formats</p>
         </div>
         """, unsafe_allow_html=True)

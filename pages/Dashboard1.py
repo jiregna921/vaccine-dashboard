@@ -74,16 +74,34 @@ st.markdown("""
     margin-top: 2rem !important;
 }
 
-/* Sidebar styling */
-.css-1d391kg, .css-1v3fvcr {
-    background-color: #f8f9fa;
+/* Sidebar styling - FIXED */
+.css-1d391kg, .css-1v3fvcr, .stSidebar {
+    background-color: white !important;
     border-right: 1px solid #dee2e6;
 }
 
-.stSidebar .stSelectbox, .stSidebar .stSlider {
-    background-color: white;
+.stSidebar .stSelectbox, .stSidebar .stSlider, .stSidebar .stTextInput {
+    background-color: white !important;
     border-radius: 8px;
     padding: 0.5rem;
+    color: #333333 !important;
+}
+
+.stSidebar .stSelectbox label, .stSidebar .stSlider label, .stSidebar .stTextInput label {
+    color: #333333 !important;
+    font-weight: 600;
+}
+
+.stSidebar .stHeader {
+    color: #1a73e8 !important;
+    font-weight: 700;
+    border-bottom: 2px solid #e9ecef;
+    padding-bottom: 0.5rem;
+}
+
+/* Sidebar text colors */
+.stSidebar p, .stSidebar div, .stSidebar span {
+    color: #333333 !important;
 }
 
 /* Button styling */
@@ -138,6 +156,44 @@ st.markdown("""
     background: linear-gradient(90deg, transparent, #1a73e8, transparent);
 }
 
+/* Drag and drop area styling - FIXED */
+.stFileUploader {
+    background-color: #1a1a1a !important;
+    border-radius: 8px;
+    padding: 1rem;
+    border: 2px dashed #666666;
+}
+
+.stFileUploader label {
+    color: white !important;
+    font-weight: 600;
+}
+
+.stFileUploader p {
+    color: #cccccc !important;
+}
+
+.stFileUploader .file-info {
+    color: #ffffff !important;
+    background-color: #333333 !important;
+    border-radius: 4px;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+/* Uploaded file info */
+.uploadedFile {
+    background-color: #333333 !important;
+    color: white !important;
+    border-radius: 4px;
+    padding: 0.5rem;
+    margin: 0.25rem 0;
+}
+
+.uploadedFile name {
+    color: white !important;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .main-header-container h1 {
@@ -147,6 +203,19 @@ st.markdown("""
     .custom-metric-value {
         font-size: 1.4rem;
     }
+}
+
+/* Fix for all text elements in sidebar */
+.stSidebar * {
+    color: #333333 !important;
+}
+
+.stSidebar .st-bb {
+    background-color: white !important;
+}
+
+.stSidebar .st-at {
+    background-color: white !important;
 }
 </style>
 """, unsafe_allow_html=True)

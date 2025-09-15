@@ -232,6 +232,37 @@ st.markdown("""
     color: white !important;
 }
 
+/* Filter section styling - FIXED */
+.filter-section {
+    background: white !important;
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+    border: 1px solid #dee2e6;
+    color: #333333 !important;
+}
+
+.filter-section h2, .filter-section h3, .filter-section h4 {
+    color: #333333 !important;
+}
+
+.filter-section label {
+    color: #333333 !important;
+}
+
+/* Unmatched records styling - FIXED */
+.unmatched-section {
+    background: #f8f9fa;
+    padding: 1rem;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+    color: #333333 !important;
+}
+
+.unmatched-section h3, .unmatched-section h4 {
+    color: #333333 !important;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .main-header-container h1 {
@@ -527,24 +558,26 @@ if st.session_state.get("matched_df") is not None:
             xaxis_tickangle=45,
             plot_bgcolor='#ffffff',
             paper_bgcolor='#ffffff',
-            font=dict(color='#101111', size=14),
+            font=dict(color='#333333', size=14),
             legend=dict(
                 orientation="h",
                 yanchor="bottom",
                 y=1.02,
                 xanchor="right",
                 x=1,
-                font=dict(size=12)
+                font=dict(size=12, color='#333333')
             ),
             hoverlabel=dict(
                 bgcolor="white",
                 font_size=12,
-                font_family="Arial"
+                font_family="Arial",
+                font_color="#333333"
             )
         )
         
         # Improve x-axis label visibility
-        fig.update_xaxes(tickfont=dict(size=10))
+        fig.update_xaxes(tickfont=dict(size=10, color='#333333'))
+        fig.update_yaxes(tickfont=dict(color='#333333'))
         
         st.plotly_chart(fig, use_container_width=True)
 
@@ -554,18 +587,22 @@ if st.session_state.get("matched_df") is not None:
     unmatched_col1, unmatched_col2 = st.columns(2)
     
     with unmatched_col1:
+        st.markdown('<div class="unmatched-section">', unsafe_allow_html=True)
         if "unmatched_admin_df" in st.session_state and not st.session_state["unmatched_admin_df"].empty:
             st.write("**Unmatched Administered Records**")
             st.dataframe(st.session_state["unmatched_admin_df"], use_container_width=True)
         else:
             st.info("No unmatched administered records found.")
+        st.markdown('</div>', unsafe_allow_html=True)
     
     with unmatched_col2:
+        st.markdown('<div class="unmatched-section">', unsafe_allow_html=True)
         if "unmatched_dist_df" in st.session_state and not st.session_state["unmatched_dist_df"].empty:
             st.write("**Unmatched Distributed Records**")
             st.dataframe(st.session_state["unmatched_dist_df"], use_container_width=True)
         else:
             st.info("No unmatched distributed records found.")
+        st.markdown('</div>', unsafe_allow_html=True)
             
     st.markdown("---")
     

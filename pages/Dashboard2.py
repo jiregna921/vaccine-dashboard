@@ -6,113 +6,219 @@ from config.thresholds import VACCINE_THRESHOLDS
 from pptx import Presentation
 from io import BytesIO
 
-# --- Custom CSS for improved styling ---
+# --- Enhanced Custom CSS for professional styling ---
 st.markdown("""
 <style>
-/* Overall page layout and styling */
+/* Overall page styling */
 .stApp {
-    padding-top: 1rem;
-    background-color: #05667F; /* Dark blue background */
-    color: white; /* All text is white */
+    background: linear-gradient(135deg, #05667F 0%, #034758 100%);
+    color: #ffffff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Header styling with background color and padding */
+/* Header styling */
 .main-header-container {
-    background-color: #044b5e;
-    padding: 1rem;
-    border-radius: 10px;
-    margin-bottom: 0.25rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(90deg, #044b5e 0%, #033446 100%);
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    border-left: 5px solid #00b4d8;
 }
 
 .main-header-container h1 {
     color: white;
     margin: 0;
     text-align: center;
-    font-size: 1.5rem;
+    font-size: 2rem;
+    font-weight: 700;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
 }
 
-/* Custom metric styling */
+/* Section headers */
+h3 {
+    color: white;
+    border-bottom: 2px solid #00b4d8;
+    padding-bottom: 0.5rem;
+    margin-top: 1.5rem;
+}
+
+/* Card styling for metrics */
 .custom-metric-box {
-    background-color: #044b5e;
-    padding: 0.5rem;
-    border-radius: 10px;
+    background: rgba(4, 75, 94, 0.8);
+    backdrop-filter: blur(10px);
+    padding: 1.2rem;
+    border-radius: 12px;
     text-align: center;
-    margin-bottom: 1rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.custom-metric-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 .custom-metric-label {
     font-size: 1rem;
-    font-weight: bold;
-    color: white;
-    margin-bottom: 0.25rem;
-}
-
-.custom-metric-value {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: white;
-}
-
-/* Spacing for Streamlit native components */
-.st-emotion-cache-1kyx5v0 {
-    gap: 0.5rem;
-}
-
-.st-emotion-cache-1f19s7 {
-    padding-top: 0;
-}
-
-/* Custom styling for text content */
-.stMarkdown p {
-    font-size: 1.1rem;
-    color: white;
-}
-
-/* Reduce space between sections */
-.stMarkdown hr {
-    margin-top: 0.5rem;
+    font-weight: 600;
+    color: #a0e7ff;
     margin-bottom: 0.5rem;
 }
 
-/* --- Table Styling Enhancements --- */
-/* Target the main dataframe container */
+.custom-metric-value {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: white;
+}
+
+/* Button styling */
+.stButton > button {
+    background: linear-gradient(90deg, #00b4d8 0%, #0077b6 100%);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.stButton > button:hover {
+    background: linear-gradient(90deg, #0077b6 0%, #005b8a 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Sidebar styling */
+.sidebar .sidebar-content {
+    background: linear-gradient(180deg, #044b5e 0%, #033446 100%);
+    color: white;
+}
+
+/* Selectbox styling */
+.stSelectbox > div > div {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: white;
+}
+
+/* File uploader styling */
+.stFileUploader > div > div {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 2px dashed rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    color: white;
+}
+
+/* Dataframe styling */
+.dataframe {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+}
+
+/* Divider styling */
+hr {
+    height: 2px;
+    background: linear-gradient(90deg, transparent 0%, #00b4d8 50%, transparent 100%);
+    border: none;
+    margin: 2rem 0;
+}
+
+/* Success and info messages */
+.stSuccess {
+    background: linear-gradient(90deg, rgba(0, 180, 216, 0.2) 0%, rgba(0, 180, 216, 0.1) 100%);
+    border-left: 4px solid #00b4d8;
+    border-radius: 4px;
+}
+
+.stInfo {
+    background: linear-gradient(90deg, rgba(77, 171, 247, 0.2) 0%, rgba(77, 171, 247, 0.1) 100%);
+    border-left: 4px solid #4dabf7;
+    border-radius: 4px;
+}
+
+.stError {
+    background: linear-gradient(90deg, rgba(235, 87, 87, 0.2) 0%, rgba(235, 87, 87, 0.1) 100%);
+    border-left: 4px solid #eb5757;
+    border-radius: 4px;
+}
+
+.stWarning {
+    background: linear-gradient(90deg, rgba(245, 176, 65, 0.2) 0%, rgba(245, 176, 65, 0.1) 100%);
+    border-left: 4px solid #f5b041;
+    border-radius: 4px;
+}
+
+/* Logo container */
+.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+}
+
+/* Column spacing */
+.stColumn {
+    padding: 0 1rem;
+}
+
+/* Table styling enhancements */
 .stDataFrame {
     border-radius: 10px;
-    overflow: hidden; /* Ensures rounded corners are visible */
+    overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* Table header styling */
 .stDataFrame table thead th {
-    background-color: #044b5e !important;
+    background: linear-gradient(180deg, #044b5e 0%, #033446 100%) !important;
     color: white !important;
     font-weight: bold;
     font-size: 1.1rem;
     text-align: center;
-    padding: 12px 8px; /* Increased padding */
+    padding: 12px 8px;
 }
 
 /* Table body cell styling */
 .stDataFrame table tbody td {
-    background-color: #0683a4; /* Lighter shade of blue */
-    color: white; /* Readable text color */
+    background-color: rgba(6, 131, 164, 0.7);
+    color: white;
     font-size: 1rem;
-    padding: 10px 8px; /* Increased padding */
-    border-bottom: 1px solid #c9d5d5;
+    padding: 10px 8px;
+    border-bottom: 1px solid rgba(201, 213, 213, 0.3);
 }
 
 /* Hover effect for rows */
 .stDataFrame table tbody tr:hover {
-    background-color: #07a1c7 !important;
+    background-color: rgba(7, 161, 199, 0.8) !important;
     cursor: pointer;
+}
+
+/* Chart container styling */
+.js-plotly-plot .plotly {
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Custom tabs for better organization */
+.custom-tab {
+    background: rgba(4, 75, 94, 0.5);
+    padding: 1rem;
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 </style>
 """, unsafe_allow_html=True)
 
 st.set_page_config(
-    page_title="Woredas with Extreme Vaccine Utilization",
+    page_title="Vaccine Utilization Dashboard",
     layout="wide",
     page_icon="💉"
 )
@@ -152,11 +258,17 @@ def count_extremity(df, vaccine):
 # --- Header with Logos and Title ---
 col1, col2, col3 = st.columns([1, 4, 1])
 with col1:
+    st.markdown('<div class="logo-container">', unsafe_allow_html=True)
     st.image("assets/moh_logo.png", width=120)
+    st.markdown('</div>', unsafe_allow_html=True)
+    
 with col2:
-    st.markdown('<div class="main-header-container"><h1>📊 Vaccine Discrepancies and Unmatched Records</h1></div>', unsafe_allow_html=True)
+    st.markdown('<div class="main-header-container"><h1>📊 Vaccine Discrepancies and Utilization Analysis</h1></div>', unsafe_allow_html=True)
+    
 with col3:
+    st.markdown('<div class="logo-container">', unsafe_allow_html=True)
     st.image("assets/eth_flag.png", width=120)
+    st.markdown('</div>', unsafe_allow_html=True)
 
 if not st.session_state.get("authenticated", False):
     st.warning("Please log in on the main page to view this dashboard.")
@@ -263,7 +375,7 @@ if st.session_state.get("matched_df") is not None:
     st.markdown("---")
 
     # --- Extremities Count ---
-    st.subheader("Woredas with Extreme Utilization Rates")
+    st.subheader("🚨 Woredas with Extreme Utilization Rates")
     
     counts_col1, counts_col2, counts_col3, counts_col4, counts_col5 = st.columns(5)
     
@@ -271,11 +383,11 @@ if st.session_state.get("matched_df") is not None:
         counts = count_extremity(filtered_df, vaccine)
         if counts:
             with [counts_col1, counts_col2, counts_col3, counts_col4, counts_col5][i]:
-                st.markdown(f'<div class="custom-metric-box"><div class="custom-metric-label">{vaccine} Extreme Woredas</div><div class="custom-metric-value">{counts[0]} (High) | {counts[1]} (Low)</div></div>', unsafe_allow_html=True)
+                st.markdown(f'<div class="custom-metric-box"><div class="custom-metric-label">{vaccine} Extremes</div><div class="custom-metric-value">{counts[0]}↑ | {counts[1]}↓</div></div>', unsafe_allow_html=True)
     st.markdown("---")
     
     # --- New Table for Extreme Utilization ---
-    st.subheader(f"Woredas with Extreme Utilization by Region and Zone ({selected_vaccine})")
+    st.subheader(f"📋 Woredas with Extreme Utilization by Region and Zone ({selected_vaccine})")
     
     if selected_vaccine == "All":
         st.info("Please select a specific vaccine to view this table.")
@@ -319,14 +431,14 @@ if st.session_state.get("matched_df") is not None:
             "Region_Admin": "Region",
             "Zone_Admin": "Zone",
             "total_woredas": "Total Woredas",
-            "high_extremity_count": "Woredas in High Extremity",
-            "low_extremity_count": "Woredas in Low Extremity",
+            "high_extremity_count": "High Extremity",
+            "low_extremity_count": "Low Extremity",
         }, inplace=True)
 
         st.dataframe(extreme_summary, use_container_width=True, hide_index=True)
         
         st.download_button(
-            label="Download Data as Excel",
+            label="📥 Download Data as Excel",
             data=to_excel(extreme_summary),
             file_name=f"Extreme_Utilization_Data_{selected_vaccine}.xlsx",
             mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
@@ -335,7 +447,7 @@ if st.session_state.get("matched_df") is not None:
     st.markdown("---")
     
     # --- Discrepancy Plots ---
-    st.header("Discrepancies by Vaccine")
+    st.header("📈 Discrepancies by Vaccine")
     
     if selected_vaccine == "All":
         st.info("Please select a specific vaccine to view discrepancy plots.")
@@ -354,21 +466,38 @@ if st.session_state.get("matched_df") is not None:
                 color="Discrepancy_Flag",
                 title=f"{selected_vaccine} Discrepancy (Administered - Distributed)",
                 labels={"Woreda_Admin": "Facility", "Discrepancy": "Discrepancy (Doses)"},
-                color_discrete_map={True: "red", False: "blue"}
+                color_discrete_map={True: "#ff6b6b", False: "#4ecdc4"}
             )
-            fig.update_layout(xaxis_title="Facility", yaxis_title="Discrepancy (Doses)", xaxis_tickangle=45)
+            fig.update_layout(
+                xaxis_title="Facility", 
+                yaxis_title="Discrepancy (Doses)", 
+                xaxis_tickangle=45,
+                plot_bgcolor='rgba(0,0,0,0)',
+                paper_bgcolor='rgba(0,0,0,0)',
+                font=dict(color='white')
+            )
             st.plotly_chart(fig, use_container_width=True)
         else:
             st.warning(f"Required columns for {selected_vaccine} discrepancy plot are not available.")
 
     # --- Unmatched Records ---
-    st.header("Unmatched Records")
-    if "unmatched_admin_df" in st.session_state and not st.session_state["unmatched_admin_df"].empty:
-        st.write("**Unmatched Administered Records**")
-        st.dataframe(st.session_state["unmatched_admin_df"], use_container_width=True)
-    if "unmatched_dist_df" in st.session_state and not st.session_state["unmatched_dist_df"].empty:
-        st.write("**Unmatched Distributed Records**")
-        st.dataframe(st.session_state["unmatched_dist_df"], use_container_width=True)
+    st.header("🔍 Unmatched Records")
+    unmatched_col1, unmatched_col2 = st.columns(2)
+    
+    with unmatched_col1:
+        if "unmatched_admin_df" in st.session_state and not st.session_state["unmatched_admin_df"].empty:
+            st.write("**Unmatched Administered Records**")
+            st.dataframe(st.session_state["unmatched_admin_df"], use_container_width=True)
+        else:
+            st.info("No unmatched administered records found.")
+    
+    with unmatched_col2:
+        if "unmatched_dist_df" in st.session_state and not st.session_state["unmatched_dist_df"].empty:
+            st.write("**Unmatched Distributed Records**")
+            st.dataframe(st.session_state["unmatched_dist_df"], use_container_width=True)
+        else:
+            st.info("No unmatched distributed records found.")
+            
     st.markdown("---")
     
     # --- PPT Download Button ---
@@ -448,8 +577,10 @@ if st.session_state.get("matched_df") is not None:
 
     ppt_buffer = create_ppt(filtered_df, selected_vaccine)
     st.download_button(
-        label="Download Report as PPT",
+        label="📊 Download Report as PPT",
         data=ppt_buffer,
         file_name="immunization_report.pptx",
         mime="application/vnd.openxmlformats-officedocument.presentationml.presentation"
     )
+else:
+    st.info("Please upload and process data on the Data Upload page to view this dashboard.")

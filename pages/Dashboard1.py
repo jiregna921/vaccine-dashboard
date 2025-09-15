@@ -4,19 +4,19 @@ import re
 import io
 from config.thresholds import VACCINE_THRESHOLDS
 
-# --- Enhanced Custom CSS for professional styling ---
+# --- Enhanced Custom CSS with white background and black text ---
 st.markdown("""
 <style>
-/* Overall page styling */
+/* Overall page styling - White background */
 .stApp {
-    background: linear-gradient(135deg, #05667F 0%, #034758 100%);
-    color: #ffffff;
+    background: #ffffff;
+    color: #333333;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* Header styling */
 .main-header-container {
-    background: linear-gradient(90deg, #044b5e 0%, #033446 100%);
+    background: linear-gradient(90deg, #05667F 0%, #034758 100%);
     padding: 1.5rem;
     border-radius: 12px;
     margin-bottom: 1.5rem;
@@ -35,41 +35,41 @@ st.markdown("""
 
 /* Section headers */
 h3 {
-    color: white;
+    color: #05667F;
     border-bottom: 2px solid #00b4d8;
     padding-bottom: 0.5rem;
     margin-top: 1.5rem;
+    font-weight: 600;
 }
 
 /* Card styling for metrics */
 .custom-metric-box {
-    background: rgba(4, 75, 94, 0.8);
-    backdrop-filter: blur(10px);
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
     padding: 1.2rem;
     border-radius: 12px;
     text-align: center;
     margin-bottom: 1.5rem;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+    border: 1px solid #dee2e6;
     transition: transform 0.3s ease;
 }
 
 .custom-metric-box:hover {
     transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
 }
 
 .custom-metric-label {
     font-size: 1rem;
     font-weight: 600;
-    color: #a0e7ff;
+    color: #05667F;
     margin-bottom: 0.5rem;
 }
 
 .custom-metric-value {
     font-size: 1.8rem;
     font-weight: 700;
-    color: white;
+    color: #034758;
 }
 
 /* Button styling */
@@ -92,16 +92,21 @@ h3 {
 
 /* File uploader styling */
 .stFileUploader > div > div {
-    background-color: rgba(255, 255, 255, 0.1);
-    border: 2px dashed rgba(255, 255, 255, 0.3);
+    background-color: #f8f9fa;
+    border: 2px dashed #ced4da;
     border-radius: 8px;
-    color: white;
+    color: #495057;
+}
+
+.stFileUploader > div > div:hover {
+    border-color: #00b4d8;
 }
 
 /* Dataframe styling */
 .dataframe {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: #f8f9fa;
     border-radius: 8px;
+    border: 1px solid #dee2e6;
 }
 
 /* Divider styling */
@@ -114,21 +119,32 @@ hr {
 
 /* Success and info messages */
 .stSuccess {
-    background: linear-gradient(90deg, rgba(0, 180, 216, 0.2) 0%, rgba(0, 180, 216, 0.1) 100%);
+    background: linear-gradient(90deg, rgba(0, 180, 216, 0.1) 0%, rgba(0, 180, 216, 0.05) 100%);
     border-left: 4px solid #00b4d8;
     border-radius: 4px;
+    color: #034758;
 }
 
 .stInfo {
-    background: linear-gradient(90deg, rgba(77, 171, 247, 0.2) 0%, rgba(77, 171, 247, 0.1) 100%);
+    background: linear-gradient(90deg, rgba(77, 171, 247, 0.1) 0%, rgba(77, 171, 247, 0.05) 100%);
     border-left: 4px solid #4dabf7;
     border-radius: 4px;
+    color: #034758;
 }
 
 .stError {
-    background: linear-gradient(90deg, rgba(235, 87, 87, 0.2) 0%, rgba(235, 87, 87, 0.1) 100%);
+    background: linear-gradient(90deg, rgba(235, 87, 87, 0.1) 0%, rgba(235, 87, 87, 0.05) 100%);
     border-left: 4px solid #eb5757;
     border-radius: 4px;
+    color: #721c24;
+}
+
+/* Warning message */
+.stWarning {
+    background: linear-gradient(90deg, rgba(255, 193, 7, 0.1) 0%, rgba(255, 193, 7, 0.05) 100%);
+    border-left: 4px solid #ffc107;
+    border-radius: 4px;
+    color: #856404;
 }
 
 /* Logo container */
@@ -137,13 +153,37 @@ hr {
     justify-content: center;
     align-items: center;
     padding: 0.5rem;
-    background: rgba(255, 255, 255, 0.1);
+    background: #f8f9fa;
     border-radius: 12px;
+    border: 1px solid #dee2e6;
 }
 
 /* Column spacing */
 .stColumn {
     padding: 0 1rem;
+}
+
+/* Text colors for better readability */
+p, div, span {
+    color: #333333 !important;
+}
+
+/* Table text color */
+.dataframe th, .dataframe td {
+    color: #333333 !important;
+}
+
+/* Metric numbers emphasis */
+.metric-emphasis {
+    font-weight: 700;
+    color: #034758;
+}
+
+/* Upload section labels */
+.upload-label {
+    font-weight: 600;
+    color: #05667F;
+    margin-bottom: 0.5rem;
 }
 </style>
 """, unsafe_allow_html=True)

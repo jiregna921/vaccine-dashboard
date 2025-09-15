@@ -143,26 +143,29 @@ st.markdown("""
     box-shadow: 0 0 0 2px rgba(0, 119, 182, 0.2);
 }
 
-/* Success and info messages */
+/* Success and info messages - FIXED VISIBILITY */
 .stSuccess {
-    background: linear-gradient(90deg, rgba(0, 180, 216, 0.1) 0%, rgba(0, 180, 216, 0.05) 100%);
-    border-left: 4px solid #00b4d8;
-    border-radius: 4px;
-    color: #005b8a;
+    background: linear-gradient(90deg, rgba(0, 180, 216, 0.2) 0%, rgba(0, 180, 216, 0.1) 100%) !important;
+    border-left: 4px solid #00b4d8 !important;
+    border-radius: 4px !important;
+    color: #005b8a !important;
+    padding: 1rem !important;
 }
 
 .stInfo {
-    background: linear-gradient(90deg, rgba(77, 171, 247, 0.1) 0%, rgba(77, 171, 247, 0.05) 100%);
-    border-left: 4px solid #4dabf7;
-    border-radius: 4px;
-    color: #005b8a;
+    background: linear-gradient(90deg, rgba(77, 171, 247, 0.2) 0%, rgba(77, 171, 247, 0.1) 100%) !important;
+    border-left: 4px solid #4dabf7 !important;
+    border-radius: 4px !important;
+    color: #005b8a !important;
+    padding: 1rem !important;
 }
 
 .stError {
-    background: linear-gradient(90deg, rgba(235, 87, 87, 0.1) 0%, rgba(235, 87, 87, 0.05) 100%);
-    border-left: 4px solid #eb5757;
-    border-radius: 4px;
-    color: #8b0000;
+    background: linear-gradient(90deg, rgba(235, 87, 87, 0.2) 0%, rgba(235, 87, 87, 0.1) 100%) !important;
+    border-left: 4px solid #eb5757 !important;
+    border-radius: 4px !important;
+    color: #8b0000 !important;
+    padding: 1rem !important;
 }
 
 /* Sidebar styling */
@@ -254,7 +257,8 @@ def login():
 
 def logout():
     st.session_state.clear()
-    st.experimental_rerun()
+    # Use st.rerun() instead of st.experimental_rerun()
+    st.rerun()
 
 if "authenticated" not in st.session_state:
     st.session_state["authenticated"] = False
@@ -291,11 +295,13 @@ if not st.session_state["authenticated"]:
         username = st.text_input("👤 Username", placeholder="Enter your username")
         password = st.text_input("🔒 Password", type="password", placeholder="Enter your password")
         
-        if st.button("🚀 Login", use_container_width=True):
+        login_button = st.button("🚀 Login", use_container_width=True)
+        
+        if login_button:
             if username == "user" and password == "password": # Dummy credentials
                 login()
-                st.success("Logged in successfully!")
-                st.experimental_rerun()
+                # Use success message without immediate rerun
+                st.success("Logged in successfully! Please refresh the page to continue.")
             else:
                 st.error("Invalid username or password")
     

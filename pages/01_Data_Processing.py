@@ -4,7 +4,7 @@ import re
 import io
 from config.thresholds import VACCINE_THRESHOLDS
 
-# --- Enhanced Custom CSS with white background and black text ---
+# --- Enhanced Custom CSS with white background and professional styling ---
 st.markdown("""
 <style>
 /* Overall page styling - White background */
@@ -14,31 +14,57 @@ st.markdown("""
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Sidebar styling */
-.css-1d391kg, .css-1oe5cao {
-    background: linear-gradient(180deg, #05667F 0%, #034758 100%) !important;
+/* Sidebar styling - Professional blue gradient */
+section[data-testid="stSidebar"] {
+    background: linear-gradient(180deg, #05667F 0%, #034758 100%);
 }
 
 section[data-testid="stSidebar"] > div {
-    background: linear-gradient(180deg, #05667F 0%, #034758 100%) !important;
-    color: white;
+    background: transparent !important;
 }
 
-section[data-testid="stSidebar"] .stButton > button {
+div[data-testid="stSidebarUserContent"] {
+    padding: 1.5rem;
+}
+
+/* Sidebar text and elements */
+section[data-testid="stSidebar"] .stMarkdown,
+section[data-testid="stSidebar"] .stRadio > label,
+section[data-testid="stSidebar"] .stButton > button,
+section[data-testid="stSidebar"] .stText {
+    color: white !important;
+}
+
+/* Sidebar navigation items */
+div[data-testid="stSidebarNav"] li {
+    color: white;
+    margin: 0.5rem 0;
+}
+
+div[data-testid="stSidebarNav"] li div {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 0.5rem;
+}
+
+div[data-testid="stSidebarNav"] li div:hover {
     background: rgba(255, 255, 255, 0.2);
+}
+
+/* Sidebar button styling */
+section[data-testid="stSidebar"] .stButton > button {
+    background: rgba(255, 255, 255, 0.15);
     color: white;
     border: 1px solid rgba(255, 255, 255, 0.3);
+    width: 100%;
+    border-radius: 8px;
+    padding: 0.75rem;
+    transition: all 0.3s ease;
 }
 
 section[data-testid="stSidebar"] .stButton > button:hover {
-    background: rgba(255, 255, 255, 0.3);
-    color: white;
-}
-
-section[data-testid="stSidebar"] .stMarkdown, 
-section[data-testid="stSidebar"] .stText,
-section[data-testid="stSidebar"] p {
-    color: white !important;
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.5);
 }
 
 /* Header styling */
@@ -61,7 +87,7 @@ section[data-testid="stSidebar"] p {
 }
 
 /* Section headers */
-h3 {
+h2 {
     color: #05667F;
     border-bottom: 2px solid #00b4d8;
     padding-bottom: 0.5rem;
@@ -69,10 +95,16 @@ h3 {
     font-weight: 600;
 }
 
+h3 {
+    color: #05667F;
+    font-weight: 600;
+    margin: 1.5rem 0 1rem 0;
+}
+
 /* Card styling for metrics */
 .custom-metric-box {
     background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-    padding: 1.2rem;
+    padding: 1.5rem;
     border-radius: 12px;
     text-align: center;
     margin-bottom: 1.5rem;
@@ -94,7 +126,7 @@ h3 {
 }
 
 .custom-metric-value {
-    font-size: 1.8rem;
+    font-size: 2rem;
     font-weight: 700;
     color: #034758;
 }
@@ -123,10 +155,12 @@ h3 {
     border: 2px dashed #ced4da;
     border-radius: 8px;
     color: #495057;
+    padding: 2rem 1rem;
 }
 
 .stFileUploader > div > div:hover {
     border-color: #00b4d8;
+    background-color: #f0f4f8;
 }
 
 /* Dataframe styling */
@@ -150,6 +184,7 @@ hr {
     border-left: 4px solid #00b4d8;
     border-radius: 4px;
     color: #034758;
+    padding: 1rem;
 }
 
 .stInfo {
@@ -157,6 +192,7 @@ hr {
     border-left: 4px solid #4dabf7;
     border-radius: 4px;
     color: #034758;
+    padding: 1rem;
 }
 
 .stError {
@@ -164,6 +200,7 @@ hr {
     border-left: 4px solid #eb5757;
     border-radius: 4px;
     color: #721c24;
+    padding: 1rem;
 }
 
 /* Warning message */
@@ -172,6 +209,7 @@ hr {
     border-left: 4px solid #ffc107;
     border-radius: 4px;
     color: #856404;
+    padding: 1rem;
 }
 
 /* Logo container */
@@ -183,6 +221,7 @@ hr {
     background: #f8f9fa;
     border-radius: 12px;
     border: 1px solid #dee2e6;
+    margin-bottom: 1rem;
 }
 
 /* Column spacing */
@@ -223,6 +262,40 @@ p, div, span {
 .section-spacing {
     margin: 2rem 0;
 }
+
+/* Status indicators */
+.status-indicator {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.status-success {
+    background-color: rgba(40, 167, 69, 0.15);
+    color: #28a745;
+}
+
+.status-warning {
+    background-color: rgba(255, 193, 7, 0.15);
+    color: #ffc107;
+}
+
+.status-danger {
+    background-color: rgba(220, 53, 69, 0.15);
+    color: #dc3545;
+}
+
+/* Card containers */
+.card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid #eaeaea;
+}
 </style>
 """, unsafe_allow_html=True)
 
@@ -239,24 +312,35 @@ if not st.session_state.get("authenticated", False):
 
 # --- Sidebar with navigation ---
 with st.sidebar:
-    st.markdown("## Navigation")
+    st.markdown("""
+    <div style='text-align: center; margin-bottom: 2rem;'>
+        <h2 style='color: white; margin-bottom: 0.5rem;'>Vaccine Data System</h2>
+        <p style='color: rgba(255, 255, 255, 0.8);'>Ministry of Health</p>
+    </div>
+    """, unsafe_allow_html=True)
+    
     st.markdown("---")
     
     # Navigation options
+    st.markdown("### Navigation")
     nav_options = {
-        "🏠 Home": "home",
-        "📊 Dashboard": "dashboard",
+        "🏠 Dashboard": "dashboard",
+        "📊 Data Upload": "data_upload",
         "📈 Analytics": "analytics",
+        "🗺️ Regional View": "regional",
         "⚙️ Settings": "settings"
     }
     
-    selected_nav = st.radio("Go to", list(nav_options.keys()))
+    selected_nav = st.radio("", list(nav_options.keys()), label_visibility="collapsed")
     
     st.markdown("---")
     st.markdown("### User Info")
-    st.markdown(f"Logged in as: **{st.session_state.get('username', 'User')}**")
+    st.markdown(f"**Username:** {st.session_state.get('username', 'User')}")
+    st.markdown(f"**Role:** Data Manager")
     
-    if st.button("🚪 Logout"):
+    st.markdown("---")
+    
+    if st.button("🚪 Logout", use_container_width=True):
         st.session_state.authenticated = False
         st.experimental_rerun()
 
@@ -276,20 +360,28 @@ with col3:
     st.markdown('</div>', unsafe_allow_html=True)
 
 st.markdown("---")
-st.markdown("<h3>Upload and Match Vaccine Data</h3>", unsafe_allow_html=True)
+
+# Info alert
+st.markdown("""
+<div class="stInfo">
+    <b>Information:</b> Upload administered and distributed vaccine data files to begin analysis. Supported formats: Excel (.xlsx) and CSV.
+</div>
+""", unsafe_allow_html=True)
+
+st.markdown("<h2>Upload and Match Vaccine Data</h2>", unsafe_allow_html=True)
 
 # --- File Uploaders with improved layout ---
 upload_col1, upload_col2 = st.columns(2)
 
 with upload_col1:
     st.markdown('<div class="custom-metric-box">', unsafe_allow_html=True)
-    st.markdown('<div class="custom-metric-label">Administered Doses</div>', unsafe_allow_html=True)
+    st.markdown('<div class="custom-metric-label"><i class="fas fa-syringe" style="margin-right: 8px;"></i>Administered Doses</div>', unsafe_allow_html=True)
     admin_file = st.file_uploader("Upload Excel or CSV file", type=["xlsx", "csv"], key="admin_uploader", label_visibility="collapsed")
     st.markdown('</div>', unsafe_allow_html=True)
 
 with upload_col2:
     st.markdown('<div class="custom-metric-box">', unsafe_allow_html=True)
-    st.markdown('<div class="custom-metric-label">Distributed Doses</div>', unsafe_allow_html=True)
+    st.markdown('<div class="custom-metric-label"><i class="fas fa-truck" style="margin-right: 8px;"></i>Distributed Doses</div>', unsafe_allow_html=True)
     dist_file = st.file_uploader("Upload Excel or CSV file", type=["xlsx", "csv"], key="dist_uploader", label_visibility="collapsed")
     st.markdown('</div>', unsafe_allow_html=True)
 
@@ -459,12 +551,16 @@ with action_col2:
 st.markdown("---")
 
 if "matched_df" in st.session_state:
-    st.success("Files are ready for analysis on the dashboard pages.")
+    st.markdown("""
+    <div class="stSuccess">
+        <b>Success:</b> Files are ready for analysis on the dashboard pages.
+    </div>
+    """, unsafe_allow_html=True)
 else:
     st.info("Please upload and process datasets to enable dashboards.")
     
 st.markdown("---")
-st.markdown("<h3>Summary of Unmatched Data</h3>", unsafe_allow_html=True)
+st.markdown("<h2>Summary of Unmatched Data</h2>", unsafe_allow_html=True)
 
 if "unmatched_admin_df" in st.session_state and "unmatched_dist_df" in st.session_state:
     st.write("Below are records from the administered and distributed files that could not be matched based on Woreda and Period.")
@@ -472,14 +568,14 @@ if "unmatched_admin_df" in st.session_state and "unmatched_dist_df" in st.sessio
     col1, col2 = st.columns(2)
     with col1:
         if "unmatched_admin_df" in st.session_state and not st.session_state["unmatched_admin_df"].empty:
-            st.write("**Administered Unmatched**")
+            st.markdown("**Administered Unmatched**")
             st.dataframe(st.session_state["unmatched_admin_df"][["Woreda_Admin", "Period_Admin"]].head(), use_container_width=True)
         else:
             st.info("No unmatched administered records found.")
     
     with col2:
         if "unmatched_dist_df" in st.session_state and not st.session_state["unmatched_dist_df"].empty:
-            st.write("**Distributed Unmatched**")
+            st.markdown("**Distributed Unmatched**")
             st.dataframe(st.session_state["unmatched_dist_df"][["Woreda_Dist", "Period_Dist"]].head(), use_container_width=True)
         else:
             st.info("No unmatched distributed records found.")

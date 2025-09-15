@@ -497,8 +497,8 @@ if st.session_state.get("matched_df") is not None:
 
     st.markdown("---")
     
-    # --- Discrepancy Plots - UPDATED TO SHOW UTILIZATION RATES ---
-    st.markdown('<div class="section-header"><h3>📈 Utilization Rates by Facility</h3></div>', unsafe_allow_html=True)
+    # --- Utilization Rate by Woreda - UPDATED WITH BETTER VISIBILITY ---
+    st.markdown('<div class="section-header"><h3>📈 Utilization Rate by Woreda</h3></div>', unsafe_allow_html=True)
     
     if selected_vaccine == "All":
         st.info("Please select a specific vaccine to view utilization rate plots.")
@@ -514,8 +514,8 @@ if st.session_state.get("matched_df") is not None:
             filtered_df,
             x="Woreda_Admin",
             y=rate_col,
-            title=f"{selected_vaccine} Utilization Rate by Facility",
-            labels={"Woreda_Admin": "Facility", rate_col: "Utilization Rate (%)"},
+            title=f"{selected_vaccine} Utilization Rate by Woreda",
+            labels={"Woreda_Admin": "Woreda", rate_col: "Utilization Rate (%)"},
             color_discrete_sequence=["#0077b6"]
         )
         
@@ -534,14 +534,32 @@ if st.session_state.get("matched_df") is not None:
             fig.add_hline(y=thresholds[selected_vaccine]["low"], line_dash="dash", line_color="orange", 
                          annotation_text="Low Threshold", annotation_position="top right")
         
+        # Improve visibility of labels and legends
         fig.update_layout(
-            xaxis_title="Facility", 
+            xaxis_title="Woreda", 
             yaxis_title="Utilization Rate (%)", 
             xaxis_tickangle=45,
             plot_bgcolor='#ffffff',
             paper_bgcolor='#ffffff',
-            font=dict(color='#333333')
+            font=dict(color='#333333', size=14),
+            legend=dict(
+                orientation="h",
+                yanchor="bottom",
+                y=1.02,
+                xanchor="right",
+                x=1,
+                font=dict(size=12)
+            ),
+            hoverlabel=dict(
+                bgcolor="white",
+                font_size=12,
+                font_family="Arial"
+            )
         )
+        
+        # Improve x-axis label visibility
+        fig.update_xaxes(tickfont=dict(size=10))
+        
         st.plotly_chart(fig, use_container_width=True)
 
     # --- Unmatched Records ---

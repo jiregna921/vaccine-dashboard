@@ -13,12 +13,17 @@ st.set_page_config(
 # --- Enhanced Custom CSS for professional styling ---
 st.markdown("""
 <style>
-/* Add top spacing so header isn't stuck */
+/* Fix for header spacing */
 .stApp {
     background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
     color: #333333;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    padding-top: 20px !important;  /* pushes everything down */
+}
+
+/* Add padding to the main content area */
+.main .block-container {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
 }
 
 /* Header styling */
@@ -62,6 +67,7 @@ st.markdown("""
     margin: 2rem auto;
     max-width: 500px;
 }
+
 /* File uploader: light background, readable button text & filename */
 .stFileUploader > div > div {
     background-color: #ffffff !important; /* white inside uploader */
@@ -167,6 +173,9 @@ with st.sidebar:
         st.experimental_rerun()
 
 # ----------------- Header -----------------
+# Add some top padding to create space
+st.markdown("<div style='padding-top: 20px;'></div>", unsafe_allow_html=True)
+
 col1, col2, col3 = st.columns([1, 4, 1])
 with col1:
     try:

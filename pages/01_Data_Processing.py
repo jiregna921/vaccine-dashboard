@@ -9,7 +9,7 @@ st.set_page_config(
     page_icon="🩺"
 )
 
-# --- Enhanced Custom CSS for professional styling ---
+# --- Custom CSS for styling ---
 st.markdown("""
 <style>
 .stApp {
@@ -18,9 +18,9 @@ st.markdown("""
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Add padding to the main content area */
+/* Add padding to main container */
 .main .block-container {
-    padding-top: 2rem !important;
+    padding-top: 2.5rem !important;
     padding-bottom: 2rem !important;
 }
 
@@ -29,12 +29,11 @@ st.markdown("""
     background: linear-gradient(90deg, #0077b6 0%, #00b4d8 100%);
     padding: 1.5rem;
     border-radius: 12px;
-    margin: 1rem 0 2rem 0; /* space above & below */
+    margin: 1.5rem 0 2rem 0;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
     border-left: 5px solid #03045e;
     text-align: center;
 }
-
 .main-header-container h1 {
     color: white;
     margin: 0;
@@ -43,12 +42,12 @@ st.markdown("""
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
 }
 
-/* Sidebar text always black */
+/* Sidebar */
 [data-testid="stSidebar"] {
     color: #000000 !important;
 }
 
-/* File uploader styles */
+/* File uploader */
 .stFileUploader > div > div {
     background-color: #ffffff !important;
     border: 2px dashed #cfd8dc !important;
@@ -81,7 +80,7 @@ st.markdown("""
     box-shadow: 0 4px 10px rgba(0,0,0,0.12);
 }
 
-/* Alerts - force dark text */
+/* Alerts */
 .stSuccess, .stInfo, .stError, .stWarning {
     border-radius: 8px;
     padding: 0.85rem 1rem;
@@ -106,12 +105,12 @@ st.markdown("""
 .custom-metric-label { color: #05667F; font-weight: 700; margin-bottom: 0.25rem; }
 .custom-metric-value { font-size: 1.6rem; color: #034758; font-weight: 700; }
 
-/* Dataframe text color */
+/* Dataframe text */
 .dataframe th, .dataframe td { color: #212529 !important; }
 </style>
 """, unsafe_allow_html=True)
 
-# ----------------- Authentication check -----------------
+# ----------------- Authentication -----------------
 if not st.session_state.get("authenticated", False):
     st.warning("Please log in on the main page to view this dashboard.")
     st.stop()
@@ -131,5 +130,15 @@ with st.sidebar:
         st.session_state.clear()
         st.experimental_rerun()
 
-# ----------------- Header (Logo removed, padding fixed) -----------------
+# ----------------- Header -----------------
 st.markdown('<div class="main-header-container"><h1>Vaccine Data Processing & Matching</h1></div>', unsafe_allow_html=True)
+
+# ----------------- Info -----------------
+st.markdown('<div class="stInfo">📌 <b>Info:</b> Upload administered and distributed vaccine files (.xlsx or .csv). After clicking <i>Process</i> the progress bar and spinner will show processing progress.</div>', unsafe_allow_html=True)
+
+# ----------------- Upload -----------------
+st.subheader("Upload Vaccine Data")
+u_col1, u_col2 = st.columns(2)
+
+with u_col1:
+    st.markdown('<di

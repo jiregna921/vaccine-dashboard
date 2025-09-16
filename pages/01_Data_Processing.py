@@ -4,59 +4,64 @@ import re
 import io
 import time
 
-# ----------------- Page Config -----------------
 st.set_page_config(
-    page_title="Vaccine Data Processing",
+    page_title="Immunization Data Triangulation",
     layout="wide",
-    page_icon="⚕️"
+    page_icon="🩺"
 )
 
-# ----------------- CSS (contrast fixes + layout) -----------------
+# --- Enhanced Custom CSS for professional styling ---
 st.markdown("""
 <style>
-/* App base */
+/* Add top spacing so header isn't stuck */
 .stApp {
-    background: #ffffff;
-    color: #212529;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    color: #333333;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding-top: 20px !important;  /* pushes everything down */
 }
 
-/* Sidebar: force dark text and readable backgrounds */
-section[data-testid="stSidebar"] {
-    background-color: #f8f9fa !important;
-    border-right: 1px solid #dee2e6;
-    padding-top: 1rem;
-}
-section[data-testid="stSidebar"] * {
-    color: #212529 !important;
-    background: transparent !important;
-}
-
-/* Ensure sidebar buttons also look normal */
-section[data-testid="stSidebar"] .stButton > button {
-    background: #ffffff !important;
-    color: #212529 !important;
-    border: 1px solid #ced4da !important;
-}
-
-/* Header container - moved a bit from top */
+/* Header styling */
 .main-header-container {
-    background: linear-gradient(90deg, #05667F 0%, #034758 100%);
-    padding: 1.2rem;
+    background: linear-gradient(90deg, #0077b6 0%, #00b4d8 100%);
+    padding: 1.5rem;
     border-radius: 12px;
-    margin: 1.6rem auto 1rem auto;  /* push down from top */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
-    border-left: 5px solid #00b4d8;
-    text-align: center;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    border-left: 5px solid #03045e;
 }
+
 .main-header-container h1 {
     color: white;
     margin: 0;
-    font-size: 1.8rem;
+    text-align: center;
+    font-size: 2rem;
     font-weight: 700;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.25);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
 }
 
+/* Logo alignment */
+.logo-left, .logo-right, .logo-center {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    height: 100%;
+}
+.logo-left { justify-content: flex-start; }
+.logo-right { justify-content: flex-end; }
+.logo-center { justify-content: center; }
+
+/* Login container */
+.login-container {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    margin: 2rem auto;
+    max-width: 500px;
+}
 /* File uploader: light background, readable button text & filename */
 .stFileUploader > div > div {
     background-color: #ffffff !important; /* white inside uploader */

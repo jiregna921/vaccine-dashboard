@@ -22,7 +22,7 @@ st.markdown("""
 
 /* Add padding to the main content area */
 .main .block-container {
-    padding-top: 2rem;
+    padding-top: 3rem;
     padding-bottom: 2rem;
 }
 

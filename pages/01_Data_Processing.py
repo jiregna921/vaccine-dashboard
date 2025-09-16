@@ -1,7 +1,7 @@
 import streamlit as st
-import pandas as pd
-import re
+import time
 import io
+import pandas as pd
 from config.thresholds import VACCINE_THRESHOLDS
 
 # --- Page Config ---
@@ -11,7 +11,7 @@ st.set_page_config(
     page_icon="⚕️"
 )
 
-# --- Enhanced Custom CSS (consistent with home page) ---
+# --- Enhanced Custom CSS ---
 st.markdown("""
 <style>
 /* General page styling */
@@ -26,17 +26,17 @@ st.markdown("""
     background-color: #f8f9fa !important;
     border-right: 1px solid #dee2e6;
 }
-.stSidebar h2, .stSidebar p, .stSidebar label, .stSidebar div, .stSidebar button {
-    color: #034758 !important;
-    font-weight: 500;
+.stSidebar h1, .stSidebar h2, .stSidebar h3, .stSidebar h4, .stSidebar h5, .stSidebar h6,
+.stSidebar p, .stSidebar label, .stSidebar div, .stSidebar button {
+    color: #212529 !important;  /* Dark text for contrast */
 }
 
 /* Header container */
 .main-header-container {
     background: linear-gradient(90deg, #05667F 0%, #034758 100%);
-    padding: 1.2rem;
+    padding: 1.5rem;
     border-radius: 12px;
-    margin-bottom: 1rem;
+    margin: 2rem auto 1rem auto;  /* Push down from the very top */
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
     border-left: 5px solid #00b4d8;
     text-align: center;
@@ -44,7 +44,7 @@ st.markdown("""
 .main-header-container h1 {
     color: white;
     margin: 0;
-    font-size: 1.8rem;
+    font-size: 2rem;
     font-weight: 700;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.25);
 }
@@ -54,11 +54,11 @@ h2 {
     color: #05667F;
     border-bottom: 2px solid #00b4d8;
     padding-bottom: 0.4rem;
-    margin-top: 1.2rem;
+    margin-top: 1.5rem;
     font-weight: 600;
 }
 
-/* Cards for metrics */
+/* Metric cards */
 .custom-metric-box {
     background: #f9f9f9;
     padding: 1rem;
@@ -154,7 +154,7 @@ h2 {
 
 /* Reduce excess spacing */
 .block-container {
-    padding-top: 1rem;
+    padding-top: 0.5rem;
     padding-bottom: 1.5rem;
 }
 </style>
@@ -202,7 +202,16 @@ if process_btn:
     if admin_file is None or dist_file is None:
         st.error("Please upload both Administered and Distributed files.")
     else:
-        st.success("✅ Data processing started... (add your matching logic here)")
+        st.success("✅ Data processing started...")
+
+        # Progress bar + spinner
+        progress = st.progress(0)
+        with st.spinner("Processing data, please wait..."):
+            for i in range(100):
+                time.sleep(0.03)  # Simulated processing time
+                progress.progress(i + 1)
+
+        st.success("🎉 Data processed successfully! (matching logic goes here)")
 
 if reset_btn:
     st.session_state.clear()

@@ -58,7 +58,7 @@ st.markdown("""
     color: white !important;
 }
 
-/* File uploader */
+/* File uploader - Fixed text contrast */
 .stFileUploader > div > div {
     background-color: #ffffff !important;
     border: 2px dashed #0077b6 !important;
@@ -77,8 +77,23 @@ st.markdown("""
     border: 1px solid #ced4da !important;
     border-radius: 6px !important;
 }
-.stFileUploader span, .stFileUploader p, .stFileUploader div {
+/* Fix for file uploader text contrast */
+.stFileUploader span, .stFileUploader p, .stFileUploader div, .stFileUploader small {
     color: #212529 !important;
+}
+/* Specific fix for the "Drag and drop" text */
+[data-testid="stFileUploader"] p {
+    color: #212529 !important;
+    font-weight: 500;
+}
+/* Fix for the file type/size info */
+[data-testid="stFileUploader"] small {
+    color: #212529 !important;
+    background-color: #000000 !important;
+    color: white !important;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: 500;
 }
 
 /* General buttons */

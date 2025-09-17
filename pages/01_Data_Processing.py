@@ -44,14 +44,18 @@ st.markdown("""
     letter-spacing: 0.5px;
 }
 
-/* Sidebar */
+/* Sidebar - Fixed contrast */
 [data-testid="stSidebar"] {
-    background: linear-gradient(180deg, #f0f8ff 0%, #e1f5fe 100%) !important;
+    background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%) !important;
     color: #000000 !important;
     padding: 1rem;
 }
+[data-testid="stSidebar"] * {
+    color: #000000 !important;
+}
 [data-testid="stSidebar"] .stButton button {
     background: linear-gradient(90deg, #0086B3 0%, #005792 100%) !important;
+    color: white !important;
 }
 
 /* File uploader */
@@ -196,6 +200,11 @@ h2, h3 {
     box-shadow: 0 4px 8px rgba(0,0,0,0.08);
     margin-bottom: 1.5rem;
     border-left: 4px solid #0086B3;
+}
+
+/* Info text color fix */
+.info-text {
+    color: #000000 !important;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -510,7 +519,9 @@ if "unmatched_admin_df" in st.session_state and "unmatched_dist_df" in st.sessio
             </div>
             """, unsafe_allow_html=True)
 else:
-    st.info("""
-    **ℹ️ Data Processing Required**  
-    Upload and process files to see matching summaries and analysis.
-    """)
+    st.markdown("""
+    <div class="info-text">
+        <b>Data Processing Required</b><br>
+        Upload and process files to see matching summaries and analysis.
+    </div>
+    """, unsafe_allow_html=True)

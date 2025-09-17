@@ -84,8 +84,10 @@ st.markdown("""
 /* Specific fix for the "Drag and drop" text */
 [data-testid="stFileUploader"] p {
     color: #212529 !important;
-    font-weight: 600 !important;  /* Made text bolder */
-    font-size: 1.05rem !important; /* Slightly larger text */
+    font-weight: 700 !important;
+    font-size: 1.1rem !important;
+    text-align: center;
+    margin: 0.5rem 0 !important;
 }
 /* Fix for the file type/size info */
 [data-testid="stFileUploader"] small {
@@ -94,6 +96,17 @@ st.markdown("""
     padding: 4px 8px !important;
     border-radius: 4px;
     font-weight: 500;
+}
+
+/* Processing status text */
+.processing-status {
+    color: #212529 !important;
+    font-weight: 600;
+    font-size: 1.1rem;
+    padding: 10px;
+    background-color: #e9ecef;
+    border-radius: 8px;
+    margin: 10px 0;
 }
 
 /* General buttons */
@@ -150,7 +163,7 @@ st.markdown("""
 /* Custom warning for login */
 .custom-warning {
     background-color: #fff3cd !important;
-    color: #000000 !important;  /* Changed to black for better visibility */
+    color: #000000 !important;
     padding: 1.5rem !important;
     border-radius: 10px !important;
     border-left: 5px solid #ffc107 !important;
@@ -246,6 +259,7 @@ if not st.session_state.get("authenticated", False):
     </div>
     """, unsafe_allow_html=True)
     st.stop()
+
 # ----------------- Sidebar -----------------
 with st.sidebar:
     st.markdown("<h2 style='margin-bottom:0.5rem; color: #005792;'>Vaccine Data System</h2>", unsafe_allow_html=True)
@@ -385,21 +399,21 @@ if process_btn:
         
         try:
             # Step 1: read files
-            status_text.text("Reading files...")
+            status_text.markdown('<div class="processing-status">Reading files...</div>', unsafe_allow_html=True)
             admin_df = read_file(admin_file)
             dist_df = read_file(dist_file)
             progress_bar.progress(10)
             time.sleep(0.5)
 
             # Step 2: clean column names
-            status_text.text("Cleaning column names...")
+            status_text.markdown('<div class="processing-status">Cleaning column names...</div>', unsafe_allow_html=True)
             admin_df = clean_column_names(admin_df)
             dist_df = clean_column_names(dist_df)
             progress_bar.progress(25)
             time.sleep(0.5)
 
             # Step 3: rename columns
-            status_text.text("Identifying key columns...")
+            status_text.markdown('<div class="processing-status">Identifying key columns...</div>', unsafe_allow_html=True)
             admin_rename_map, admin_found = find_and_rename_cols(admin_df, "admin")
             dist_rename_map, dist_found = find_and_rename_cols(dist_df, "dist")
             progress_bar.progress(45)
@@ -434,14 +448,14 @@ if process_btn:
                 st.stop()
 
             # Step 4: apply renaming
-            status_text.text("Standardizing column names...")
+            status_text.markdown('<div class="processing-status">Standardizing column names...</div>', unsafe_allow_html=True)
             admin_df = admin_df.rename(columns=admin_rename_map)
             dist_df = dist_df.rename(columns=dist_rename_map)
             progress_bar.progress(60)
             time.sleep(0.5)
 
             # Step 5: normalize woreda names
-            status_text.text("Normalizing location names...")
+            status_text.markdown('<div class="processing-status">Normalizing location names...</div>', unsafe_allow_html=True)
             def normalize_woreda_name(name):
                 return re.sub(r'[^a-zA-Z0-9]', '', str(name)).lower()
             admin_df["woreda_normalized"] = admin_df["Woreda_Admin"].apply(normalize_woreda_name)
@@ -450,7 +464,7 @@ if process_btn:
             time.sleep(0.5)
 
             # Step 6: match
-            status_text.text("Matching records...")
+            status_text.markdown('<div class="processing-status">Matching records...</div>', unsafe_allow_html=True)
             matched_df = pd.merge(
                 admin_df,
                 dist_df,
@@ -472,7 +486,7 @@ if process_btn:
             st.session_state["unmatched_dist_df"] = dist_df[~dist_df["woreda_normalized"].isin(matched_df["woreda_normalized"])]
 
             progress_bar.progress(100)
-            status_text.text("Complete!")
+            status_text.markdown('<div class="processing-status">Complete!</div>', unsafe_allow_html=True)
             time.sleep(0.5)
             
             status_ph.markdown("""

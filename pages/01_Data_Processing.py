@@ -88,10 +88,29 @@ st.markdown("""
     font-weight: 600;
     color: #0b0b0b !important;
 }
-.stSuccess { background: #e9f7ef !important; border-left: 4px solid #28a745 !important; }
-.stInfo { background: #e8f4fd !important; border-left: 4px solid #007bff !important; }
-.stError { background: #f8d7da !important; border-left: 4px solid #dc3545 !important; }
-.stWarning { background: #fff3cd !important; border-left: 4px solid #ffc107 !important; }
+.stSuccess {
+  background: #d4edda !important;   /* deeper green background */
+  color: #155724 !important;        /* dark green text */
+  border-left: 4px solid #28a745 !important;
+}
+
+.stInfo {
+  background: #d1ecf1 !important;   /* deeper blue background */
+  color: #0c5460 !important;        /* dark teal/blue text */
+  border-left: 4px solid #007bff !important;
+}
+
+.stError {
+  background: #f8d7da !important;   /* deeper red background */
+  color: #721c24 !important;        /* dark red text */
+  border-left: 4px solid #dc3545 !important;
+}
+
+.stWarning {
+  background: #fff3cd !important;   /* deeper yellow background */
+  color: #856404 !important;        /* dark yellow/brown text */
+  border-left: 4px solid #ffc107 !important;
+}
 
 /* Metric cards */
 .custom-metric-box {

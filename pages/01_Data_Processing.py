@@ -77,21 +77,21 @@ st.markdown("""
     border: 1px solid #ced4da !important;
     border-radius: 6px !important;
 }
-/* Fix for file uploader text contrast */
+/* Fix for file uploader text contrast - Enhanced */
 .stFileUploader span, .stFileUploader p, .stFileUploader div, .stFileUploader small {
     color: #212529 !important;
 }
 /* Specific fix for the "Drag and drop" text */
 [data-testid="stFileUploader"] p {
     color: #212529 !important;
-    font-weight: 500;
+    font-weight: 600 !important;  /* Made text bolder */
+    font-size: 1.05rem !important; /* Slightly larger text */
 }
 /* Fix for the file type/size info */
 [data-testid="stFileUploader"] small {
-    color: #212529 !important;
-    background-color: #000000 !important;
-    color: white !important;
-    padding: 2px 6px;
+    background-color: #e9ecef !important;
+    color: #495057 !important;
+    padding: 4px 8px !important;
     border-radius: 4px;
     font-weight: 500;
 }
@@ -145,6 +145,19 @@ st.markdown("""
   background: #fff3cd !important;
   color: #664d03 !important;
   border-left-color: #ffc107 !important;
+}
+
+/* Custom warning for login */
+.custom-warning {
+    background-color: #fff3cd !important;
+    color: #000000 !important;  /* Changed to black for better visibility */
+    padding: 1.5rem !important;
+    border-radius: 10px !important;
+    border-left: 5px solid #ffc107 !important;
+    margin: 2rem 0 !important;
+    font-weight: 600 !important;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+    text-align: center;
 }
 
 /* Metric cards */
@@ -226,9 +239,13 @@ h2, h3 {
 
 # ----------------- Authentication -----------------
 if not st.session_state.get("authenticated", False):
-    st.warning("Please log in on the main page to view this dashboard.")
+    st.markdown("""
+    <div class="custom-warning">
+        <b>⚠️ Authentication Required</b><br>
+        Please log in on the main page to view this dashboard.
+    </div>
+    """, unsafe_allow_html=True)
     st.stop()
-
 # ----------------- Sidebar -----------------
 with st.sidebar:
     st.markdown("<h2 style='margin-bottom:0.5rem; color: #005792;'>Vaccine Data System</h2>", unsafe_allow_html=True)

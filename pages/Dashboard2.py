@@ -649,9 +649,9 @@ if st.session_state.get("matched_df") is not None:
         
         if selected_vaccine in thresholds:
             fig.add_hline(y=thresholds[selected_vaccine]["high"], line_dash="dash", line_color="red", 
-                         annotation_text="High Threshold", annotation_position="bottom right")
+                          annotation_text="High Threshold", annotation_position="bottom right")
             fig.add_hline(y=thresholds[selected_vaccine]["low"], line_dash="dash", line_color="orange", 
-                         annotation_text="Low Threshold", annotation_position="top right")
+                          annotation_text="Low Threshold", annotation_position="top right")
         
         # Improve visibility of labels and legends
         fig.update_layout(

@@ -556,7 +556,7 @@ if st.session_state.get("matched_df") is not None:
     
     color_map = {"Acceptable": "#28a745", "Unacceptable": "#007bff", "Low Utilization": "#dc3545"}
     pie_fig = px.pie(category_counts_pie, values="Percentage", names="Category", hole=0.0, color="Category", color_discrete_map=color_map,
-                     title=f"Utilization Category Distribution for {selected_vaccine}")
+                     title=f"Utilization Category for {selected_vaccine}")
     
     pie_fig.update_traces(
         textinfo='percent+label',

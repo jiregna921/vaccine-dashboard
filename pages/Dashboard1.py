@@ -145,8 +145,8 @@ st.markdown("""
     stroke-width: 1px;
 }
 
-/* Warning and info message styling */
-.stWarning, .stInfo {
+/* Warning and info message styling - FIXED for info messages */
+.stWarning {
     background-color: #fff3cd !important;
     border: 1px solid #ffeaa7 !important;
     border-radius: 12px !important;
@@ -155,14 +155,23 @@ st.markdown("""
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
+.stInfo {
+    background: linear-gradient(135deg, #3498db 0%, #2c3e50 100%) !important;
+    border: 1px solid #2980b9 !important;
+    border-radius: 12px !important;
+    color: white !important;
+    padding: 1.25rem !important;
+    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3) !important;
+}
+
 .stWarning p, .stInfo p {
-    color: #856404 !important;
+    color: inherit !important;
     font-weight: 600;
 }
 
 .stWarning code, .stInfo code {
-    color: #856404 !important;
-    background-color: rgba(255, 255, 255, 0.5) !important;
+    color: inherit !important;
+    background-color: rgba(255, 255, 255, 0.2) !important;
 }
 
 /* Enhanced sidebar */
@@ -335,10 +344,14 @@ st.markdown("""
     padding: 10px !important;
 }
 
-/* Grid line enhancements */
+/* Grid line enhancements - REMOVED gridlines */
 .js-plotly-plot .plotly .gridlayer .grid {
-    stroke: #e9ecef !important;
-    stroke-width: 1px !important;
+    stroke: none !important;
+}
+
+.js-plotly-plot .plotly .gridlayer .xgrid, 
+.js-plotly-plot .plotly .gridlayer .ygrid {
+    stroke: none !important;
 }
 
 /* Hover effects for charts */
@@ -556,7 +569,7 @@ if st.session_state.get("matched_df") is not None:
     
     color_map = {"Acceptable": "#28a745", "Unacceptable": "#007bff", "Low Utilization": "#dc3545"}
     pie_fig = px.pie(category_counts_pie, values="Percentage", names="Category", hole=0.0, color="Category", color_discrete_map=color_map,
-                     title=f"Utilization Category for {selected_vaccine}")
+                     title=f"Utilization Category Distribution for {selected_vaccine}")
     
     pie_fig.update_traces(
         textinfo='percent+label',
@@ -622,13 +635,16 @@ if st.session_state.get("matched_df") is not None:
             range=[0, 100], 
             tickformat=".0f",
             title_font=dict(size=14, color='#2c3e50', weight='bold'),
-            tickfont=dict(size=12, color='#2c3e50')
+            tickfont=dict(size=12, color='#2c3e50'),
+            showgrid=False,  # Remove gridlines
+            zeroline=False   # Remove zero line
         ),
         xaxis=dict(
             title=groupby_col.split('_')[0], 
             tickangle=-45,
             title_font=dict(size=14, color='#2c3e50', weight='bold'),
-            tickfont=dict(size=11, color='#2c3e50')
+            tickfont=dict(size=11, color='#2c3e50'),
+            showgrid=False   # Remove gridlines
         ),
         legend_title_text="Utilization Category", 
         bargap=0.2,
@@ -652,6 +668,11 @@ if st.session_state.get("matched_df") is not None:
             xanchor='center'
         )
     )
+    
+    # Remove gridlines completely
+    bar_fig.update_xaxes(showgrid=False)
+    bar_fig.update_yaxes(showgrid=False)
+    
     st.plotly_chart(bar_fig, use_container_width=True)
 
     st.markdown("---")

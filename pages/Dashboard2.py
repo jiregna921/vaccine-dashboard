@@ -12,276 +12,373 @@ st.markdown("""
 /* Overall page layout and styling */
 .stApp {
     padding-top: 1rem;
-    background-color: #FFFFFF; /* White background */
-    color: #333333; /* Dark text for better readability */
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    color: #2c3e50;
+    min-height: 100vh;
 }
 
-/* Header styling */
+/* Header styling - More professional */
 .main-header-container {
-    background: linear-gradient(135deg, #1a73e8 0%, #4285f4 100%);
-    padding: 1.5rem;
-    border-radius: 12px;
-    margin-bottom: 1rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    padding: 2rem;
+    border-radius: 16px;
+    margin-bottom: 2rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
     text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .main-header-container h1 {
     color: white;
     margin: 0;
-    font-size: 2rem;
-    font-weight: 700;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    font-size: 2.2rem;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
 }
 
-/* Custom metric styling */
+/* Enhanced metric cards */
 .custom-metric-box {
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-    padding: 1rem;
-    border-radius: 12px;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    padding: 1.5rem;
+    border-radius: 16px;
     text-align: center;
-    margin-bottom: 1rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    border-left: 4px solid #1a73e8;
-    transition: transform 0.2s ease;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(52, 152, 219, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.custom-metric-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(135deg, #3498db 0%, #2c3e50 100%);
 }
 
 .custom-metric-box:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
 }
 
 .custom-metric-label {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: #6c757d;
-    margin-bottom: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #7f8c8d;
+    margin-bottom: 0.75rem;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
 }
 
 .custom-metric-value {
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: #1a73e8;
+    font-size: 2rem;
+    font-weight: 800;
+    color: #2c3e50;
+    background: linear-gradient(135deg, #3498db 0%, #2c3e50 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 /* Section headers */
 .stSubheader {
-    color: #1a73e8 !important;
-    font-weight: 600 !important;
-    border-bottom: 2px solid #e9ecef;
-    padding-bottom: 0.5rem;
-    margin-top: 2rem !important;
-    font-size: 1.5rem !important;
+    color: #2c3e50 !important;
+    font-weight: 700 !important;
+    border-bottom: 3px solid #3498db;
+    padding-bottom: 0.75rem;
+    margin-top: 3rem !important;
+    font-size: 1.6rem !important;
+    letter-spacing: 0.5px;
 }
 
 /* Chart titles and labels */
 .js-plotly-plot .plotly .gtitle {
-    color: #1a73e8 !important;
-    font-weight: 700 !important;
-    font-size: 1.2rem !important;
+    color: #2c3e50 !important;
+    font-weight: 800 !important;
+    font-size: 1.3rem !important;
+    text-align: center;
 }
 
 .js-plotly-plot .plotly .xtitle, .js-plotly-plot .plotly .ytitle {
-    color: #333333 !important;
-    font-weight: 600 !important;
+    color: #2c3e50 !important;
+    font-weight: 700 !important;
 }
 
 .js-plotly-plot .plotly .legend text {
-    color: #333333 !important;
-    font-weight: 500 !important;
-}
-
-/* Warning and info message styling - FIXED */
-.stWarning, .stInfo {
-    background-color: #fff3cd !important;
-    border: 1px solid #ffeaa7 !important;
-    border-radius: 8px !important;
-    color: #856404 !important;
-    padding: 1rem !important;
-}
-
-.stWarning p, .stInfo p {
-    color: #856404 !important;
-    font-weight: 500;
-}
-
-.stWarning code, .stInfo code {
-    color: #856404 !important;
-    background-color: rgba(255, 255, 255, 0.5) !important;
-}
-
-/* Sidebar styling - FIXED */
-.css-1d391kg, .css-1v3fvcr, .stSidebar {
-    background-color: white !important;
-    border-right: 1px solid #dee2e6;
-}
-
-.stSidebar .stSelectbox, .stSidebar .stSlider, .stSidebar .stTextInput {
-    background-color: white !important;
-    border-radius: 8px;
-    padding: 0.5rem;
-    color: #333333 !important;
-}
-
-.stSidebar .stSelectbox label, .stSidebar .stSlider label, .stSidebar .stTextInput label {
-    color: #333333 !important;
-    font-weight: 600;
-}
-
-.stSidebar .stHeader {
-    color: #1a73e8 !important;
-    font-weight: 700;
-    border-bottom: 2px solid #e9ecef;
-    padding-bottom: 0.5rem;
-}
-
-/* Sidebar text colors */
-.stSidebar p, .stSidebar div, .stSidebar span {
-    color: #333333 !important;
-}
-
-/* Button styling */
-.stDownloadButton button {
-    background: linear-gradient(135deg, #1a73e8 0%, #4285f4 100%) !important;
-    color: white !important;
-    border: none !important;
-    border-radius: 8px !important;
-    padding: 0.5rem 1rem !important;
+    color: #2c3e50 !important;
     font-weight: 600 !important;
 }
 
-.stDownloadButton button:hover {
-    background: linear-gradient(135deg, #1565c0 0%, #3b78e7 100%) !important;
-    transform: translateY(-1px);
-}
-
-/* Dataframe styling */
-.dataframe {
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Chart container styling */
+/* Enhanced chart containers */
 .js-plotly-plot {
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    background-color: white;
-    padding: 1rem;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    background: white;
+    padding: 1.5rem;
+    border: 1px solid rgba(52, 152, 219, 0.1);
 }
 
-/* Expander styling */
-.streamlit-expanderHeader {
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    padding: 0.75rem;
+/* Warning and info message styling - FIXED */
+.stWarning {
+    background-color: #fff3cd !important;
+    border: 1px solid #ffeaa7 !important;
+    border-radius: 12px !important;
+    color: #856404 !important;
+    padding: 1.25rem !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.stInfo {
+    background: linear-gradient(135deg, #3498db 0%, #2c3e50 100%) !important;
+    border: 1px solid #2980b9 !important;
+    border-radius: 12px !important;
+    color: white !important;
+    padding: 1.25rem !important;
+    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3) !important;
+}
+
+.stWarning p, .stInfo p {
+    color: inherit !important;
     font-weight: 600;
-    color: #1a73e8;
+}
+
+.stWarning code, .stInfo code {
+    color: inherit !important;
+    background-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Enhanced sidebar */
+.stSidebar {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%) !important;
+    border-right: 1px solid #e9ecef;
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.06);
+}
+
+.stSidebar .stSelectbox, .stSidebar .stSlider, .stSidebar .stTextInput {
+    background: white !important;
+    border-radius: 12px;
+    padding: 0.75rem;
+    border: 1px solid #e9ecef;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    color: #2c3e50 !important;
+}
+
+.stSidebar .stSelectbox label, .stSidebar .stSlider label, .stSidebar .stTextInput label {
+    color: #2c3e50 !important;
+    font-weight: 700;
+}
+
+.stSidebar .stHeader {
+    color: #2c3e50 !important;
+    font-weight: 700;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 0.75rem;
+    font-size: 1.2rem;
+}
+
+/* Enhanced buttons */
+.stDownloadButton button {
+    background: linear-gradient(135deg, #3498db 0%, #2c3e50 100%) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 12px !important;
+    padding: 0.75rem 1.5rem !important;
+    font-weight: 700 !important;
+    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+    transition: all 0.3s ease;
+}
+
+.stDownloadButton button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(52, 152, 219, 0.4);
+}
+
+/* Enhanced dataframe */
+.dataframe {
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e9ecef;
+}
+
+/* Enhanced expander */
+.streamlit-expanderHeader {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 12px;
+    padding: 1rem;
+    font-weight: 700;
+    color: #2c3e50;
+    border: 1px solid #e9ecef;
 }
 
 .streamlit-expanderContent {
-    background-color: white;
-    border-radius: 0 0 8px 8px;
-    padding: 1rem;
+    background: white;
+    border-radius: 0 0 12px 12px;
+    padding: 1.5rem;
+    border: 1px solid #e9ecef;
+    border-top: none;
 }
 
 /* Divider styling */
 .stMarkdown hr {
-    margin: 2rem 0;
+    margin: 2.5rem 0;
     border: none;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, #1a73e8, transparent);
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #3498db, transparent);
 }
 
-/* Drag and drop area styling - FIXED */
-.stFileUploader {
-    background-color: #1a1a1a !important;
-    border-radius: 8px;
-    padding: 1rem;
-    border: 2px dashed #666666;
-}
-
-.stFileUploader label {
-    color: white !important;
-    font-weight: 600;
-}
-
-.stFileUploader p {
-    color: #cccccc !important;
-}
-
-.stFileUploader .file-info {
-    color: #ffffff !important;
-    background-color: #333333 !important;
-    border-radius: 4px;
-    padding: 0.5rem;
-    margin-top: 0.5rem;
-}
-
-/* Uploaded file info */
-.uploadedFile {
-    background-color: #333333 !important;
-    color: white !important;
-    border-radius: 4px;
-    padding: 0.5rem;
-    margin: 0.25rem 0;
-}
-
-.uploadedFile name {
-    color: white !important;
-}
-
-/* Filter section styling - FIXED */
+/* Filter section styling - ENHANCED */
 .filter-section {
-    background: white !important;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%) !important;
     padding: 1.5rem;
-    border-radius: 12px;
+    border-radius: 16px;
     margin-bottom: 1.5rem;
-    border: 1px solid #dee2e6;
-    color: #333333 !important;
+    border: 1px solid #e9ecef;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    color: #2c3e50 !important;
 }
 
 .filter-section h2, .filter-section h3, .filter-section h4 {
-    color: #333333 !important;
+    color: #2c3e50 !important;
+    font-weight: 700;
 }
 
 .filter-section label {
-    color: #333333 !important;
+    color: #2c3e50 !important;
+    font-weight: 600;
 }
 
-/* Unmatched records styling - FIXED */
+/* Unmatched records styling - ENHANCED */
 .unmatched-section {
-    background: #f8f9fa;
-    padding: 1rem;
-    border-radius: 8px;
-    border: 1px solid #dee2e6;
-    color: #333333 !important;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    padding: 1.5rem;
+    border-radius: 16px;
+    border: 1px solid #e9ecef;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    color: #2c3e50 !important;
+    margin-bottom: 1rem;
 }
 
 .unmatched-section h3, .unmatched-section h4 {
-    color: #333333 !important;
+    color: #2c3e50 !important;
+    font-weight: 700;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+/* Logo container styling */
+.logo-container {
+    text-align: center;
+    padding: 1rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e9ecef;
+}
+
+/* Section header styling */
+.section-header {
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    padding: 1.5rem;
+    border-radius: 16px;
+    margin: 2rem 0;
+    color: white !important;
+    text-align: center;
+}
+
+.section-header h3 {
+    color: white !important;
+    margin: 0;
+    font-weight: 700;
+    font-size: 1.5rem;
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .main-header-container h1 {
-        font-size: 1.5rem;
+        font-size: 1.8rem;
     }
     
     .custom-metric-value {
-        font-size: 1.4rem;
+        font-size: 1.6rem;
     }
     
     .stSubheader {
-        font-size: 1.3rem !important;
+        font-size: 1.4rem !important;
     }
+    
+    .custom-metric-box {
+        padding: 1.25rem;
+    }
+}
+
+/* Animation for metrics */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.custom-metric-box {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+/* Grid line enhancements - REMOVED gridlines */
+.js-plotly-plot .plotly .gridlayer .grid {
+    stroke: none !important;
+}
+
+.js-plotly-plot .plotly .gridlayer .xgrid, 
+.js-plotly-plot .plotly .gridlayer .ygrid {
+    stroke: none !important;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #3498db 0%, #2c3e50 100%);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #2980b9 0%, #2c3e50 100%);
+}
+
+/* Fix for all text elements */
+.stSidebar * {
+    color: #2c3e50 !important;
+}
+
+.stSidebar .st-bb {
+    background-color: white !important;
+}
+
+.stSidebar .st-at {
+    background-color: white !important;
 }
 </style>
 """, unsafe_allow_html=True)
 
 st.set_page_config(
-    page_title="Vaccine Utilization Dashboard",
+    page_title="Vaccine Utilization Analytics Dashboard",
     layout="wide",
     page_icon="💉"
 )
@@ -326,7 +423,12 @@ with col1:
     st.markdown('</div>', unsafe_allow_html=True)
     
 with col2:
-    st.markdown('<div class="main-header-container"><h1>📊 Vaccine Discrepancies and Utilization Analysis</h1></div>', unsafe_allow_html=True)
+    st.markdown("""
+    <div class="main-header-container">
+        <h1>📊 Vaccine Discrepancies and Utilization Analysis</h1>
+        <p style="color: #bdc3c7; margin: 0.5rem 0 0 0; font-size: 1.1rem;">Comprehensive Vaccine Performance Monitoring</p>
+    </div>
+    """, unsafe_allow_html=True)
     
 with col3:
     st.markdown('<div class="logo-container">', unsafe_allow_html=True)
@@ -514,7 +616,7 @@ if st.session_state.get("matched_df") is not None:
 
     st.markdown("---")
     
-    # --- Utilization Rate by Woreda - UPDATED WITH BETTER VISIBILITY ---
+    # --- Utilization Rate by Woreda ---
     st.markdown('<div class="section-header"><h3>📈 Utilization Rate by Woreda</h3></div>', unsafe_allow_html=True)
     
     if selected_vaccine == "All":
@@ -533,7 +635,7 @@ if st.session_state.get("matched_df") is not None:
             y=rate_col,
             title=f"{selected_vaccine} Utilization Rate by Woreda",
             labels={"Woreda_Admin": "Woreda", rate_col: "Utilization Rate (%)"},
-            color_discrete_sequence=["#333333"]
+            color_discrete_sequence=["#3498db"]
         )
         
         # Add threshold lines
@@ -558,26 +660,26 @@ if st.session_state.get("matched_df") is not None:
             xaxis_tickangle=45,
             plot_bgcolor='#ffffff',
             paper_bgcolor='#ffffff',
-            font=dict(color='#333333', size=14),
+            font=dict(color='#2c3e50', size=14),
             legend=dict(
                 orientation="h",
                 yanchor="bottom",
                 y=1.02,
                 xanchor="right",
                 x=1,
-                font=dict(size=12, color='#333333')
+                font=dict(size=12, color='#2c3e50')
             ),
             hoverlabel=dict(
                 bgcolor="white",
                 font_size=12,
                 font_family="Arial",
-                font_color="#333333"
+                font_color="#2c3e50"
             )
         )
         
         # Improve x-axis label visibility
-        fig.update_xaxes(tickfont=dict(size=10, color='#333333'))
-        fig.update_yaxes(tickfont=dict(color='#333333'))
+        fig.update_xaxes(tickfont=dict(size=10, color='#2c3e50'), showgrid=False)
+        fig.update_yaxes(tickfont=dict(color='#2c3e50'), showgrid=False)
         
         st.plotly_chart(fig, use_container_width=True)
 

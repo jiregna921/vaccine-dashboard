@@ -11,99 +11,153 @@ st.markdown("""
 /* Overall page layout and styling */
 .stApp {
     padding-top: 1rem;
-    background-color: #FFFFFF; /* White background */
-    color: #333333; /* Dark text for better readability */
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    color: #2c3e50;
+    min-height: 100vh;
 }
 
-/* Header styling */
+/* Header styling - More professional */
 .main-header-container {
-    background: linear-gradient(135deg, #1a73e8 0%, #4285f4 100%);
-    padding: 1.5rem;
-    border-radius: 12px;
-    margin-bottom: 1rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    padding: 2rem;
+    border-radius: 16px;
+    margin-bottom: 2rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
     text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .main-header-container h1 {
     color: white;
     margin: 0;
-    font-size: 2rem;
-    font-weight: 700;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    font-size: 2.2rem;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
 }
 
-/* Custom metric styling */
+.main-header-container p {
+    color: #bdc3c7;
+    margin: 0.5rem 0 0 0;
+    font-size: 1.1rem;
+}
+
+/* Enhanced metric cards */
 .custom-metric-box {
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-    padding: 1rem;
-    border-radius: 12px;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    padding: 1.5rem;
+    border-radius: 16px;
     text-align: center;
-    margin-bottom: 1rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    border-left: 4px solid #1a73e8;
-    transition: transform 0.2s ease;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(52, 152, 219, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.custom-metric-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(135deg, #3498db 0%, #2c3e50 100%);
 }
 
 .custom-metric-box:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
 }
 
 .custom-metric-label {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: #6c757d;
-    margin-bottom: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #7f8c8d;
+    margin-bottom: 0.75rem;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
 }
 
 .custom-metric-value {
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: #1a73e8;
+    font-size: 2rem;
+    font-weight: 800;
+    color: #2c3e50;
+    background: linear-gradient(135deg, #3498db 0%, #2c3e50 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 /* Section headers */
 .stSubheader {
-    color: #1a73e8 !important;
-    font-weight: 600 !important;
-    border-bottom: 2px solid #e9ecef;
-    padding-bottom: 0.5rem;
-    margin-top: 2rem !important;
-    font-size: 1.5rem !important;
+    color: #2c3e50 !important;
+    font-weight: 700 !important;
+    border-bottom: 3px solid #3498db;
+    padding-bottom: 0.75rem;
+    margin-top: 3rem !important;
+    font-size: 1.6rem !important;
+    letter-spacing: 0.5px;
 }
 
 /* Chart titles and labels */
 .js-plotly-plot .plotly .gtitle {
-    color: #1a73e8 !important;
-    font-weight: 700 !important;
-    font-size: 1.2rem !important;
+    color: #2c3e50 !important;
+    font-weight: 800 !important;
+    font-size: 1.3rem !important;
+    text-align: center;
 }
 
 .js-plotly-plot .plotly .xtitle, .js-plotly-plot .plotly .ytitle {
-    color: #333333 !important;
-    font-weight: 600 !important;
+    color: #2c3e50 !important;
+    font-weight: 700 !important;
 }
 
 .js-plotly-plot .plotly .legend text {
-    color: #333333 !important;
-    font-weight: 500 !important;
+    color: #2c3e50 !important;
+    font-weight: 600 !important;
 }
 
-/* Warning and info message styling - FIXED */
+/* Enhanced chart containers */
+.js-plotly-plot {
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    background: white;
+    padding: 1.5rem;
+    border: 1px solid rgba(52, 152, 219, 0.1);
+}
+
+/* Pie chart enhancements */
+.plotly .pie .slice path {
+    stroke: white;
+    stroke-width: 2px;
+}
+
+.plotly .pie .slice text {
+    font-weight: 700 !important;
+    font-size: 11px !important;
+}
+
+/* Stacked bar chart enhancements */
+.plotly .bar path {
+    stroke: white;
+    stroke-width: 1px;
+}
+
+/* Warning and info message styling */
 .stWarning, .stInfo {
     background-color: #fff3cd !important;
     border: 1px solid #ffeaa7 !important;
-    border-radius: 8px !important;
+    border-radius: 12px !important;
     color: #856404 !important;
-    padding: 1rem !important;
+    padding: 1.25rem !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .stWarning p, .stInfo p {
     color: #856404 !important;
-    font-weight: 500;
+    font-weight: 600;
 }
 
 .stWarning code, .stInfo code {
@@ -111,99 +165,102 @@ st.markdown("""
     background-color: rgba(255, 255, 255, 0.5) !important;
 }
 
-/* Sidebar styling - FIXED */
-.css-1d391kg, .css-1v3fvcr, .stSidebar {
-    background-color: white !important;
-    border-right: 1px solid #dee2e6;
+/* Enhanced sidebar */
+.stSidebar {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%) !important;
+    border-right: 1px solid #e9ecef;
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.06);
 }
 
 .stSidebar .stSelectbox, .stSidebar .stSlider, .stSidebar .stTextInput {
-    background-color: white !important;
-    border-radius: 8px;
-    padding: 0.5rem;
-    color: #333333 !important;
+    background: white !important;
+    border-radius: 12px;
+    padding: 0.75rem;
+    border: 1px solid #e9ecef;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    color: #2c3e50 !important;
 }
 
 .stSidebar .stSelectbox label, .stSidebar .stSlider label, .stSidebar .stTextInput label {
-    color: #333333 !important;
-    font-weight: 600;
+    color: #2c3e50 !important;
+    font-weight: 700;
 }
 
 .stSidebar .stHeader {
-    color: #1a73e8 !important;
+    color: #2c3e50 !important;
     font-weight: 700;
-    border-bottom: 2px solid #e9ecef;
-    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 0.75rem;
+    font-size: 1.2rem;
 }
 
 /* Sidebar text colors */
 .stSidebar p, .stSidebar div, .stSidebar span {
-    color: #333333 !important;
+    color: #2c3e50 !important;
 }
 
-/* Button styling */
+/* Enhanced buttons */
 .stDownloadButton button {
-    background: linear-gradient(135deg, #1a73e8 0%, #4285f4 100%) !important;
+    background: linear-gradient(135deg, #3498db 0%, #2c3e50 100%) !important;
     color: white !important;
     border: none !important;
-    border-radius: 8px !important;
-    padding: 0.5rem 1rem !important;
-    font-weight: 600 !important;
+    border-radius: 12px !important;
+    padding: 0.75rem 1.5rem !important;
+    font-weight: 700 !important;
+    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+    transition: all 0.3s ease;
 }
 
 .stDownloadButton button:hover {
-    background: linear-gradient(135deg, #1565c0 0%, #3b78e7 100%) !important;
-    transform: translateY(-1px);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(52, 152, 219, 0.4);
 }
 
-/* Dataframe styling */
+/* Enhanced dataframe */
 .dataframe {
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Chart container styling */
-.js-plotly-plot {
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    background-color: white;
-    padding: 1rem;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e9ecef;
 }
 
-/* Expander styling */
+/* Enhanced expander */
 .streamlit-expanderHeader {
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    padding: 0.75rem;
-    font-weight: 600;
-    color: #1a73e8;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 12px;
+    padding: 1rem;
+    font-weight: 700;
+    color: #2c3e50;
+    border: 1px solid #e9ecef;
 }
 
 .streamlit-expanderContent {
-    background-color: white;
-    border-radius: 0 0 8px 8px;
-    padding: 1rem;
+    background: white;
+    border-radius: 0 0 12px 12px;
+    padding: 1.5rem;
+    border: 1px solid #e9ecef;
+    border-top: none;
 }
 
 /* Divider styling */
 .stMarkdown hr {
-    margin: 2rem 0;
+    margin: 2.5rem 0;
     border: none;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, #1a73e8, transparent);
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #3498db, transparent);
 }
 
-/* Drag and drop area styling - FIXED */
+/* Drag and drop area styling */
 .stFileUploader {
     background-color: #1a1a1a !important;
-    border-radius: 8px;
-    padding: 1rem;
+    border-radius: 12px;
+    padding: 1.25rem;
     border: 2px dashed #666666;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .stFileUploader label {
     color: white !important;
-    font-weight: 600;
+    font-weight: 700;
 }
 
 .stFileUploader p {
@@ -213,18 +270,18 @@ st.markdown("""
 .stFileUploader .file-info {
     color: #ffffff !important;
     background-color: #333333 !important;
-    border-radius: 4px;
-    padding: 0.5rem;
-    margin-top: 0.5rem;
+    border-radius: 8px;
+    padding: 0.75rem;
+    margin-top: 0.75rem;
 }
 
 /* Uploaded file info */
 .uploadedFile {
     background-color: #333333 !important;
     color: white !important;
-    border-radius: 4px;
-    padding: 0.5rem;
-    margin: 0.25rem 0;
+    border-radius: 8px;
+    padding: 0.75rem;
+    margin: 0.5rem 0;
 }
 
 .uploadedFile name {
@@ -234,21 +291,83 @@ st.markdown("""
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .main-header-container h1 {
-        font-size: 1.5rem;
+        font-size: 1.8rem;
+    }
+    
+    .main-header-container p {
+        font-size: 1rem;
     }
     
     .custom-metric-value {
-        font-size: 1.4rem;
+        font-size: 1.6rem;
     }
     
     .stSubheader {
-        font-size: 1.3rem !important;
+        font-size: 1.4rem !important;
     }
+    
+    .custom-metric-box {
+        padding: 1.25rem;
+    }
+}
+
+/* Animation for metrics */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.custom-metric-box {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+/* Legend enhancements */
+.js-plotly-plot .plotly .legend {
+    background: rgba(255, 255, 255, 0.95) !important;
+    border: 1px solid #e9ecef !important;
+    border-radius: 8px !important;
+    padding: 10px !important;
+}
+
+/* Grid line enhancements */
+.js-plotly-plot .plotly .gridlayer .grid {
+    stroke: #e9ecef !important;
+    stroke-width: 1px !important;
+}
+
+/* Hover effects for charts */
+.js-plotly-plot .plotly .hoverlayer path {
+    fill: rgba(52, 152, 219, 0.1) !important;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #3498db 0%, #2c3e50 100%);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #2980b9 0%, #2c3e50 100%);
 }
 
 /* Fix for all text elements in sidebar */
 .stSidebar * {
-    color: #333333 !important;
+    color: #2c3e50 !important;
 }
 
 .stSidebar .st-bb {
@@ -262,7 +381,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 st.set_page_config(
-    page_title="Utilization Dashboard",
+    page_title="Vaccine Utilization Analytics Dashboard",
     layout="wide",
     page_icon="💉"
 )
@@ -290,14 +409,13 @@ def categorize_utilization(row, vaccine_name):
     else:
         return "Low Utilization"
 
-# --- Header with Logos and Title ---
-col1, col2, col3 = st.columns([1, 4, 1])
-with col1:
-    st.image("assets/moh_logo.png", width=120)
-with col2:
-    st.markdown('<div class="main-header-container"><h1>📊 Vaccine Utilization Dashboard</h1></div>', unsafe_allow_html=True)
-with col3:
-    st.image("assets/eth_flag.png", width=120)
+# --- Header with Title Only ---
+st.markdown("""
+<div class="main-header-container">
+    <h1>📊 Vaccine Utilization Analytics Dashboard</h1>
+    <p>Comprehensive Vaccine Distribution & Utilization Analysis</p>
+</div>
+""", unsafe_allow_html=True)
 
 if not st.session_state.get("authenticated", False):
     st.warning("Please log in on the main page to view this dashboard.")
@@ -449,12 +567,12 @@ if st.session_state.get("matched_df") is not None:
     pie_fig.update_layout(
         plot_bgcolor='white',
         paper_bgcolor='white',
-        font=dict(color='#333333', size=12),
-        height=400,
+        font=dict(color='#2c3e50', size=12),
+        height=450,
         showlegend=True,
         legend=dict(
-            bgcolor='rgba(255,255,255,0.9)',
-            font=dict(color='#333333', size=11),
+            bgcolor='rgba(255,255,255,0.95)',
+            font=dict(color='#2c3e50', size=11),
             orientation="h",
             yanchor="bottom",
             y=-0.2,
@@ -462,7 +580,7 @@ if st.session_state.get("matched_df") is not None:
             x=0.5
         ),
         title=dict(
-            font=dict(size=16, color='#1a73e8', weight='bold'),
+            font=dict(size=18, color='#2c3e50', weight='bold'),
             x=0.5,
             xanchor='center'
         )
@@ -503,14 +621,14 @@ if st.session_state.get("matched_df") is not None:
             title="Percentage (%)", 
             range=[0, 100], 
             tickformat=".0f",
-            title_font=dict(size=14, color='#333333', weight='bold'),
-            tickfont=dict(size=12, color='#333333')
+            title_font=dict(size=14, color='#2c3e50', weight='bold'),
+            tickfont=dict(size=12, color='#2c3e50')
         ),
         xaxis=dict(
             title=groupby_col.split('_')[0], 
             tickangle=-45,
-            title_font=dict(size=14, color='#333333', weight='bold'),
-            tickfont=dict(size=11, color='#333333')
+            title_font=dict(size=14, color='#2c3e50', weight='bold'),
+            tickfont=dict(size=11, color='#2c3e50')
         ),
         legend_title_text="Utilization Category", 
         bargap=0.2,
@@ -520,16 +638,16 @@ if st.session_state.get("matched_df") is not None:
             y=1.02, 
             xanchor="right", 
             x=1,
-            font=dict(size=12, color='#333333'),
-            title_font=dict(size=12, color='#333333', weight='bold')
+            font=dict(size=12, color='#2c3e50'),
+            title_font=dict(size=12, color='#2c3e50', weight='bold')
         ),
-        height=600,
+        height=650,
         plot_bgcolor='white',
         paper_bgcolor='white',
-        font=dict(color='#333333', size=12),
+        font=dict(color='#2c3e50', size=12),
         title=dict(
             text=f"Utilization by {groupby_col.split('_')[0]} - {selected_vaccine}",
-            font=dict(size=16, color='#1a73e8', weight='bold'),
+            font=dict(size=16, color='#2c3e50', weight='bold'),
             x=0.5,
             xanchor='center'
         )
@@ -551,7 +669,7 @@ if st.session_state.get("matched_df") is not None:
         st.dataframe(display_df.sort_values(by="Utilization Rate", ascending=False).reset_index(drop=True))
         
         st.download_button(
-            label="Download Woreda Data as Excel",
+            label="📥 Download Woreda Data as Excel",
             data=to_excel(display_df),
             file_name=f"Woreda_Utilization_Data_{selected_vaccine}_{selected_period}.xlsx",
             mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"

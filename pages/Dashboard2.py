@@ -67,6 +67,42 @@ st.markdown("""
             background-color: white !important;
             color: black !important;
         }
+        /* Multi-page sidebar navigation */
+        .stSidebar [data-testid="stSidebar"] {
+            background-color: white !important;
+        }
+        .stSidebar .css-1d391kg a {
+            color: black !important;
+        }
+        .stSidebar .css-1d391kg a:hover {
+            color: #3498db !important;
+        }
+        .stSidebar .css-1d391kg li {
+            color: black !important;
+        }
+        .stSidebar .css-1d391kg ul {
+            background-color: white !important;
+        }
+        .stSidebar .css-1d391kg .nav-link {
+            color: black !important;
+        }
+        .stSidebar .css-1d391kg .nav-link:hover {
+            color: #3498db !important;
+            background-color: #f8f9fa !important;
+        }
+        .stSidebar .css-2trqtx a {
+            color: black !important;
+        }
+        .stSidebar .css-2trqtx a:hover {
+            color: #3498db !important;
+        }
+        /* Additional selectors for page links */
+        section[data-testid="stSidebar"] div[role="main"] a {
+            color: black !important;
+        }
+        section[data-testid="stSidebar"] div[role="main"] a:hover {
+            color: #3498db !important;
+        }
         .title-text {
             font-size: 36px;
             font-weight: bold;

@@ -15,10 +15,13 @@ st.set_page_config(
 )
 st.markdown("""
     <style>
-        body, .stApp, .st-emotion-cache-1dp5vir, .block-container {
+        /* Overall page styling from new code */
+        .stApp {
             background-color: white !important;
             color: black !important;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
+        /* Sidebar styling - white background, black text */
         .stSidebar {
             background-color: white !important;
             color: black !important;
@@ -262,15 +265,29 @@ st.markdown("""
         .st-emotion-cache-1a85o2b {
             color: black !important;
         }
+        /* Messages from new code, adapted */
         .stWarning {
-            background-color: #f8f9fa !important;
+            background-color: #f8d7da !important;
+            border-left: 4px solid #842029 !important;
             color: black !important;
-            border: 1px solid #e0e0e0 !important;
+            font-weight: 600 !important;
+            padding: 1rem !important;
+            border-radius: 6px !important;
         }
+        .stInfo {
+            background-color: #cff4fc !important;
+            border-left: 4px solid #055160 !important;
+            color: #055160 !important;
+            font-weight: 600 !important;
+            padding: 1rem !important;
+            border-radius: 6px !important;
+        }
+        /* Override for info to blue background white text as requested */
         .stInfo {
             background-color: #3498db !important;
             color: white !important;
             border: 1px solid #3498db !important;
+            border-left: 4px solid #2980b9 !important;
         }
     </style>
 """, unsafe_allow_html=True)

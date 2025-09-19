@@ -35,6 +35,38 @@ st.markdown("""
         .stSidebar .st-emotion-cache-1a85o2b selectbox > div > div > div {
             color: black !important;
         }
+        .stSidebar select {
+            background-color: white !important;
+            color: black !important;
+        }
+        .stSidebar select option {
+            background-color: white !important;
+            color: black !important;
+        }
+        .stSidebar .css-1d391kg {
+            background-color: white !important;
+            color: black !important;
+        }
+        .stSidebar .css-1v0mbdj {
+            background-color: white !important;
+            color: black !important;
+        }
+        .stSidebar .css-2trqtx {
+            background-color: white !important;
+            color: black !important;
+        }
+        .stSidebar .css-1d391kg option {
+            background-color: white !important;
+            color: black !important;
+        }
+        .stSidebar .stSelectbox {
+            background-color: white !important;
+            color: black !important;
+        }
+        .stSidebar .stSelectbox > div > div > div {
+            background-color: white !important;
+            color: black !important;
+        }
         .title-text {
             font-size: 36px;
             font-weight: bold;

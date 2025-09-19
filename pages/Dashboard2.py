@@ -425,28 +425,6 @@ def display_utilization_chart(filtered_df, selected_vaccine):
    
     st.plotly_chart(fig, use_container_width=True)
 
-def display_unmatched_records():
-    """Display unmatched records"""
-    unmatched_col1, unmatched_col2 = st.columns(2)
-   
-    with unmatched_col1:
-        st.markdown('<div class="highlight-box">', unsafe_allow_html=True)
-        st.write("**Unmatched Administered Records**")
-        if "unmatched_admin_df" in st.session_state and not st.session_state["unmatched_admin_df"].empty:
-            st.dataframe(st.session_state["unmatched_admin_df"], use_container_width=True)
-        else:
-            st.info("No unmatched administered records found.")
-        st.markdown('</div>', unsafe_allow_html=True)
-   
-    with unmatched_col2:
-        st.markdown('<div class="highlight-box">', unsafe_allow_html=True)
-        st.write("**Unmatched Distributed Records**")
-        if "unmatched_dist_df" in st.session_state and not st.session_state["unmatched_dist_df"].empty:
-            st.dataframe(st.session_state["unmatched_dist_df"], use_container_width=True)
-        else:
-            st.info("No unmatched distributed records found.")
-        st.markdown('</div>', unsafe_allow_html=True)
-
 def create_ppt(filtered_df, selected_vaccine):
     """Create PowerPoint report"""
     prs = Presentation()
@@ -549,7 +527,7 @@ def main():
         st.warning("⚠️ No data found for the selected filters.")
         return
     # Create tabs for different sections
-    tab1, tab2, tab3, tab4 = st.tabs(["Performance", "Extremes", "Charts", "Unmatched Records"])
+    tab1, tab2, tab3, tab4 = st.tabs(["Performance", "Extremes", "Charts", "Download Report as PPT"])
    
     # --- Performance Tab ---
     with tab1:
@@ -568,10 +546,9 @@ def main():
         st.markdown("<div class='section-header'>Usage Charts</div>", unsafe_allow_html=True)
         display_utilization_chart(filtered_df, selected_vaccine)
    
-    # --- Unmatched Records Tab ---
+    # --- Download Report as PPT Tab ---
     with tab4:
-        st.markdown("<div class='section-header'>Unmatched Records</div>", unsafe_allow_html=True)
-        display_unmatched_records()
+        st.markdown("<div class='section-header'>Download Report</div>", unsafe_allow_html=True)
        
         # PPT Download Button
         ppt_buffer = create_ppt(filtered_df, selected_vaccine)

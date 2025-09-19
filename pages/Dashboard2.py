@@ -71,37 +71,66 @@ st.markdown("""
         .stSidebar [data-testid="stSidebar"] {
             background-color: white !important;
         }
-        .stSidebar .css-1d391kg a {
+        .stSidebar [data-testid="stSidebar"] a {
             color: black !important;
+            text-decoration: none !important;
         }
-        .stSidebar .css-1d391kg a:hover {
-            color: #3498db !important;
-        }
-        .stSidebar .css-1d391kg li {
+        .stSidebar [data-testid="stSidebar"] a:hover {
             color: black !important;
+            background-color: transparent !important;
+            text-decoration: none !important;
         }
-        .stSidebar .css-1d391kg ul {
+        .stSidebar [data-testid="stSidebar"] li {
+            color: black !important;
             background-color: white !important;
         }
-        .stSidebar .css-1d391kg .nav-link {
+        .stSidebar [data-testid="stSidebar"] ul {
+            background-color: white !important;
+        }
+        .stSidebar [data-testid="stSidebar"] .nav-link {
+            color: black !important;
+            background-color: white !important;
+        }
+        .stSidebar [data-testid="stSidebar"] .nav-link:hover {
+            color: black !important;
+            background-color: white !important;
+        }
+        .stSidebar [data-testid="stSidebar"] .css-1d391kg a {
             color: black !important;
         }
-        .stSidebar .css-1d391kg .nav-link:hover {
-            color: #3498db !important;
-            background-color: #f8f9fa !important;
+        .stSidebar [data-testid="stSidebar"] .css-1d391kg a:hover {
+            color: black !important;
+            background-color: transparent !important;
         }
-        .stSidebar .css-2trqtx a {
+        .stSidebar [data-testid="stSidebar"] .css-2trqtx a {
             color: black !important;
         }
-        .stSidebar .css-2trqtx a:hover {
-            color: #3498db !important;
+        .stSidebar [data-testid="stSidebar"] .css-2trqtx a:hover {
+            color: black !important;
+            background-color: transparent !important;
         }
         /* Additional selectors for page links */
         section[data-testid="stSidebar"] div[role="main"] a {
             color: black !important;
         }
         section[data-testid="stSidebar"] div[role="main"] a:hover {
-            color: #3498db !important;
+            color: black !important;
+            background-color: transparent !important;
+        }
+        .stSidebar nav a {
+            color: black !important;
+        }
+        .stSidebar nav a:hover {
+            color: black !important;
+            background-color: transparent !important;
+        }
+        .stSidebar .css-1bi6g4s {
+            background-color: white !important;
+            color: black !important;
+        }
+        .stSidebar .css-1bi6g4s:hover {
+            background-color: white !important;
+            color: black !important;
         }
         .title-text {
             font-size: 36px;

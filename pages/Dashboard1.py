@@ -22,7 +22,7 @@ st.markdown("""
     padding-top: 1rem;
     background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
     color: #2c3e50;
-    min-height: 100vh;
+    min-height: 80vh;
 }
 /* Header styling - More professional */
 .main-header-container {
@@ -37,7 +37,7 @@ st.markdown("""
 .main-header-container h1 {
     color: white;
     margin: 0;
-    font-size: 2.2rem;
+    font-size: 1.6rem;
     font-weight: 800;
     letter-spacing: 0.5px;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
@@ -45,7 +45,7 @@ st.markdown("""
 .main-header-container p {
     color: #bdc3c7;
     margin: 0.5rem 0 0 0;
-    font-size: 1.1rem;
+    font-size: 1.0rem;
 }
 /* Enhanced metric cards for tabs - Blue background, white text */
 .tab-metric-box {

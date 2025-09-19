@@ -15,124 +15,147 @@ st.set_page_config(
 )
 st.markdown("""
     <style>
-        /* Overall page styling from new code */
+        /* Overall page styling */
         .stApp {
             background-color: white !important;
             color: black !important;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        /* Sidebar styling - white background, black text */
+        /* Sidebar styling - Black background, white text, professional */
         .stSidebar {
-            background-color: white !important;
-            color: black !important;
+            background-color: #000000 !important;
+            color: white !important;
+            border-right: 1px solid #333333 !important;
         }
         .stSidebar .st-emotion-cache-1a85o2b h4, .stSidebar .st-emotion-cache-1a85o2b label {
-            color: black !important;
+            color: white !important;
+            font-weight: 600;
         }
         .stSidebar .st-emotion-cache-1a85o2b selectbox > div > div {
-            background-color: white !important;
-            color: black !important;
+            background-color: #333333 !important;
+            color: white !important;
+            border: 1px solid #555555 !important;
+            border-radius: 4px;
         }
         .stSidebar .st-emotion-cache-1a85o2b selectbox > div > div > div {
-            color: black !important;
+            color: white !important;
         }
         .stSidebar select {
-            background-color: white !important;
-            color: black !important;
+            background-color: #333333 !important;
+            color: white !important;
+            border: 1px solid #555555 !important;
+            border-radius: 4px;
         }
         .stSidebar select option {
-            background-color: white !important;
-            color: black !important;
+            background-color: #333333 !important;
+            color: white !important;
         }
         .stSidebar .css-1d391kg {
-            background-color: white !important;
-            color: black !important;
+            background-color: #333333 !important;
+            color: white !important;
+            border: 1px solid #555555 !important;
+            border-radius: 4px;
         }
         .stSidebar .css-1v0mbdj {
-            background-color: white !important;
-            color: black !important;
+            background-color: #333333 !important;
+            color: white !important;
+            border: 1px solid #555555 !important;
+            border-radius: 4px;
         }
         .stSidebar .css-2trqtx {
-            background-color: white !important;
-            color: black !important;
+            background-color: #333333 !important;
+            color: white !important;
+            border: 1px solid #555555 !important;
+            border-radius: 4px;
         }
         .stSidebar .css-1d391kg option {
-            background-color: white !important;
-            color: black !important;
+            background-color: #333333 !important;
+            color: white !important;
         }
         .stSidebar .stSelectbox {
-            background-color: white !important;
-            color: black !important;
+            background-color: #333333 !important;
+            color: white !important;
+            border: 1px solid #555555 !important;
+            border-radius: 4px;
         }
         .stSidebar .stSelectbox > div > div > div {
-            background-color: white !important;
-            color: black !important;
+            background-color: #333333 !important;
+            color: white !important;
         }
-        /* Multi-page sidebar navigation */
+        /* Multi-page sidebar navigation - Professional dark theme */
         .stSidebar [data-testid="stSidebar"] {
-            background-color: white !important;
+            background-color: #000000 !important;
         }
         .stSidebar [data-testid="stSidebar"] a {
-            color: black !important;
+            color: white !important;
             text-decoration: none !important;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: background-color 0.2s ease;
         }
         .stSidebar [data-testid="stSidebar"] a:hover {
-            color: black !important;
-            background-color: transparent !important;
-            text-decoration: none !important;
+            background-color: #333333 !important;
+            color: white !important;
         }
         .stSidebar [data-testid="stSidebar"] li {
-            color: black !important;
-            background-color: white !important;
+            color: white !important;
+            background-color: transparent !important;
         }
         .stSidebar [data-testid="stSidebar"] ul {
-            background-color: white !important;
+            background-color: transparent !important;
         }
         .stSidebar [data-testid="stSidebar"] .nav-link {
-            color: black !important;
-            background-color: white !important;
+            color: white !important;
+            background-color: transparent !important;
+            padding: 8px 12px;
+            border-radius: 4px;
         }
         .stSidebar [data-testid="stSidebar"] .nav-link:hover {
-            color: black !important;
-            background-color: white !important;
+            background-color: #333333 !important;
+            color: white !important;
         }
         .stSidebar [data-testid="stSidebar"] .css-1d391kg a {
-            color: black !important;
+            color: white !important;
         }
         .stSidebar [data-testid="stSidebar"] .css-1d391kg a:hover {
-            color: black !important;
-            background-color: transparent !important;
+            background-color: #333333 !important;
+            color: white !important;
         }
         .stSidebar [data-testid="stSidebar"] .css-2trqtx a {
-            color: black !important;
+            color: white !important;
         }
         .stSidebar [data-testid="stSidebar"] .css-2trqtx a:hover {
-            color: black !important;
-            background-color: transparent !important;
+            background-color: #333333 !important;
+            color: white !important;
         }
         /* Additional selectors for page links */
         section[data-testid="stSidebar"] div[role="main"] a {
-            color: black !important;
+            color: white !important;
         }
         section[data-testid="stSidebar"] div[role="main"] a:hover {
-            color: black !important;
-            background-color: transparent !important;
+            background-color: #333333 !important;
+            color: white !important;
         }
         .stSidebar nav a {
-            color: black !important;
+            color: white !important;
+            padding: 8px 12px;
+            border-radius: 4px;
         }
         .stSidebar nav a:hover {
-            color: black !important;
-            background-color: transparent !important;
+            background-color: #333333 !important;
+            color: white !important;
         }
         .stSidebar .css-1bi6g4s {
-            background-color: white !important;
-            color: black !important;
+            background-color: #333333 !important;
+            color: white !important;
+            border: 1px solid #555555 !important;
+            border-radius: 4px;
         }
         .stSidebar .css-1bi6g4s:hover {
-            background-color: white !important;
-            color: black !important;
+            background-color: #444444 !important;
+            color: white !important;
         }
+        /* Main content styles */
         .title-text {
             font-size: 36px;
             font-weight: bold;
@@ -265,7 +288,7 @@ st.markdown("""
         .st-emotion-cache-1a85o2b {
             color: black !important;
         }
-        /* Messages from new code, adapted */
+        /* Messages */
         .stWarning {
             background-color: #f8d7da !important;
             border-left: 4px solid #842029 !important;
@@ -274,15 +297,6 @@ st.markdown("""
             padding: 1rem !important;
             border-radius: 6px !important;
         }
-        .stInfo {
-            background-color: #cff4fc !important;
-            border-left: 4px solid #055160 !important;
-            color: #055160 !important;
-            font-weight: 600 !important;
-            padding: 1rem !important;
-            border-radius: 6px !important;
-        }
-        /* Override for info to blue background white text as requested */
         .stInfo {
             background-color: #3498db !important;
             color: white !important;

@@ -18,90 +18,106 @@ st.set_page_config(
 st.markdown("""
     <style>
         body, .stApp, .st-emotion-cache-1dp5vir, .block-container {
-            background-color: #2c3e50 !important;
-            color: white !important;
+            background-color: white !important;
+            color: black !important;
         }
         .stSidebar {
-            background-color: #34495e !important;
-            color: white !important;
+            background-color: white !important;
+            color: black !important;
         }
         .stSidebar .st-emotion-cache-1a85o2b h4, .stSidebar .st-emotion-cache-1a85o2b label {
-            color: white !important;
+            color: black !important;
         }
         .stSidebar .st-emotion-cache-1a85o2b selectbox > div > div {
-            background-color: #34495e !important;
-            color: white !important;
+            background-color: white !important;
+            color: black !important;
         }
         .stSidebar .st-emotion-cache-1a85o2b selectbox > div > div > div {
-            color: white !important;
+            color: black !important;
         }
         .title-text {
             font-size: 36px;
             font-weight: bold;
-            color: white;
+            color: black;
             text-align: center;
             margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
         .section-header {
             font-size: 24px;
             font-weight: bold;
-            color: white;
-            margin-top: 20px;
+            color: black;
+            margin-top: 30px;
             margin-bottom: 15px;
             border-bottom: 2px solid #3498db;
             padding-bottom: 10px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
         }
         .highlight-box {
-            background-color: #34495e;
+            background-color: #f8f9fa;
             padding: 15px;
             border-radius: 10px;
             margin-bottom: 10px;
-            border: 1px solid #5d6d7e;
-            color: white;
+            border: 1px solid #e0e0e0;
+            color: black;
         }
         .metric-title {
             font-size: 18px;
             font-weight: bold;
-            color: white;
+            color: black;
             margin-bottom: 5px;
         }
         .metric-value {
             font-size: 22px;
             font-weight: bold;
-            color: white;
+            color: black;
         }
         .stTabs [data-baseweb="tab-list"] {
-            gap: 8px;
-            background-color: #34495e;
+            gap: 0;
+            background-color: transparent;
             border-radius: 8px;
+            padding: 5px;
+            margin-bottom: 20px;
         }
         .stTabs [data-baseweb="tab"] {
             height: 50px;
             white-space: pre-wrap;
-            background-color: #34495e;
-            border-radius: 8px 8px 0px 0px;
+            background-color: white;
+            border-radius: 8px;
             gap: 8px;
-            padding-top: 10px;
-            padding-bottom: 10px;
+            padding: 10px 20px;
             font-weight: bold;
-            color: white;
-            border: 1px solid #5d6d7e;
+            color: black;
+            border: 2px solid #bdc3c7;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-right: 5px;
+            transition: all 0.3s ease;
+        }
+        .stTabs [data-baseweb="tab"]:hover {
+            border-color: #3498db;
+            box-shadow: 0 4px 8px rgba(52, 152, 219, 0.2);
         }
         .stTabs [aria-selected="true"] {
             background-color: #3498db;
             color: white;
             border-color: #3498db;
+            box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+        }
+        .stTabs [aria-selected="true"]:hover {
+            box-shadow: 0 6px 16px rgba(52, 152, 219, 0.4);
+        }
+        .stTabs [data-baseweb="tab-panel"] {
+            padding-top: 20px;
+            margin-top: 20px;
         }
         .custom-metric-box {
-            background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+            background: white;
             padding: 1rem;
             border-radius: 12px;
             text-align: center;
             margin-bottom: 1rem;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-            border: 1px solid #5d6d7e;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+            border: 1px solid #e0e0e0;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
@@ -109,16 +125,16 @@ st.markdown("""
             display: flex;
             flex-direction: column;
             justify-content: center;
-            color: white;
+            color: black;
         }
         .custom-metric-box:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(52, 73, 94, 0.4);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
         }
         .custom-metric-label {
             font-size: 0.75rem;
             font-weight: 600;
-            color: #ecf0f1 !important;
+            color: #404040 !important;
             margin-bottom: 0.5rem;
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -126,35 +142,35 @@ st.markdown("""
         .custom-metric-value {
             font-size: 1.5rem;
             font-weight: 700;
-            color: #ffffff !important;
+            color: #000000 !important;
         }
         .plot-container {
-            background: #34495e;
+            background: white;
             padding: 15px;
             border-radius: 10px;
-            border: 1px solid #5d6d7e;
+            border: 1px solid #e0e0e0;
             margin-bottom: 20px;
-            color: white;
+            color: black;
         }
         .stDataFrame {
-            background-color: #34495e !important;
-            color: white !important;
+            background-color: white !important;
+            color: black !important;
         }
         .stDataFrame table {
-            background-color: #34495e !important;
-            color: white !important;
+            background-color: white !important;
+            color: black !important;
         }
         .stDataFrame th, .stDataFrame td {
-            color: white !important;
-            border-color: #5d6d7e !important;
+            color: black !important;
+            border-color: #e0e0e0 !important;
         }
         .st-emotion-cache-1a85o2b {
-            color: white !important;
+            color: black !important;
         }
         .stWarning, .stInfo {
-            background-color: #34495e;
-            color: white;
-            border: 1px solid #5d6d7e;
+            background-color: #f8f9fa;
+            color: black;
+            border: 1px solid #e0e0e0;
         }
     </style>
 """, unsafe_allow_html=True)
@@ -199,6 +215,7 @@ def setup_filters(df_all):
     # Region filter
     regions = sorted(df_all["Region_Admin"].unique())
     selected_region = st.sidebar.selectbox("Select Region", ["All"] + regions)
+    st.session_state.selected_region = selected_region
    
     # Zone filter (chained to Region)
     filtered_zones = df_all[df_all["Region_Admin"] == selected_region]["Zone_Admin"].unique() if selected_region != "All" else df_all["Zone_Admin"].unique()
@@ -304,7 +321,8 @@ def display_extreme_utilization_table(filtered_df, selected_vaccine):
     extreme_df = filtered_df.copy()
    
     # Determine grouping columns based on filter selection
-    if "All" in st.session_state.get('selected_region', 'All'):
+    selected_region = st.session_state.get('selected_region', 'All')
+    if selected_region == "All":
         group_cols = ["Region_Admin"]
     else:
         group_cols = ["Region_Admin", "Zone_Admin"]
@@ -369,41 +387,41 @@ def display_utilization_chart(filtered_df, selected_vaccine):
    
     if selected_vaccine in thresholds:
         fig.add_hline(y=thresholds[selected_vaccine]["high"], line_dash="dash", line_color="red",
-                     annotation_text="High Threshold", annotation_position="bottom right", annotation_font_color="white")
+                     annotation_text="High Threshold", annotation_position="bottom right", annotation_font_color="black")
         fig.add_hline(y=thresholds[selected_vaccine]["low"], line_dash="dash", line_color="orange",
-                     annotation_text="Low Threshold", annotation_position="top right", annotation_font_color="white")
+                     annotation_text="Low Threshold", annotation_position="top right", annotation_font_color="black")
    
     # Improve visibility of labels and legends
     fig.update_layout(
         xaxis_title="Woreda",
         yaxis_title="Utilization Rate (%)",
         xaxis_tickangle=45,
-        plot_bgcolor='#34495e',
-        paper_bgcolor='#2c3e50',
-        font=dict(color='white', size=12),
+        plot_bgcolor='white',
+        paper_bgcolor='white',
+        font=dict(color='black', size=12),
         legend=dict(
             orientation="h",
             yanchor="bottom",
             y=1.02,
             xanchor="right",
             x=1,
-            font=dict(size=11, color='white'),
-            bgcolor='rgba(52,73,94,0.9)',
-            bordercolor='white',
+            font=dict(size=11, color='black'),
+            bgcolor='rgba(255,255,255,0.9)',
+            bordercolor='#e0e0e0',
             borderwidth=1
         ),
         hoverlabel=dict(
-            bgcolor="#34495e",
+            bgcolor="white",
             font_size=11,
             font_family="Arial",
-            font_color="white",
-            bordercolor="white"
+            font_color="black",
+            bordercolor="#e0e0e0"
         )
     )
    
     # Improve x-axis label visibility
-    fig.update_xaxes(tickfont=dict(size=9, color='white'), showgrid=True, gridcolor='rgba(255,255,255,0.1)')
-    fig.update_yaxes(tickfont=dict(color='white'), showgrid=True, gridcolor='rgba(255,255,255,0.1)')
+    fig.update_xaxes(tickfont=dict(size=9, color='black'), showgrid=True, gridcolor='rgba(0,0,0,0.1)')
+    fig.update_yaxes(tickfont=dict(color='black'), showgrid=True, gridcolor='rgba(0,0,0,0.1)')
    
     st.plotly_chart(fig, use_container_width=True)
 
